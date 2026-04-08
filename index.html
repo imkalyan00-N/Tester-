@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>K-Means Clustering</title>
+<style>
+body{font-family:Arial; background:#f5f5f5; padding:20px; line-height:1.6;}
+.part{background:#fff; padding:15px; margin:15px 0; border-radius:10px;}
+.title{font-weight:bold; font-size:18px; margin-bottom:8px;}
+.telugu{background:#e0f2f1; padding:12px; margin-top:10px; border-radius:6px;}
+</style>
+</head>
+
+<body>
+
+<h2>K-Means Clustering</h2>
+
+<div class="part">
+<div class="title">PART 1: Introduction</div>
+
+<p>The k-means algorithm can be described in the following steps:</p>
+
+<div class="telugu">
+K-Means clustering ante data ni k groups (clusters) lo divide cheyyadam.  
+Idi unsupervised learning method (labels undavu).  
+Goal → similar data ni okate group lo petadam.
+</div>
+</div>
+
+<div class="part">
+<div class="title">PART 2: Step 1</div>
+
+<p>Select k initial cluster centres from the given n data points. The remaining (n-k) data points are then assigned to one of the k clusters based on their proximity to the closest cluster centre.</p>
+
+<div class="telugu">
+Step 1:
+- k centres random ga select chestaru  
+- migatha points ni nearest centre ki assign chestaru  
+
+Example:
+3 clusters unte → 3 centers select chestaru
+</div>
+</div>
+
+<div class="part">
+<div class="title">PART 3: Step 2</div>
+
+<p>Compute the new cluster centres based on the current assignment of data points. This is done by calculating the mean or centroid of all the data points belonging to each cluster.</p>
+
+<div class="telugu">
+Step 2:
+- prathi cluster lo unna points average (mean) calculate chestaru  
+- new centre (centroid) create avtundi  
+
+Centroid = cluster middle point
+</div>
+</div>
+
+<div class="part">
+<div class="title">PART 4: Step 3</div>
+
+<p>Assign each of the n data points to the cluster centre that is closest in proximity to it.</p>
+
+<div class="telugu">
+Step 3:
+- malli anni points ni nearest new centre ki assign chestaru  
+- clusters update avtayi
+</div>
+</div>
+
+<div class="part">
+<div class="title">PART 5: Step 4</div>
+
+<p>Check if there have been any changes in the assignment of data points to clusters. If no changes have occurred, terminate the algorithm; otherwise, go back to Step 2 and repeat the process.</p>
+
+<div class="telugu">
+Step 4:
+- clusters change ayaya check chestaru  
+
+If change lekapothe:
+→ STOP  
+
+If change unte:
+→ malli Step 2 ki vellali  
+
+Idi loop laga continue avtundi
+</div>
+</div>
+
+<div class="part">
+<div class="title">PART 6: Final Objective</div>
+
+<p>By iteratively updating the cluster centres and reassigning data points until convergence, the k-means algorithm aims to find a partition that minimizes the overall within-cluster variance or distance.</p>
+
+<div class="telugu">
+Final goal:
+- cluster lo unna points madhya distance minimum undali  
+
+Simple ga:
+👉 same type data okate cluster lo undali  
+👉 different data vere cluster lo undali  
+
+Convergence ante:
+- clusters stable ayipovadam (inka change kakapovadam)
+</div>
+</div>
+
+</body>
+</html>
