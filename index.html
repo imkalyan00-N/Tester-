@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hierarchical Clustering (Divisive Method)</title>
+    <title>Polythetic Clustering Steps</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,6 +12,16 @@
         h2 {
             text-align: center;
         }
+        table {
+            border-collapse: collapse;
+            margin: 20px 0;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
         .step {
             margin-bottom: 20px;
         }
@@ -19,46 +29,56 @@
 </head>
 <body>
 
-<h2>Hierarchical Clustering (Divisive Method) – Step-by-Step Process</h2>
+<h2>Polythetic Clustering – Step-by-Step Process</h2>
 
 <div class="step">
-    <h3>Step 1: Initialization</h3>
-    <p>Consider 8 data points:</p>
-    <p>x1, x2, x3, x4, x5, x6, x7, x8</p>
-    <p>Initially, all data points are in a single cluster.</p>
-    <p><b>C1 = {x1, x2, x3, x4, x5, x6, x7, x8}</b></p>
+    <h3>Step 1: Given Data Points</h3>
+    <p>Consider the following data points with features f1 and f2:</p>
+
+    <table>
+        <tr>
+            <th>Patterns</th>
+            <th>f1</th>
+            <th>f2</th>
+        </tr>
+        <tr><td>x1</td><td>5.5</td><td>5.5</td></tr>
+        <tr><td>x2</td><td>7</td><td>6.5</td></tr>
+        <tr><td>x3</td><td>7</td><td>5.5</td></tr>
+        <tr><td>x4</td><td>10</td><td>6</td></tr>
+        <tr><td>x5</td><td>10.75</td><td>6</td></tr>
+        <tr><td>x6</td><td>10</td><td>8</td></tr>
+        <tr><td>x7</td><td>10.5</td><td>8</td></tr>
+        <tr><td>x8</td><td>7</td><td>8</td></tr>
+    </table>
 </div>
 
 <div class="step">
-    <h3>Step 2: First Split</h3>
-    <p>Split the main cluster into two clusters:</p>
+    <h3>Step 2: Plot the Data Points</h3>
+    <p>Plot all points on a 2D graph using:</p>
+    <ul>
+        <li>X-axis → f1</li>
+        <li>Y-axis → f2</li>
+    </ul>
+</div>
+
+<div class="step">
+    <h3>Step 3: Observe Grouping</h3>
+    <p>Based on proximity of points, identify natural clusters:</p>
+    <ul>
+        <li>Cluster 1: {x1, x3}</li>
+        <li>Cluster 2: {x2, x8}</li>
+        <li>Cluster 3: {x4, x5}</li>
+        <li>Cluster 4: {x6, x7}</li>
+    </ul>
+</div>
+
+<div class="step">
+    <h3>Step 4: Form Final Clusters</h3>
+    <p>Group nearby clusters to form larger clusters:</p>
     <ul>
         <li>{x1, x2, x3, x8}</li>
-        <li>{x4, x6, x5, x7}</li>
+        <li>{x4, x5, x6, x7}</li>
     </ul>
-    <p><b>C2 = {x1, x2, x3, x8}, {x4, x6, x5, x7}</b></p>
-</div>
-
-<div class="step">
-    <h3>Step 3: Further Split</h3>
-    <p>Split each cluster into smaller clusters:</p>
-    <ul>
-        <li>{x1, x2, x3, x8} → {x1, x3} and {x2, x8}</li>
-        <li>{x4, x6, x5, x7} → {x6, x7} and {x4, x5}</li>
-    </ul>
-    <p><b>C3 = {x1, x3}, {x2, x8}, {x6, x7}, {x4, x5}</b></p>
-</div>
-
-<div class="step">
-    <h3>Step 4: Final Split</h3>
-    <p>Split all clusters into individual elements:</p>
-    <ul>
-        <li>{x1, x3} → {x1}, {x3}</li>
-        <li>{x2, x8} → {x2}, {x8}</li>
-        <li>{x6, x7} → {x6}, {x7}</li>
-        <li>{x4, x5} → {x4}, {x5}</li>
-    </ul>
-    <p><b>C4 = {x1}, {x2}, {x3}, {x4}, {x5}, {x6}, {x7}, {x8}</b></p>
 </div>
 
 </body>
