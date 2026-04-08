@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hierarchical Clustering Steps</title>
+    <title>Hierarchical Clustering (Divisive Method)</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,65 +19,46 @@
 </head>
 <body>
 
-<h2>Hierarchical Clustering (Agglomerative Method) – Step-by-Step Process</h2>
+<h2>Hierarchical Clustering (Divisive Method) – Step-by-Step Process</h2>
 
 <div class="step">
     <h3>Step 1: Initialization</h3>
     <p>Consider 8 data points:</p>
     <p>x1, x2, x3, x4, x5, x6, x7, x8</p>
-    <p>Initially, each data point is treated as an individual cluster.</p>
-    <p><b>C1 = {x1}, {x2}, {x3}, {x4}, {x5}, {x6}, {x7}, {x8}</b></p>
+    <p>Initially, all data points are in a single cluster.</p>
+    <p><b>C1 = {x1, x2, x3, x4, x5, x6, x7, x8}</b></p>
 </div>
 
 <div class="step">
-    <h3>Step 2: Find the closest pairs and merge</h3>
-    <p>Based on minimum distance:</p>
+    <h3>Step 2: First Split</h3>
+    <p>Split the main cluster into two clusters:</p>
     <ul>
-        <li>Merge x2 and x3 → {x2, x3} (distance ≈ 2.5)</li>
-        <li>Merge x4 and x5 → {x4, x5} (distance ≈ 3.5)</li>
-        <li>Merge x6 and x7 → {x6, x7} (distance ≈ 1.25)</li>
+        <li>{x1, x2, x3, x8}</li>
+        <li>{x4, x6, x5, x7}</li>
     </ul>
-    <p><b>C2 = {x1}, {x2, x3}, {x4, x5}, {x6, x7}, {x8}</b></p>
+    <p><b>C2 = {x1, x2, x3, x8}, {x4, x6, x5, x7}</b></p>
 </div>
 
 <div class="step">
-    <h3>Step 3: Merge next closest cluster</h3>
+    <h3>Step 3: Further Split</h3>
+    <p>Split each cluster into smaller clusters:</p>
     <ul>
-        <li>Merge x1 with {x2, x3}</li>
+        <li>{x1, x2, x3, x8} → {x1, x3} and {x2, x8}</li>
+        <li>{x4, x6, x5, x7} → {x6, x7} and {x4, x5}</li>
     </ul>
-    <p><b>C3 = {x1, x2, x3}, {x4, x5}, {x6, x7}, {x8}</b></p>
+    <p><b>C3 = {x1, x3}, {x2, x8}, {x6, x7}, {x4, x5}</b></p>
 </div>
 
 <div class="step">
-    <h3>Step 4: Next merging</h3>
+    <h3>Step 4: Final Split</h3>
+    <p>Split all clusters into individual elements:</p>
     <ul>
-        <li>Merge x8 with {x4, x5}</li>
+        <li>{x1, x3} → {x1}, {x3}</li>
+        <li>{x2, x8} → {x2}, {x8}</li>
+        <li>{x6, x7} → {x6}, {x7}</li>
+        <li>{x4, x5} → {x4}, {x5}</li>
     </ul>
-    <p><b>C4 = {x1, x2, x3}, {x4, x5, x8}, {x6, x7}</b></p>
-</div>
-
-<div class="step">
-    <h3>Step 5: Merge larger clusters</h3>
-    <ul>
-        <li>Merge {x6, x7} with {x4, x5, x8}</li>
-    </ul>
-    <p><b>C5 = {x6, x7, x8, x4, x5}, {x1, x2, x3}</b></p>
-</div>
-
-<div class="step">
-    <h3>Step 6: Final merge</h3>
-    <ul>
-        <li>Merge all clusters</li>
-    </ul>
-    <p><b>C6 = {x1, x2, x3, x4, x5, x6, x7, x8}</b></p>
-</div>
-
-<div class="step">
-    <h3>Final Clusters</h3>
-    <p>C4 = {x1, x2, x3}</p>
-    <p>C5 = {x4, x5, x8}</p>
-    <p>C6 = {x6, x7, x8, x4, x5}</p>
-    <p>C7 = {x1, x2, x3, x4, x5, x6, x7, x8}</p>
+    <p><b>C4 = {x1}, {x2}, {x3}, {x4}, {x5}, {x6}, {x7}, {x8}</b></p>
 </div>
 
 </body>
