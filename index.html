@@ -1,283 +1,574 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>UNIT 3 SQL</title>
-</head>
-<body>
+```react
+import React from 'react';
+import { BookOpen, Lightbulb, CheckCircle2, GraduationCap, Database } from 'lucide-react';
 
-<pre>
-UNIT – 3 Concepts of SQL
+// Helper component to render neat Exam-style Tables
+const ExamTable = ({ headers, rows }) => (
+  <div className="overflow-x-auto my-3">
+    <table className="w-full border-collapse border border-slate-400 text-sm md:text-base text-slate-800">
+      <thead>
+        <tr className="bg-slate-200">
+          {headers.map((h, i) => (
+            <th key={i} className="border border-slate-400 px-3 py-2 text-left font-bold">{h}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row, i) => (
+          <tr key={i} className="even:bg-slate-50">
+            {row.map((cell, j) => (
+              <td key={j} className="border border-slate-400 px-3 py-1.5">{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+);
 
-3.1 BASIC SQL QUERYING (SELECT AND PROJECT) using WHERE Clause :
+// Helper component for SQL Code snippets
+const SqlBlock = ({ children }) => (
+  <div className="bg-slate-800 text-slate-100 font-mono text-sm md:text-base p-3 rounded-lg my-2 shadow-inner border border-slate-700 whitespace-pre-wrap">
+    {children}
+  </div>
+);
 
-✓ The SELECT statement in SQL is used to query data from a database.
-✓ The syntax can be quite flexible depending on the complexity of your query.
-✓ Here is the complete syntax of the SELECT statement in DBMS:
+export default function App() {
+  
+  const sqlData = [
+    {
+      id: 1,
+      title: "BASIC SQL QUERYING & SYNTAX",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h3 className="text-lg md:text-xl font-bold mb-2">3.1 BASIC SQL QUERYING [SELECT AND PROJECT using WHERE Clause] :</h3>
+          <h4 className="font-bold underline decoration-2 mb-4 text-slate-700">UNIT-3 Concepts of SQL</h4>
+          
+          <div className="space-y-2 mb-4">
+            <p className="flex items-start gap-2">
+              <span className="text-blue-600 font-bold">☑</span> 
+              <span>The <strong className="bg-yellow-100 px-1 rounded">SELECT</strong> statement in SQL is used to query data from a database.</span>
+            </p>
+            <p className="flex items-start gap-2">
+              <span className="text-blue-600 font-bold">☑</span> 
+              <span>The syntax can be quite flexible depending on the complexity of your query.</span>
+            </p>
+            <p className="flex items-start gap-2">
+              <span className="text-emerald-600 font-bold">✓</span> 
+              <span>Here is the complete syntax of the SELECT statement in DBMS:</span>
+            </p>
+          </div>
 
-Complete syntax of SELECT:
-SELECT [DISTINCT] column1, column2, ...
-FROM table_names
-[WHERE condition]
-[GROUP BY column1, column2, ...]
-[HAVING condition]
-[ORDER BY column1, column2, ... [ASC|DESC]]
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg font-mono text-sm shadow-sm">
+            <div className="font-bold text-slate-700 mb-2 font-sans border-b border-blue-200 pb-1">Complete syntax of SELECT:</div>
+            <span className="text-blue-700 font-bold">SELECT</span> [DISTINCT] column1, column2,<br/>
+            <span className="text-blue-700 font-bold">FROM</span> table_names<br/>
+            [<span className="text-blue-700 font-bold">WHERE</span> condition]<br/>
+            [<span className="text-blue-700 font-bold">GROUP BY</span> column1, column2, ...]<br/>
+            [<span className="text-blue-700 font-bold">HAVING</span> condition]<br/>
+            [<span className="text-blue-700 font-bold">ORDER BY</span> column1, column2, ... [ASC|DESC]]
+          </div>
+        </div>
+      ),
+      explanation: "SQL lo data ni retrieve cheyyadaniki SELECT statement vaduthamu. Paina unna syntax chuste, manam ye columns kavalo (SELECT), ye table nunchi kavalo (FROM), mariyu elanti conditions (WHERE, GROUP BY etc.) pettalo ee format chepthundi."
+    },
+    {
+      id: 2,
+      title: "EXPLANATION OF EACH PART (1-4)",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h4 className="font-bold text-lg mb-3 border-b-2 border-slate-200 inline-block">Explanation of each part:</h4>
+          
+          <ol className="space-y-4 list-decimal list-inside font-medium">
+            <li>
+              <strong className="text-blue-800 bg-blue-100 px-2 rounded ml-1">SELECT:</strong>
+              <p className="ml-6 mt-1 text-slate-700 font-normal">Specifies the columns that you want to retrieve. You can select one or more columns, or even use <code className="bg-slate-200 px-1 rounded font-bold">*</code> to select all columns.</p>
+            </li>
+            <li>
+              <strong className="text-blue-800 bg-blue-100 px-2 rounded ml-1">DISTINCT (optional):</strong>
+              <p className="ml-6 mt-1 text-slate-700 font-normal">Used to eliminate duplicate values in the result set. Only unique rows will be returned.</p>
+            </li>
+            <li>
+              <strong className="text-blue-800 bg-blue-100 px-2 rounded ml-1">column1, column2, ...:</strong>
+              <p className="ml-6 mt-1 text-slate-700 font-normal">Specifies the list of columns you want to retrieve data from.</p>
+            </li>
+            <li>
+              <strong className="text-blue-800 bg-blue-100 px-2 rounded ml-1">FROM table_name:</strong>
+              <p className="ml-6 mt-1 text-slate-700 font-normal">Specifies the table from which to retrieve the data.</p>
+            </li>
+          </ol>
+        </div>
+      ),
+      explanation: "Ikkada prathi keyword exact meaning undi. SELECT ante manaki kavalsina columns ivvadam (* pedithe anni columns vastayi). DISTINCT vadithe duplicate data raadu. FROM ante data ye table nunchi theeskuntunnamo cheppadam."
+    },
+    {
+      id: 3,
+      title: "EXPLANATION OF EACH PART (5-8)",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+           <ol className="space-y-4 list-decimal list-inside font-medium" start="5">
+            <li>
+              <strong className="text-blue-800 bg-blue-100 px-2 rounded ml-1">WHERE condition (optional):</strong>
+              <p className="ml-6 mt-1 text-slate-700 font-normal">Filters the records based on a specified condition. Only rows that satisfy the condition will be included in the result.</p>
+            </li>
+            <li>
+              <strong className="text-blue-800 bg-blue-100 px-2 rounded ml-1">GROUP BY column1, column2,... (optional):</strong>
+              <p className="ml-6 mt-1 text-slate-700 font-normal">Groups rows that have the same values in specified columns. It is typically used with aggregate functions like COUNT(), SUM(), AVG(), etc.</p>
+            </li>
+            <li>
+              <strong className="text-blue-800 bg-blue-100 px-2 rounded ml-1">HAVING condition (optional):</strong>
+              <p className="ml-6 mt-1 text-slate-700 font-normal">Filters the grouped records (after aggregation). It is used with GROUP BY to filter groups based on a condition.</p>
+            </li>
+            <li>
+              <strong className="text-blue-800 bg-blue-100 px-2 rounded ml-1">ORDER BY column1, column2, ... [ASC|DESC] (optional):</strong>
+              <p className="ml-6 mt-1 text-slate-700 font-normal">Sorts the result set based on one or more columns. You can specify ascending (ASC, which is default) or descending (DESC) order.</p>
+            </li>
+          </ol>
+        </div>
+      ),
+      explanation: "WHERE clause data ni filter chestundi. GROUP BY ante same unna data ni oka group ga cheyyadam (count laantivi cheyadaniki). HAVING anedi groups meeda filter pedutundi. ORDER BY tho data ni A-Z leda Z-A order lo sort chesukovachu."
+    },
+    {
+      id: 4,
+      title: "EMPLOYEES TABLE & EXAMPLE 1",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h4 className="font-bold text-lg mb-2 text-slate-800 underline">Sample Employees table:</h4>
+          <ExamTable 
+            headers={["employee_id", "first_name", "last_name", "salary", "department"]}
+            rows={[
+              ["1001", "John", "Smith", "60000", "Sales"],
+              ["1002", "Jane", "Doe", "75000", "Marketing"],
+              ["1003", "Alice", "Johnson", "82000", "Engineering"],
+              ["1004", "Bob", "Brown", "54000", "Human Resources"],
+              ["1005", "Clara", "Wilson", "98000", "Engineering"],
+              ["1006", "David", "Lee", "67000", "Sales"],
+              ["1007", "Emma", "Davis", "72000", "Marketing"],
+              ["1008", "Frank", "Moore", "50000", "Support"],
+              ["1009", "Grace", "Taylor", "88000", "Engineering"],
+              ["1010", "Henry", "Miller", "59000", "Support"]
+            ]}
+          />
+          
+          <h4 className="font-bold text-lg mt-6 mb-2 text-blue-900">Example 1: Simple SELECT query</h4>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT</span> first_name, last_name <span className="text-blue-400">FROM</span> employees;
+          </SqlBlock>
+          
+          <p className="font-bold mt-3 mb-2">Output:</p>
+          <ExamTable 
+            headers={["first name", "last name"]}
+            rows={[
+              ["John", "Smith"],
+              ["Jane", "Doe"],
+              ["Alice", "Johnson"],
+              ["Bob", "Brown"],
+              ["Clara", "Wilson"],
+              ["David", "Lee"],
+              ["Emma", "Davis"],
+              ["Frank", "Moore"],
+              ["Grace", "Taylor"],
+              ["Henry", "Miller"]
+            ]}
+          />
+        </div>
+      ),
+      explanation: "Idi basic example. employees ane table nunchi just first_name mariyu last_name matrame kavali ani exam lo adigithe, paina unna vidham ga query rasi, kinda unna table la output present cheyyali."
+    },
+    {
+      id: 5,
+      title: "EXAMPLES 2 & 3: WHERE & DISTINCT",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h4 className="font-bold text-lg mt-2 mb-2 text-blue-900">Example 2: SELECT with WHERE clause</h4>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT</span> first_name, last_name, salary <span className="text-blue-400">FROM</span> employees <span className="text-blue-400">WHERE</span> salary {'>'} 50000;
+          </SqlBlock>
+          <p className="font-bold mt-2 mb-2">Output:</p>
+          <ExamTable 
+            headers={["first_name", "last_name", "salary"]}
+            rows={[
+              ["John", "Smith", "60000"],
+              ["Jane", "Doe", "75000"],
+              ["Alice", "Johnson", "82000"],
+              ["Bob", "Brown", "54000"],
+              ["Clara", "Wilson", "98000"],
+              ["David", "Lee", "67000"],
+              ["Emma", "Davis", "72000"],
+              ["Grace", "Taylor", "88000"],
+              ["Henry", "Miller", "59000"]
+            ]}
+          />
 
-Explanation of each part:
-1. SELECT:
-   ○ Specifies the columns that you want to retrieve. You can select one or more columns, or even use * to select all columns.
-2. DISTINCT (optional):
-   ○ Used to eliminate duplicate values in the result set. Only unique rows will be returned.
-3. column1, column2, ...:
-   ○ Specifies the list of columns you want to retrieve data from.
-4. FROM table_name:
-   ○ Specifies the table from which to retrieve the data.
-5. WHERE condition (optional):
-   ○ Filters the records based on a specified condition. Only rows that satisfy the condition will be included in the result.
-6. GROUP BY column1, column2, ... (optional):
-   ○ Groups rows that have the same values in specified columns. It is typically used with aggregate functions like COUNT(), SUM(), AVG(), etc.
-7. HAVING condition (optional):
-   ○ Filters the grouped records (after aggregation). It is used with GROUP BY to filter groups based on a condition.
-8. ORDER BY column1, column2, ... [ASC|DESC] (optional):
-   ○ Sorts the result set based on one or more columns. You can specify ascending (ASC, which is default) or descending (DESC) order.
+          <h4 className="font-bold text-lg mt-6 mb-2 text-blue-900">Example 3: SELECT with DISTINCT</h4>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT DISTINCT</span> department <span className="text-blue-400">FROM</span> employees;
+          </SqlBlock>
+          <p className="font-bold mt-2 mb-2">Output:</p>
+          <ExamTable 
+            headers={["department"]}
+            rows={[
+              ["Sales"], ["Marketing"], ["Engineering"], ["Human Resources"], ["Support"]
+            ]}
+          />
+        </div>
+      ),
+      explanation: "Example 2 lo WHERE clause vadi evari salary ayithe 50000 kante ekkuva undo vallani matrame thecharu. Example 3 lo DISTINCT vadi, repeat ayina department names ni single time vachela chusaru."
+    },
+    {
+      id: 6,
+      title: "EXAMPLES 4 & 5: GROUP BY & ORDER BY",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h4 className="font-bold text-lg mt-2 mb-2 text-blue-900">Example 4: SELECT with GROUP BY and HAVING</h4>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT</span> department, COUNT(*) <span className="text-blue-400">AS</span> employee_count <span className="text-blue-400">FROM</span> employees<br/>
+            <span className="text-blue-400">GROUP BY</span> department <span className="text-blue-400">HAVING</span> COUNT(*) {'>'} 1;
+          </SqlBlock>
+          <p className="font-bold mt-2 mb-2">Output:</p>
+          <ExamTable 
+            headers={["department", "employee_count"]}
+            rows={[
+              ["Engineering", "3"], ["Marketing", "2"], ["Sales", "2"], ["Support", "2"], ["Marketing", "2"]
+            ]}
+          />
 
-Sample Employees table:
-employee_id   first_name   last_name   salary   department
-1001          John         Smith       60000    Sales
-1002          Jane         Doe         75000    Marketing
-1003          Alice        Johnson     82000    Engineering
-1004          Bob          Brown       54000    Human Resources
-1005          Clara        Wilson      98000    Engineering
-1006          David        Lee         67000    Sales
-1007          Emma         Davis       72000    Marketing
-1008          Frank        Moore       50000    Support
-1009          Grace        Taylor      88000    Engineering
-1010          Henry        Miller      59000    Support
+          <h4 className="font-bold text-lg mt-6 mb-2 text-blue-900">Example 5: SELECT with ORDER BY</h4>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT</span> last_name <span className="text-blue-400">FROM</span> employees <span className="text-blue-400">ORDER BY</span> salary <span className="text-blue-400">DESC</span>;
+          </SqlBlock>
+          <p className="font-bold mt-2 mb-2">Output:</p>
+          <div className="flex gap-10">
+            <ExamTable 
+              headers={["last name"]}
+              rows={[
+                ["Wilson"], ["Taylor"], ["Smith"], ["Moore"], ["Miller"], ["Lee"], ["Johnson"], ["Doe"], ["Davis"], ["Brown"]
+              ]}
+            />
+            <div className="bg-yellow-50 p-4 border border-yellow-200 rounded text-sm max-h-32 mt-3">
+              <strong className="text-red-600">Note:</strong><br/>
+              • order by column by using column number also<br/>
+              ✓ by default order by is ascending order
+            </div>
+          </div>
+        </div>
+      ),
+      explanation: "Example 4 lo GROUP BY vadi prathi department lo yentha mandi unnaro count chesaru. (PDF lo last output 'Marketing 2' render duplicate ayyindi adi exact ga as it is dinchanu). Example 5 lo salary batti descending order (highest to lowest) lo sort chesaru."
+    },
+    {
+      id: 7,
+      title: "EXAMPLES 6 & 7: LIMIT & MULTIPLE CONDITIONS",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h4 className="font-bold text-lg mt-2 mb-2 text-blue-900">Example 6: SELECT with LIMIT/ROWNUM</h4>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT</span> first_name, last_name <span className="text-blue-400">FROM</span> employees <span className="text-blue-400">WHERE</span> ROWNUM {'<'} = 5;
+          </SqlBlock>
+          <p className="font-bold mt-2 mb-2">Output:</p>
+          <ExamTable 
+            headers={["first name", "last name"]}
+            rows={[
+              ["John", "Smith"], ["Jane", "Doe"], ["Alice", "Johnson"], ["Bob", "Brown"], ["Clara", "Wilson"]
+            ]}
+          />
+
+          <h4 className="font-bold text-lg mt-6 mb-2 text-blue-900">Example 7: SELECT with multiple conditions in WHERE</h4>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT</span> * <span className="text-blue-400">FROM</span> employees <span className="text-blue-400">WHERE</span> salary {'>'} 65000 <span className="text-blue-400">AND</span> department = 'Sales';
+          </SqlBlock>
+          <p className="font-bold mt-2 mb-2">Output:</p>
+          <ExamTable 
+            headers={["employee_id", "first_name", "last_name", "Salary", "department"]}
+            rows={[
+              ["1006", "David", "Lee", "67000", "Sales"]
+            ]}
+          />
+        </div>
+      ),
+      explanation: "ROWNUM vadithe manaki output lo enni rows kavalo anni limit chesukovachu (ikkada <= 5 annaru kabatti top 5 vachayi). Example 7 lo 'AND' vadi rendu conditions (Salary 65k paina undali + Sales dept ayyundali) kalipi apply chesaru."
+    },
+    {
+      id: 8,
+      title: "ARITHMETIC & LOGICAL OPERATIONS",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h3 className="text-lg md:text-xl font-bold mb-3 border-b-2 border-slate-300 pb-1">3.2 Arithmetic and logical operations:</h3>
+          <p className="mb-4">In SQL, you can perform arithmetic and logical operations to manipulate data and filter records.</p>
+          <p className="mb-4 font-semibold">Here's a breakdown of both types of operations:</p>
+
+          <h4 className="font-bold text-lg mb-2 text-blue-900">1. Arithmetic Operations in SQL</h4>
+          <p className="mb-3">Arithmetic operations allow you to perform calculations on numeric data. The basic arithmetic operators in SQL are:</p>
+          
+          <ul className="list-disc list-inside space-y-2 ml-4 font-mono text-slate-700 bg-slate-100 p-4 rounded border border-slate-200">
+            <li><strong className="text-xl">+</strong> (Addition)</li>
+            <li><strong className="text-xl">-</strong> (Subtraction)</li>
+            <li><strong className="text-xl">*</strong> (Multiplication)</li>
+            <li><strong className="text-xl">/</strong> (Division)</li>
+            <li><strong className="text-xl">%</strong> (Modulo-remainder of division)</li>
+          </ul>
+        </div>
+      ),
+      explanation: "SQL queries lo manam Maths calculations kuda cheyyachu. Normal math symbols ayina Plus (+), Minus (-), Multiply (*), Divide (/), mariyu Remainder (%) ni databse records meeda direct ga apply chesi calculations perform cheyyachu."
+    },
+    {
+      id: 9,
+      title: "ARITHMETIC EXAMPLES",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h4 className="font-bold text-lg mb-2">Example of Arithmetic Operations:</h4>
+          <p className="mb-3">Let's say we have a table <code className="bg-slate-200 px-1 rounded">sales</code> with columns <code className="bg-slate-200 px-1 rounded">price</code> and <code className="bg-slate-200 px-1 rounded">quantity</code>.</p>
+          
+          <div className="flex flex-col md:flex-row gap-6 items-start">
+            <div className="flex-1">
+              <h5 className="font-bold mt-2 text-blue-900">Example:</h5>
+              <SqlBlock>
+                <span className="text-blue-400">SELECT</span> price, quantity, price * quantity <span className="text-blue-400">AS</span> total_sales <span className="text-blue-400">FROM</span> sales;
+              </SqlBlock>
+              <p className="text-sm italic mb-2">This query calculates the total sales by multiplying price and quantity.</p>
+              <p className="font-bold mt-2">Output:</p>
+              <ExamTable 
+                headers={["PRICE", "QUANTITY", "TOTAL_SALES"]}
+                rows={[
+                  ["19.99", "2", "39.98"], ["5.49", "10", "54.9"], ["12", "5", "60"], ["7.25", "8", "58"], ["49.99", "1", "49.99"],
+                  ["3.5", "20", "70"], ["15", "3", "45"], ["100", "1", "100"], ["9.99", "6", "59.94"], ["2.99", "15", "44.85"]
+                ]}
+              />
+            </div>
+            
+            <div className="w-full md:w-1/3">
+              <ExamTable 
+                headers={["PRICE", "QUANTITY"]}
+                rows={[
+                  ["19.99", "2"], ["5.49", "10"], ["12", "5"], ["7.25", "8"], ["49.99", "1"],
+                  ["3.5", "20"], ["15", "3"], ["100", "1"], ["9.99", "6"], ["2.99", "15"]
+                ]}
+              />
+            </div>
+          </div>
+
+          <h5 className="font-bold mt-6 text-blue-900">Example 2: Adding a value to a column</h5>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT</span> product_name, price, price + 10 <span className="text-blue-400">AS</span> new_price<br/>
+            <span className="text-blue-400">FROM</span> products;
+          </SqlBlock>
+          <p className="text-sm italic mb-4">This query increases the price by 10 and displays the updated price as new_price.</p>
+
+          <h5 className="font-bold mt-4 text-blue-900">Example 3: Using division and modulo</h5>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT</span> order_id, quantity, quantity / 2 <span className="text-blue-400">AS</span> half_quantity, quantity % 2 <span className="text-blue-400">AS</span> remainder<br/>
+            <span className="text-blue-400">FROM</span> orders;
+          </SqlBlock>
+          <p className="text-sm italic">This query calculates half of the quantity and also returns the remainder when quantity is divided by 2.</p>
+        </div>
+      ),
+      explanation: "Ikkada Maths ela apply chesaro clear ga undi. Example 1 lo price * quantity chesi total thecharu. Example 2 lo price ki 10 add chesaru (+). Example 3 lo quantity ni 2 tho divide (/) chesi, remainder (%) ento kuda kanukkunnaru."
+    },
+    {
+      id: 10,
+      title: "LOGICAL OPERATIONS",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h4 className="font-bold text-lg mb-2 text-blue-900 border-b border-slate-300 pb-1">2. Logical Operations in SQL</h4>
+          <p className="mb-4">Logical operations in SQL are used to filter records based on boolean logic. The basic logical operators in SQL are:</p>
+          
+          <ul className="space-y-3">
+            <li><strong className="text-red-700 bg-red-50 px-1 rounded border border-red-200">AND:</strong> Combines two conditions; both must be true for the record to be included.</li>
+            <li><strong className="text-red-700 bg-red-50 px-1 rounded border border-red-200">OR:</strong> Combines two conditions; at least one must be true for the record to be included.</li>
+            <li><strong className="text-red-700 bg-red-50 px-1 rounded border border-red-200">NOT:</strong> Reverses the truth value of a condition.</li>
+            <li><strong className="text-red-700 bg-red-50 px-1 rounded border border-red-200">BETWEEN:</strong> Tests if a value is within a range of values.</li>
+            <li><strong className="text-red-700 bg-red-50 px-1 rounded border border-red-200">IN:</strong> Tests if a value matches any value in a list of values.</li>
+            <li><strong className="text-red-700 bg-red-50 px-1 rounded border border-red-200">LIKE:</strong> Used for pattern matching in strings.</li>
+          </ul>
+        </div>
+      ),
+      explanation: "Logical operators ni WHERE clause tho vaadi records filter cheyadaniki vaduthamu. AND (rendu conditions true avvali), OR (okati true ayina chalu), BETWEEN (range kosam), IN (list kosam), mariyu LIKE (letters pattern checking kosam) vadataru."
+    },
+    {
+      id: 11,
+      title: "LOGICAL EXAMPLES: AND, OR, NOT",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h4 className="font-bold text-lg mb-4 underline">Example of Logical Operations:</h4>
+          
+          <div className="mb-6">
+            <p><strong className="text-red-700">AND Operator:</strong> This query returns employees whose salary is greater than 50,000 and who work in the "Sales" department.</p>
+            <SqlBlock>
+              <span className="text-blue-400">SELECT</span> first_name, last_name, salary, department<br/>
+              <span className="text-blue-400">FROM</span> employees<br/>
+              <span className="text-blue-400">WHERE</span> salary {'>'} 50000 <span className="text-red-400 font-bold">AND</span> department = 'Sales';
+            </SqlBlock>
+          </div>
+
+          <div className="mb-6">
+            <p><strong className="text-red-700">OR Operator:</strong> This query returns employees who are in either the "Sales" or "Marketing" departments.</p>
+            <SqlBlock>
+              <span className="text-blue-400">SELECT</span> first_name, last_name, salary, department<br/>
+              <span className="text-blue-400">FROM</span> employees<br/>
+              <span className="text-blue-400">WHERE</span> department = 'Sales' <span className="text-red-400 font-bold">OR</span> department = 'Marketing';
+            </SqlBlock>
+          </div>
+
+          <div>
+            <p><strong className="text-red-700">NOT Operator:</strong> This query returns employees who do not work in the "HR" department.</p>
+            <SqlBlock>
+              <span className="text-blue-400">SELECT</span> first_name, last_name, department<br/>
+              <span className="text-blue-400">FROM</span> employees <span className="text-blue-400">WHERE <span className="text-red-400 font-bold">NOT</span></span> department = 'HR';
+            </SqlBlock>
+          </div>
+        </div>
+      ),
+      explanation: "AND vadinappudu Salary > 50k undali, alage varu Sales vallai undali - ee rendu rules pass aithene data vastundi. OR vadinappudu Sales ayina parvaledu leda Marketing ayina parvaledu. NOT vadinappudu HR kakunda vere ye dept ayina vastaru."
+    },
+    {
+      id: 12,
+      title: "LOGICAL EXAMPLES: BETWEEN, IN, LIKE",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <div className="mb-6">
+            <p><strong className="text-red-700">BETWEEN Operator:</strong> This query returns employees who are in either the "Sales", "Marketing", or "Finance" departments.<br/>
+            <span className="italic text-sm text-slate-500">(Note: The query below demonstrates BETWEEN for salary, though description mentions departments)</span></p>
+            <SqlBlock>
+              <span className="text-blue-400">SELECT</span> first_name, last_name, salary<br/>
+              <span className="text-blue-400">FROM</span> employees<br/>
+              <span className="text-blue-400">WHERE</span> salary <span className="text-red-400 font-bold">BETWEEN</span> 40000 <span className="text-red-400 font-bold">AND</span> 60000;
+            </SqlBlock>
+          </div>
+
+          <div className="mb-6">
+            <p><strong className="text-red-700">IN Operator:</strong></p>
+            <SqlBlock>
+              <span className="text-blue-400">SELECT</span> first_name, last_name, department<br/>
+              <span className="text-blue-400">FROM</span> employees<br/>
+              <span className="text-blue-400">WHERE</span> department <span className="text-red-400 font-bold">IN</span> ('Sales', 'Marketing', 'Finance');
+            </SqlBlock>
+          </div>
+
+          <div>
+            <p><strong className="text-red-700">LIKE Operator (for pattern matching):</strong> This query returns employees whose first name starts with the letter "J". The % symbol is a wildcard that matches zero or more characters.</p>
+            <SqlBlock>
+              <span className="text-blue-400">SELECT</span> first_name, last_name<br/>
+              <span className="text-blue-400">FROM</span> employees<br/>
+              <span className="text-blue-400">WHERE</span> first_name <span className="text-red-400 font-bold">LIKE</span> 'J%';
+            </SqlBlock>
+          </div>
+        </div>
+      ),
+      explanation: "BETWEEN vadi 40k nunchi 60k madhya unna salary data thecharu. IN vadi brackets lo icchina depts vallani matrame thecharu. LIKE vadinappudu 'J%' ani iste, 'J' tho perulu modhalayye valla data vastundi."
+    },
+    {
+      id: 13,
+      title: "COMBINING OPERATIONS & SQL FUNCTIONS",
+      original: (
+        <div className="font-serif text-slate-900 leading-relaxed">
+          <h4 className="font-bold text-lg mb-3 underline">Combining Arithmetic and Logical Operations</h4>
+          <p className="mb-4">You can combine both arithmetic and logical operations in a single SQL query to perform more complex queries.</p>
+          
+          <p><strong className="text-blue-900">Example:</strong><br/>
+          This query calculates a 10% bonus (salary * 0.1) for employees in the "Sales" department who have a salary greater than 50,000.</p>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT</span> first_name, last_name, salary, (salary * 0.1) <span className="text-blue-400">AS</span> bonus<br/>
+            <span className="text-blue-400">FROM</span> employees<br/>
+            <span className="text-blue-400">WHERE</span> salary {'>'} 50000 <span className="text-red-400 font-bold">AND</span> department = 'Sales';
+          </SqlBlock>
+
+          <p className="mt-6"><strong className="text-blue-900">Example 2:</strong></p>
+          <SqlBlock>
+            <span className="text-blue-400">SELECT</span> product_name, price, (price * 0.15) <span className="text-blue-400">AS</span> tax<br/>
+            <span className="text-blue-400">FROM</span> products<br/>
+            <span className="text-blue-400">WHERE</span> price <span className="text-red-400 font-bold">BETWEEN</span> 50 <span className="text-red-400 font-bold">AND</span> 200 <span className="text-red-400 font-bold">AND</span> price * 0.15 {'>'} 10;
+          </SqlBlock>
+
+          <div className="mt-8 pt-4 border-t-2 border-slate-300">
+            <h3 className="text-lg md:text-xl font-bold mb-3">3.3 SQL FUNCTIONS [ DATE, TIME, NUMERIC,STRING Conversion ] :</h3>
+            <p className="flex items-start gap-2 bg-yellow-50 p-4 border border-yellow-200 rounded">
+              <span className="text-orange-500 font-bold">➤</span> 
+              <span>In DBMS (Database Management System), SQL functions are predefined operations that perform specific tasks on data stored in a database. They help simplify complex queries by allowing you to perform calculations, format data, and manipulate values easily.</span>
+            </p>
+          </div>
+        </div>
+      ),
+      explanation: "Manam Maths mariyu Logic kalipi okate query lo rayachu. Exam lo adigithe ee kinda unna '10% bonus' example rayandi perfect ga marks padutayi. Last lo SQL functions anevi calculations and formating ni inka easy ga cheyadaniki pre-defined ga untayi ani chepparu."
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans p-4 md:p-8">
+      
+      {/* Header Section */}
+      <div className="max-w-5xl mx-auto mb-10 text-center">
+        <div className="inline-flex items-center justify-center p-3 bg-emerald-600/20 rounded-full mb-4 ring-1 ring-emerald-500/50">
+          <GraduationCap className="w-10 h-10 text-emerald-400" />
+        </div>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-4 tracking-tight">
+          SQL Exam Ready Notes
+        </h1>
+        <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+          Exam lo ela rayalo exact ga alage design chesina premium interactive notes. Textbooks, material kante clear ga!
+        </p>
+      </div>
+
+      {/* Content Section */}
+      <div className="max-w-5xl mx-auto space-y-12">
+        {sqlData.map((part) => (
+          <div key={part.id} className="group flex flex-col items-center">
+            
+            {/* The Exam Paper (Original Content) */}
+            <div className="w-full bg-white rounded-t-xl rounded-b-sm border-t-8 border-t-blue-600 shadow-2xl overflow-hidden relative">
+              {/* Paper styling elements */}
+              <div className="absolute top-0 left-8 w-px h-full bg-red-200 z-0"></div>
+              <div className="absolute top-0 left-9 w-px h-full bg-red-200 z-0"></div>
+              
+              <div className="relative z-10 p-6 md:p-10 pl-16 md:pl-20">
+                
+                {/* Section Header */}
+                <div className="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">
+                    {part.id}
+                  </div>
+                  <h2 className="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide">
+                    {part.title}
+                  </h2>
+                </div>
+
+                {/* Exam Rendered Content */}
+                {part.original}
+
+              </div>
+            </div>
+
+            {/* The Telugu Explanation Box */}
+            <div className="w-11/12 -mt-4 relative z-20">
+              <div className="bg-gradient-to-r from-emerald-900 to-teal-900 rounded-xl p-5 md:p-6 shadow-[0_10px_40px_-10px_rgba(16,185,129,0.3)] border border-emerald-500/30">
+                <div className="flex items-start gap-4">
+                  <div className="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1">
+                    <Lightbulb className="w-6 h-6 text-emerald-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">
+                      Clear Telugu Explanation <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    </h3>
+                    <p className="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">
+                      {part.explanation}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div className="max-w-4xl mx-auto mt-16 text-center text-slate-500 text-sm">
+        <p className="flex items-center justify-center gap-2">
+          <Database className="w-4 h-4" /> Crafted specifically for Lohitha Sai — Exam ready presentation!
+        </p>
+      </div>
+
+    </div>
+  );
+}
 
 
-Example 1: Simple SELECT query
-SELECT first_name, last_name FROM employees;
-
-Output:
-first_name   last_name
-John         Smith
-Jane         Doe
-Alice        Johnson
-Bob          Brown
-Clara        Wilson
-David        Lee
-Emma         Davis
-Frank        Moore
-Grace        Taylor
-Henry        Miller
-
-
-Example 2: SELECT with WHERE clause
-SELECT first_name, last_name, salary FROM employees WHERE salary > 50000;
-
-Output:
-first_name   last_name   salary
-John         Smith       60000
-Jane         Doe         75000
-Alice        Johnson     82000
-Bob          Brown       54000
-Clara        Wilson      98000
-David        Lee         67000
-Emma         Davis       72000
-Grace        Taylor      88000
-Henry        Miller      59000
-
-
-Example 3: SELECT with DISTINCT
-SELECT DISTINCT department FROM employees;
-
-Output:
-department
-Sales
-Marketing
-Engineering
-Human Resources
-Support
-
-
-Example 4: SELECT with GROUP BY and HAVING
-SELECT department, COUNT(*) AS employee_count FROM employees
-GROUP BY department HAVING COUNT(*) > 1;
-
-Output:
-department   employee_count
-Engineering  3
-Marketing    2
-Sales        2
-Support      2
-Marketing    2
-
-
-Example 5: SELECT with ORDER BY
-SELECT last_name FROM employees ORDER BY salary DESC;
-
-Output:
-last_name
-Wilson
-Taylor
-Smith
-Moore
-Miller
-Lee
-Johnson
-Doe
-Davis
-Brown
-
-
-Note:
-✓ order by column by using column number also
-✓ by default order by is ascending order
-
-
-Example 6: SELECT with LIMIT/ROWNUM
-SELECT first_name, last_name FROM employees WHERE ROWNUM<=5;
-
-Output:
-first_name   last_name
-John         Smith
-Jane         Doe
-Alice        Johnson
-Bob          Brown
-Clara        Wilson
-
-
-Example 7: SELECT with multiple conditions in WHERE
-SELECT * FROM employees WHERE salary > 65000 AND department = 'Sales';
-
-Output:
-employee_id   first_name   last_name   Salary   department
-1006          David        Lee         67000    Sales
-
-
-3.2 Arithmetic and logical operations:
-In SQL, you can perform arithmetic and logical operations to manipulate data and filter records.
-Here's a breakdown of both types of operations:
-
-1. Arithmetic Operations in SQL
-Arithmetic operations allow you to perform calculations on numeric data. The basic arithmetic operators in SQL are:
-• + (Addition)
-• - (Subtraction)
-• * (Multiplication)
-• / (Division)
-• % (Modulo – remainder of division)
-
-
-Example of Arithmetic Operations:
-Let’s say we have a table sales with columns price and quantity.
-
-PRICE   QUANTITY
-19.99   2
-5.49    10
-12      5
-7.25    8
-49.99   1
-3.5     20
-15      3
-100     1
-9.99    6
-2.99    15
-
-Example:
-SELECT price, quantity, price * quantity AS total_sales FROM sales;
-This query calculates the total sales by multiplying price and quantity.
-
-Output:
-PRICE   QUANTITY   TOTAL_SALES
-19.99   2          39.98
-5.49    10         54.9
-12      5          60
-7.25    8          58
-49.99   1          49.99
-3.5     20         70
-15      3          45
-100     1          100
-9.99    6          59.94
-2.99    15         44.85
-
-
-Example 2: Adding a value to a column
-SELECT product_name, price, price + 10 AS new_price FROM products;
-This query increases the price by 10 and displays the updated price as new_price.
-
-Example 3: Using division and modulo
-SELECT order_id, quantity, quantity / 2 AS half_quantity, quantity % 2 AS remainder FROM orders;
-This query calculates half of the quantity and also returns the remainder when quantity is divided by 2.
-
-
-2. Logical Operations in SQL
-Logical operations in SQL are used to filter records based on boolean logic. The basic logical operators in SQL are:
-• AND: Combines two conditions; both must be true for the record to be included.
-• OR: Combines two conditions; at least one must be true for the record to be included.
-• NOT: Reverses the truth value of a condition.
-• BETWEEN: Tests if a value is within a range of values.
-
-• IN: Tests if a value matches any value in a list of values.
-• LIKE: Used for pattern matching in strings.
-
-
-Example of Logical Operations:
-
-AND Operator:
-This query returns employees whose salary is greater than 50,000 and who work in the "Sales" department.
-SELECT first_name, last_name, salary, department
-FROM employees
-WHERE salary > 50000 AND department = 'Sales';
-
-OR Operator:
-This query returns employees who are in either the "Sales" or "Marketing" departments.
-SELECT first_name, last_name, salary, department
-FROM employees
-WHERE department = 'Sales' OR department = 'Marketing';
-
-NOT Operator:
-This query returns employees who do not work in the "HR" department.
-SELECT first_name, last_name, department
-FROM employees WHERE NOT department = 'HR';
-
-BETWEEN Operator:
-This query returns employees who are in either the "Sales", "Marketing", or "Finance" departments.
-SELECT first_name, last_name, salary
-FROM employees
-WHERE salary BETWEEN 40000 AND 60000;
-
-IN Operator:
-SELECT first_name, last_name, department
-FROM employees
-WHERE department IN ('Sales', 'Marketing', 'Finance');
-
-LIKE Operator (for pattern matching):
-This query returns employees whose first name starts with the letter "J". The % symbol is a wildcard that matches zero or more characters.
-SELECT first_name, last_name
-FROM employees
-WHERE first_name LIKE 'J%';
-
-
-Combining Arithmetic and Logical Operations
-
-You can combine both arithmetic and logical operations in a single SQL query to perform more complex queries.
-
-Example:
-This query calculates a 10% bonus (salary * 0.1) for employees in the "Sales" department who have a salary greater than 50,000.
-SELECT first_name, last_name, salary, (salary * 0.1) AS bonus
-FROM employees
-WHERE salary > 50000 AND department = 'Sales';
-
-Example 2:
-SELECT product_name, price, (price * 0.15) AS tax
-FROM products
-WHERE price BETWEEN 50 AND 200 AND price * 0.15 > 10;
-
-
-3.3 SQL FUNCTIONS [ DATE,TIME ,NUMERIC ,STRING Conversion ] :
-
-➤ In DBMS (Database Management System), SQL functions are predefined operations that perform specific tasks on data stored in a database. They help simplify complex queries by allowing you to perform calculations, format data, and manipulate values easily.
-
-</pre>
-
-</body>
-</html>
+```
