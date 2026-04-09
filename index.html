@@ -1,689 +1,127 @@
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="te">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SQL Concepts Exam Guide</title>
-    <!-- Tailwind CSS for styling -->
+    <title>HTML File Downloader</title>
+    <!-- Tailwind CSS kosam CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        /* Custom CSS for repeated elements to keep HTML clean */
-        .exam-table-container { overflow-x: auto; margin-top: 0.75rem; margin-bottom: 0.75rem; }
-        .exam-table { width: 100%; border-collapse: collapse; border: 1px solid #94a3b8; color: #1e293b; font-size: 0.95rem; }
-        .exam-table th { border: 1px solid #94a3b8; padding: 0.5rem 0.75rem; text-align: left; font-weight: bold; background-color: #e2e8f0; }
-        .exam-table td { border: 1px solid #94a3b8; padding: 0.375rem 0.75rem; }
-        .exam-table tr:nth-child(even) { background-color: #f8fafc; }
-        
-        .sql-block { background-color: #1e293b; color: #f1f5f9; font-family: monospace; font-size: 0.95rem; padding: 0.75rem; border-radius: 0.5rem; margin: 0.5rem 0; box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.1); border: 1px solid #334155; white-space: pre-wrap; line-height: 1.5; }
-        .sql-kw { color: #60a5fa; font-weight: bold; } /* SQL Keywords Blue */
-        .sql-op { color: #f87171; font-weight: bold; } /* SQL Operators Red */
-        
-        .exam-paper { background: white; border-radius: 0.5rem 0.5rem 0 0; border-top: 8px solid #2563eb; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); position: relative; overflow: hidden; width: 100%; }
-        .margin-line-1 { position: absolute; top: 0; left: 2rem; width: 1px; height: 100%; background-color: #fecaca; z-index: 0; }
-        .margin-line-2 { position: absolute; top: 0; left: 2.25rem; width: 1px; height: 100%; background-color: #fecaca; z-index: 0; }
-        .paper-content { position: relative; z-index: 10; padding: 2rem 2.5rem 2.5rem 4rem; font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; color: #0f172a; line-height: 1.6; }
-        
-        .explanation-box { width: 91.666667%; margin-top: -1rem; position: relative; z-index: 20; background: linear-gradient(to right, #064e3b, #134e4a); border-radius: 0.75rem; padding: 1.25rem 1.5rem; box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.3); border: 1px solid rgba(16, 185, 129, 0.3); }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="min-h-screen bg-slate-950 text-slate-200 font-sans p-4 md:p-8">
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
 
-    <!-- Header Section -->
-    <div class="max-w-5xl mx-auto mb-10 text-center">
-        <div class="inline-flex items-center justify-center p-3 bg-emerald-600/20 rounded-full mb-4 ring-1 ring-emerald-500/50">
-            <i data-lucide="graduation-cap" class="w-10 h-10 text-emerald-400"></i>
+    <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 w-full max-w-3xl">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-file-code text-blue-500 mr-2"></i>HTML Code Downloader
+            </h1>
+            <p class="text-gray-500">Mee code ni kinda paste chesi, direct ga .html file ga download cheskondi.</p>
         </div>
-        <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-4 tracking-tight">
-            SQL  (KB HTML Version)
-        </h1>
-        <p class="text-slate-400 text-lg max-w-2xl mx-auto">
-            KB HTML VERSION.
-        </p>
+
+        <!-- File Name Input -->
+        <div class="mb-4">
+            <label for="filename" class="block text-sm font-medium text-gray-700 mb-1">File Peru (Optional)</label>
+            <div class="relative">
+                <input type="text" id="filename" placeholder="index" 
+                    class="w-full pl-4 pr-16 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-gray-400">
+                    .html
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Textarea -->
+        <div class="mb-6">
+            <label for="codeContent" class="block text-sm font-medium text-gray-700 mb-1">Code ikkada paste cheyandi</label>
+            <textarea id="codeContent" rows="12" placeholder="<!DOCTYPE html>&#10;<html>&#10;<body>&#10;  <h1>Hello World</h1>&#10;</body>&#10;</html>" 
+                class="w-full p-4 border border-gray-300 rounded-lg font-mono text-sm bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all resize-y"></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4">
+            <button onclick="downloadFile()" 
+                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-download"></i> Download HTML File
+            </button>
+            <button onclick="clearContent()" 
+                class="sm:w-auto bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-trash-alt"></i> Clear
+            </button>
+        </div>
+        
+        <!-- Status Message -->
+        <div id="statusMessage" class="mt-4 text-center text-sm font-medium hidden"></div>
     </div>
 
-    <!-- Content Section -->
-    <div class="max-w-5xl mx-auto space-y-12">
-
-        <!-- PART 1 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">1</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">BASIC SQL QUERYING & SYNTAX</h2>
-                    </div>
-                    
-                    <h3 class="text-lg md:text-xl font-bold mb-2">3.1 BASIC SQL QUERYING [SELECT AND PROJECT using WHERE Clause] :</h3>
-                    <h4 class="font-bold underline decoration-2 mb-4 text-slate-700">UNIT-3 Concepts of SQL</h4>
-                    
-                    <div class="space-y-2 mb-4">
-                        <p class="flex items-start gap-2"><span class="text-blue-600 font-bold">☑</span> <span>The <strong class="bg-yellow-100 px-1 rounded">SELECT</strong> statement in SQL is used to query data from a database.</span></p>
-                        <p class="flex items-start gap-2"><span class="text-blue-600 font-bold">☑</span> <span>The syntax can be quite flexible depending on the complexity of your query.</span></p>
-                        <p class="flex items-start gap-2"><span class="text-emerald-600 font-bold">✓</span> <span>Here is the complete syntax of the SELECT statement in DBMS:</span></p>
-                    </div>
-
-                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg font-mono text-sm shadow-sm font-sans">
-                        <div class="font-bold text-slate-700 mb-2 border-b border-blue-200 pb-1">Complete syntax of SELECT:</div>
-                        <span class="text-blue-700 font-bold">SELECT</span> [DISTINCT] column1, column2,<br/>
-                        <span class="text-blue-700 font-bold">FROM</span> table_names<br/>
-                        [<span class="text-blue-700 font-bold">WHERE</span> condition]<br/>
-                        [<span class="text-blue-700 font-bold">GROUP BY</span> column1, column2, ...]<br/>
-                        [<span class="text-blue-700 font-bold">HAVING</span> condition]<br/>
-                        [<span class="text-blue-700 font-bold">ORDER BY</span> column1, column2, ... [ASC|DESC]]
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">SQL lo data ni retrieve cheyyadaniki SELECT statement vaduthamu. Paina unna syntax chuste, manam ye columns kavalo (SELECT), ye table nunchi kavalo (FROM), mariyu elanti conditions (WHERE, GROUP BY etc.) pettalo ee format chepthundi.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 2 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">2</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">EXPLANATION OF EACH PART (1-4)</h2>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mb-3 border-b-2 border-slate-200 inline-block">Explanation of each part:</h4>
-                    <ol class="space-y-4 list-decimal list-inside font-medium">
-                        <li>
-                            <strong class="text-blue-800 bg-blue-100 px-2 rounded ml-1">SELECT:</strong>
-                            <p class="ml-6 mt-1 text-slate-700 font-normal">Specifies the columns that you want to retrieve. You can select one or more columns, or even use <code class="bg-slate-200 px-1 rounded font-bold">*</code> to select all columns.</p>
-                        </li>
-                        <li>
-                            <strong class="text-blue-800 bg-blue-100 px-2 rounded ml-1">DISTINCT (optional):</strong>
-                            <p class="ml-6 mt-1 text-slate-700 font-normal">Used to eliminate duplicate values in the result set. Only unique rows will be returned.</p>
-                        </li>
-                        <li>
-                            <strong class="text-blue-800 bg-blue-100 px-2 rounded ml-1">column1, column2, ...:</strong>
-                            <p class="ml-6 mt-1 text-slate-700 font-normal">Specifies the list of columns you want to retrieve data from.</p>
-                        </li>
-                        <li>
-                            <strong class="text-blue-800 bg-blue-100 px-2 rounded ml-1">FROM table_name:</strong>
-                            <p class="ml-6 mt-1 text-slate-700 font-normal">Specifies the table from which to retrieve the data.</p>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Ikkada prathi keyword exact meaning undi. SELECT ante manaki kavalsina columns ivvadam (* pedithe anni columns vastayi). DISTINCT vadithe duplicate data raadu. FROM ante data ye table nunchi theeskuntunnamo cheppadam.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 3 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">3</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">EXPLANATION OF EACH PART (5-8)</h2>
-                    </div>
-                    
-                    <ol class="space-y-4 list-decimal list-inside font-medium" start="5">
-                        <li>
-                            <strong class="text-blue-800 bg-blue-100 px-2 rounded ml-1">WHERE condition (optional):</strong>
-                            <p class="ml-6 mt-1 text-slate-700 font-normal">Filters the records based on a specified condition. Only rows that satisfy the condition will be included in the result.</p>
-                        </li>
-                        <li>
-                            <strong class="text-blue-800 bg-blue-100 px-2 rounded ml-1">GROUP BY column1, column2,... (optional):</strong>
-                            <p class="ml-6 mt-1 text-slate-700 font-normal">Groups rows that have the same values in specified columns. It is typically used with aggregate functions like COUNT(), SUM(), AVG(), etc.</p>
-                        </li>
-                        <li>
-                            <strong class="text-blue-800 bg-blue-100 px-2 rounded ml-1">HAVING condition (optional):</strong>
-                            <p class="ml-6 mt-1 text-slate-700 font-normal">Filters the grouped records (after aggregation). It is used with GROUP BY to filter groups based on a condition.</p>
-                        </li>
-                        <li>
-                            <strong class="text-blue-800 bg-blue-100 px-2 rounded ml-1">ORDER BY column1, column2, ... [ASC|DESC] (optional):</strong>
-                            <p class="ml-6 mt-1 text-slate-700 font-normal">Sorts the result set based on one or more columns. You can specify ascending (ASC, which is default) or descending (DESC) order.</p>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">WHERE clause data ni filter chestundi. GROUP BY ante same unna data ni oka group ga cheyyadam (count laantivi cheyadaniki). HAVING anedi groups meeda filter pedutundi. ORDER BY tho data ni A-Z leda Z-A order lo sort chesukovachu.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 4 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">4</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">EMPLOYEES TABLE & EXAMPLE 1</h2>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mb-2 text-slate-800 underline">Sample Employees table:</h4>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead>
-                                <tr><th>employee_id</th><th>first_name</th><th>last_name</th><th>salary</th><th>department</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>1001</td><td>John</td><td>Smith</td><td>60000</td><td>Sales</td></tr>
-                                <tr><td>1002</td><td>Jane</td><td>Doe</td><td>75000</td><td>Marketing</td></tr>
-                                <tr><td>1003</td><td>Alice</td><td>Johnson</td><td>82000</td><td>Engineering</td></tr>
-                                <tr><td>1004</td><td>Bob</td><td>Brown</td><td>54000</td><td>Human Resources</td></tr>
-                                <tr><td>1005</td><td>Clara</td><td>Wilson</td><td>98000</td><td>Engineering</td></tr>
-                                <tr><td>1006</td><td>David</td><td>Lee</td><td>67000</td><td>Sales</td></tr>
-                                <tr><td>1007</td><td>Emma</td><td>Davis</td><td>72000</td><td>Marketing</td></tr>
-                                <tr><td>1008</td><td>Frank</td><td>Moore</td><td>50000</td><td>Support</td></tr>
-                                <tr><td>1009</td><td>Grace</td><td>Taylor</td><td>88000</td><td>Engineering</td></tr>
-                                <tr><td>1010</td><td>Henry</td><td>Miller</td><td>59000</td><td>Support</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mt-6 mb-2 text-blue-900">Example 1: Simple SELECT query</h4>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> first_name, last_name <span class="sql-kw">FROM</span> employees;</div>
-                    
-                    <p class="font-bold mt-3 mb-2">Output:</p>
-                    <div class="exam-table-container">
-                        <table class="exam-table" style="width: auto;">
-                            <thead><tr><th>first name</th><th>last name</th></tr></thead>
-                            <tbody>
-                                <tr><td>John</td><td>Smith</td></tr>
-                                <tr><td>Jane</td><td>Doe</td></tr>
-                                <tr><td>Alice</td><td>Johnson</td></tr>
-                                <tr><td>Bob</td><td>Brown</td></tr>
-                                <tr><td>Clara</td><td>Wilson</td></tr>
-                                <tr><td>David</td><td>Lee</td></tr>
-                                <tr><td>Emma</td><td>Davis</td></tr>
-                                <tr><td>Frank</td><td>Moore</td></tr>
-                                <tr><td>Grace</td><td>Taylor</td></tr>
-                                <tr><td>Henry</td><td>Miller</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Idi basic example. employees ane table nunchi just first_name mariyu last_name matrame kavali ani exam lo adigithe, paina unna vidham ga query rasi, kinda unna table la output present cheyyali.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 5 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">5</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">EXAMPLES 2 & 3: WHERE & DISTINCT</h2>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mt-2 mb-2 text-blue-900">Example 2: SELECT with WHERE clause</h4>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> first_name, last_name, salary <span class="sql-kw">FROM</span> employees <span class="sql-kw">WHERE</span> salary > 50000;</div>
-                    <p class="font-bold mt-2 mb-2">Output:</p>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead><tr><th>first_name</th><th>last_name</th><th>salary</th></tr></thead>
-                            <tbody>
-                                <tr><td>John</td><td>Smith</td><td>60000</td></tr>
-                                <tr><td>Jane</td><td>Doe</td><td>75000</td></tr>
-                                <tr><td>Alice</td><td>Johnson</td><td>82000</td></tr>
-                                <tr><td>Bob</td><td>Brown</td><td>54000</td></tr>
-                                <tr><td>Clara</td><td>Wilson</td><td>98000</td></tr>
-                                <tr><td>David</td><td>Lee</td><td>67000</td></tr>
-                                <tr><td>Emma</td><td>Davis</td><td>72000</td></tr>
-                                <tr><td>Grace</td><td>Taylor</td><td>88000</td></tr>
-                                <tr><td>Henry</td><td>Miller</td><td>59000</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h4 class="font-bold text-lg mt-6 mb-2 text-blue-900">Example 3: SELECT with DISTINCT</h4>
-                    <div class="sql-block"><span class="sql-kw">SELECT DISTINCT</span> department <span class="sql-kw">FROM</span> employees;</div>
-                    <p class="font-bold mt-2 mb-2">Output:</p>
-                    <div class="exam-table-container">
-                        <table class="exam-table" style="width: auto;">
-                            <thead><tr><th>department</th></tr></thead>
-                            <tbody>
-                                <tr><td>Sales</td></tr><tr><td>Marketing</td></tr><tr><td>Engineering</td></tr><tr><td>Human Resources</td></tr><tr><td>Support</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Example 2 lo WHERE clause vadi evari salary ayithe 50000 kante ekkuva undo vallani matrame thecharu. Example 3 lo DISTINCT vadi, repeat ayina department names ni single time vachela chusaru.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 6 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">6</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">EXAMPLES 4 & 5: GROUP BY & ORDER BY</h2>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mt-2 mb-2 text-blue-900">Example 4: SELECT with GROUP BY and HAVING</h4>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> department, COUNT(*) <span class="sql-kw">AS</span> employee_count <span class="sql-kw">FROM</span> employees<br/><span class="sql-kw">GROUP BY</span> department <span class="sql-kw">HAVING</span> COUNT(*) > 1;</div>
-                    <p class="font-bold mt-2 mb-2">Output:</p>
-                    <div class="exam-table-container">
-                        <table class="exam-table" style="width: auto;">
-                            <thead><tr><th>department</th><th>employee_count</th></tr></thead>
-                            <tbody>
-                                <tr><td>Engineering</td><td>3</td></tr>
-                                <tr><td>Marketing</td><td>2</td></tr>
-                                <tr><td>Sales</td><td>2</td></tr>
-                                <tr><td>Support</td><td>2</td></tr>
-                                <tr><td>Marketing</td><td>2</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h4 class="font-bold text-lg mt-6 mb-2 text-blue-900">Example 5: SELECT with ORDER BY</h4>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> last_name <span class="sql-kw">FROM</span> employees <span class="sql-kw">ORDER BY</span> salary <span class="sql-kw">DESC</span>;</div>
-                    <p class="font-bold mt-2 mb-2">Output:</p>
-                    
-                    <div class="flex flex-wrap gap-8 items-start mt-2">
-                        <div class="exam-table-container my-0" style="width: auto;">
-                            <table class="exam-table">
-                                <thead><tr><th>last name</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Wilson</td></tr><tr><td>Taylor</td></tr><tr><td>Smith</td></tr><tr><td>Moore</td></tr><tr><td>Miller</td></tr>
-                                    <tr><td>Lee</td></tr><tr><td>Johnson</td></tr><tr><td>Doe</td></tr><tr><td>Davis</td></tr><tr><td>Brown</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="bg-yellow-50 p-4 border border-yellow-200 rounded text-sm max-w-xs font-sans text-slate-800">
-                            <strong class="text-red-600">Note:</strong><br/>
-                            • order by column by using column number also<br/>
-                            ✓ by default order by is ascending order
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Example 4 lo GROUP BY vadi prathi department lo yentha mandi unnaro count chesaru. (PDF lo last output 'Marketing 2' render duplicate ayyindi adi exact ga as it is dinchanu). Example 5 lo salary batti descending order (highest to lowest) lo sort chesaru.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 7 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">7</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">LIMIT & MULTIPLE CONDITIONS</h2>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mt-2 mb-2 text-blue-900">Example 6: SELECT with LIMIT/ROWNUM</h4>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> first_name, last_name <span class="sql-kw">FROM</span> employees <span class="sql-kw">WHERE</span> ROWNUM <= 5;</div>
-                    <p class="font-bold mt-2 mb-2">Output:</p>
-                    <div class="exam-table-container">
-                        <table class="exam-table" style="width: auto;">
-                            <thead><tr><th>first name</th><th>last name</th></tr></thead>
-                            <tbody>
-                                <tr><td>John</td><td>Smith</td></tr>
-                                <tr><td>Jane</td><td>Doe</td></tr>
-                                <tr><td>Alice</td><td>Johnson</td></tr>
-                                <tr><td>Bob</td><td>Brown</td></tr>
-                                <tr><td>Clara</td><td>Wilson</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h4 class="font-bold text-lg mt-6 mb-2 text-blue-900">Example 7: SELECT with multiple conditions in WHERE</h4>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> employees <span class="sql-kw">WHERE</span> salary > 65000 <span class="sql-kw">AND</span> department = 'Sales';</div>
-                    <p class="font-bold mt-2 mb-2">Output:</p>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead><tr><th>employee_id</th><th>first_name</th><th>last_name</th><th>Salary</th><th>department</th></tr></thead>
-                            <tbody>
-                                <tr><td>1006</td><td>David</td><td>Lee</td><td>67000</td><td>Sales</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">ROWNUM vadithe manaki output lo enni rows kavalo anni limit chesukovachu (ikkada <= 5 annaru kabatti top 5 vachayi). Example 7 lo 'AND' vadi rendu conditions (Salary 65k paina undali + Sales dept ayyundali) kalipi apply chesaru.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 8 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">8</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">ARITHMETIC & LOGICAL OPERATIONS</h2>
-                    </div>
-                    
-                    <h3 class="text-lg md:text-xl font-bold mb-3 border-b-2 border-slate-300 pb-1">3.2 Arithmetic and logical operations:</h3>
-                    <p class="mb-4">In SQL, you can perform arithmetic and logical operations to manipulate data and filter records.</p>
-                    <p class="mb-4 font-semibold">Here's a breakdown of both types of operations:</p>
-
-                    <h4 class="font-bold text-lg mb-2 text-blue-900">1. Arithmetic Operations in SQL</h4>
-                    <p class="mb-3">Arithmetic operations allow you to perform calculations on numeric data. The basic arithmetic operators in SQL are:</p>
-                    
-                    <ul class="list-disc list-inside space-y-2 ml-4 font-mono text-slate-700 bg-slate-100 p-4 rounded border border-slate-200 font-sans">
-                        <li><strong class="text-xl text-blue-700">+</strong> (Addition)</li>
-                        <li><strong class="text-xl text-blue-700">-</strong> (Subtraction)</li>
-                        <li><strong class="text-xl text-blue-700">*</strong> (Multiplication)</li>
-                        <li><strong class="text-xl text-blue-700">/</strong> (Division)</li>
-                        <li><strong class="text-xl text-blue-700">%</strong> (Modulo-remainder of division)</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">SQL queries lo manam Maths calculations kuda cheyyachu. Normal math symbols ayina Plus (+), Minus (-), Multiply (*), Divide (/), mariyu Remainder (%) ni databse records meeda direct ga apply chesi calculations perform cheyyachu.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 9 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">9</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">ARITHMETIC EXAMPLES</h2>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mb-2">Example of Arithmetic Operations:</h4>
-                    <p class="mb-3">Let's say we have a table <code class="bg-slate-200 px-1 rounded font-sans text-sm">sales</code> with columns <code class="bg-slate-200 px-1 rounded font-sans text-sm">price</code> and <code class="bg-slate-200 px-1 rounded font-sans text-sm">quantity</code>.</p>
-                    
-                    <div class="flex flex-col md:flex-row gap-6 items-start">
-                        <div class="flex-1 w-full">
-                            <h5 class="font-bold mt-2 text-blue-900">Example:</h5>
-                            <div class="sql-block"><span class="sql-kw">SELECT</span> price, quantity, price * quantity <span class="sql-kw">AS</span> total_sales <span class="sql-kw">FROM</span> sales;</div>
-                            <p class="text-sm italic mb-2 text-slate-600">This query calculates the total sales by multiplying price and quantity.</p>
-                            <p class="font-bold mt-2">Output:</p>
-                            <div class="exam-table-container">
-                                <table class="exam-table">
-                                    <thead><tr><th>PRICE</th><th>QUANTITY</th><th>TOTAL_SALES</th></tr></thead>
-                                    <tbody>
-                                        <tr><td>19.99</td><td>2</td><td>39.98</td></tr>
-                                        <tr><td>5.49</td><td>10</td><td>54.9</td></tr>
-                                        <tr><td>12</td><td>5</td><td>60</td></tr>
-                                        <tr><td>7.25</td><td>8</td><td>58</td></tr>
-                                        <tr><td>49.99</td><td>1</td><td>49.99</td></tr>
-                                        <tr><td>3.5</td><td>20</td><td>70</td></tr>
-                                        <tr><td>15</td><td>3</td><td>45</td></tr>
-                                        <tr><td>100</td><td>1</td><td>100</td></tr>
-                                        <tr><td>9.99</td><td>6</td><td>59.94</td></tr>
-                                        <tr><td>2.99</td><td>15</td><td>44.85</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="w-full md:w-1/3">
-                            <div class="exam-table-container">
-                                <table class="exam-table">
-                                    <thead><tr><th>PRICE</th><th>QUANTITY</th></tr></thead>
-                                    <tbody>
-                                        <tr><td>19.99</td><td>2</td></tr><tr><td>5.49</td><td>10</td></tr><tr><td>12</td><td>5</td></tr>
-                                        <tr><td>7.25</td><td>8</td></tr><tr><td>49.99</td><td>1</td></tr><tr><td>3.5</td><td>20</td></tr>
-                                        <tr><td>15</td><td>3</td></tr><tr><td>100</td><td>1</td></tr><tr><td>9.99</td><td>6</td></tr>
-                                        <tr><td>2.99</td><td>15</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h5 class="font-bold mt-6 text-blue-900">Example 2: Adding a value to a column</h5>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> product_name, price, price + 10 <span class="sql-kw">AS</span> new_price<br/><span class="sql-kw">FROM</span> products;</div>
-                    <p class="text-sm italic mb-4 text-slate-600">This query increases the price by 10 and displays the updated price as new_price.</p>
-
-                    <h5 class="font-bold mt-4 text-blue-900">Example 3: Using division and modulo</h5>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> order_id, quantity, quantity / 2 <span class="sql-kw">AS</span> half_quantity, quantity % 2 <span class="sql-kw">AS</span> remainder<br/><span class="sql-kw">FROM</span> orders;</div>
-                    <p class="text-sm italic text-slate-600">This query calculates half of the quantity and also returns the remainder when quantity is divided by 2.</p>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Ikkada Maths ela apply chesaro clear ga undi. Example 1 lo price * quantity chesi total thecharu. Example 2 lo price ki 10 add chesaru (+). Example 3 lo quantity ni 2 tho divide (/) chesi, remainder (%) ento kuda kanukkunnaru.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 10 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">10</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">LOGICAL OPERATIONS</h2>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mb-2 text-blue-900 border-b border-slate-300 pb-1">2. Logical Operations in SQL</h4>
-                    <p class="mb-4">Logical operations in SQL are used to filter records based on boolean logic. The basic logical operators in SQL are:</p>
-                    
-                    <ul class="space-y-3 font-sans text-slate-700">
-                        <li><strong class="text-red-700 bg-red-50 px-1 rounded border border-red-200">AND:</strong> Combines two conditions; both must be true for the record to be included.</li>
-                        <li><strong class="text-red-700 bg-red-50 px-1 rounded border border-red-200">OR:</strong> Combines two conditions; at least one must be true for the record to be included.</li>
-                        <li><strong class="text-red-700 bg-red-50 px-1 rounded border border-red-200">NOT:</strong> Reverses the truth value of a condition.</li>
-                        <li><strong class="text-red-700 bg-red-50 px-1 rounded border border-red-200">BETWEEN:</strong> Tests if a value is within a range of values.</li>
-                        <li><strong class="text-red-700 bg-red-50 px-1 rounded border border-red-200">IN:</strong> Tests if a value matches any value in a list of values.</li>
-                        <li><strong class="text-red-700 bg-red-50 px-1 rounded border border-red-200">LIKE:</strong> Used for pattern matching in strings.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Logical operators ni WHERE clause tho vaadi records filter cheyadaniki vaduthamu. AND (rendu conditions true avvali), OR (okati true ayina chalu), BETWEEN (range kosam), IN (list kosam), mariyu LIKE (letters pattern checking kosam) vadataru.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 11 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">11</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">LOGICAL EXAMPLES: AND, OR, NOT</h2>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mb-4 underline">Example of Logical Operations:</h4>
-                    
-                    <div class="mb-6">
-                        <p><strong class="text-red-700">AND Operator:</strong> This query returns employees whose salary is greater than 50,000 and who work in the "Sales" department.</p>
-                        <div class="sql-block"><span class="sql-kw">SELECT</span> first_name, last_name, salary, department<br/><span class="sql-kw">FROM</span> employees<br/><span class="sql-kw">WHERE</span> salary > 50000 <span class="sql-op">AND</span> department = 'Sales';</div>
-                    </div>
-
-                    <div class="mb-6">
-                        <p><strong class="text-red-700">OR Operator:</strong> This query returns employees who are in either the "Sales" or "Marketing" departments.</p>
-                        <div class="sql-block"><span class="sql-kw">SELECT</span> first_name, last_name, salary, department<br/><span class="sql-kw">FROM</span> employees<br/><span class="sql-kw">WHERE</span> department = 'Sales' <span class="sql-op">OR</span> department = 'Marketing';</div>
-                    </div>
-
-                    <div>
-                        <p><strong class="text-red-700">NOT Operator:</strong> This query returns employees who do not work in the "HR" department.</p>
-                        <div class="sql-block"><span class="sql-kw">SELECT</span> first_name, last_name, department<br/><span class="sql-kw">FROM</span> employees <span class="sql-kw">WHERE <span class="sql-op">NOT</span></span> department = 'HR';</div>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">AND vadinappudu Salary > 50k undali, alage varu Sales vallai undali - ee rendu rules pass aithene data vastundi. OR vadinappudu Sales ayina parvaledu leda Marketing ayina parvaledu. NOT vadinappudu HR kakunda vere ye dept ayina vastaru.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 12 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">12</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">LOGICAL EXAMPLES: BETWEEN, IN, LIKE</h2>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <p><strong class="text-red-700">BETWEEN Operator:</strong> This query returns employees who are in either the "Sales", "Marketing", or "Finance" departments.<br/>
-                        <span class="italic text-sm text-slate-500 font-sans">(Note: The query below demonstrates BETWEEN for salary, though description mentions departments)</span></p>
-                        <div class="sql-block"><span class="sql-kw">SELECT</span> first_name, last_name, salary<br/><span class="sql-kw">FROM</span> employees<br/><span class="sql-kw">WHERE</span> salary <span class="sql-op">BETWEEN</span> 40000 <span class="sql-op">AND</span> 60000;</div>
-                    </div>
-
-                    <div class="mb-6">
-                        <p><strong class="text-red-700">IN Operator:</strong></p>
-                        <div class="sql-block"><span class="sql-kw">SELECT</span> first_name, last_name, department<br/><span class="sql-kw">FROM</span> employees<br/><span class="sql-kw">WHERE</span> department <span class="sql-op">IN</span> ('Sales', 'Marketing', 'Finance');</div>
-                    </div>
-
-                    <div>
-                        <p><strong class="text-red-700">LIKE Operator (for pattern matching):</strong> This query returns employees whose first name starts with the letter "J". The % symbol is a wildcard that matches zero or more characters.</p>
-                        <div class="sql-block"><span class="sql-kw">SELECT</span> first_name, last_name<br/><span class="sql-kw">FROM</span> employees<br/><span class="sql-kw">WHERE</span> first_name <span class="sql-op">LIKE</span> 'J%';</div>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">BETWEEN vadi 40k nunchi 60k madhya unna salary data thecharu. IN vadi brackets lo icchina depts vallani matrame thecharu. LIKE vadinappudu 'J%' ani iste, 'J' tho perulu modhalayye valla data vastundi.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 13 -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">13</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">COMBINING OPERATIONS & SQL FUNCTIONS</h2>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mb-3 underline">Combining Arithmetic and Logical Operations</h4>
-                    <p class="mb-4">You can combine both arithmetic and logical operations in a single SQL query to perform more complex queries.</p>
-                    
-                    <p><strong class="text-blue-900">Example:</strong><br/>
-                    This query calculates a 10% bonus (salary * 0.1) for employees in the "Sales" department who have a salary greater than 50,000.</p>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> first_name, last_name, salary, (salary * 0.1) <span class="sql-kw">AS</span> bonus<br/><span class="sql-kw">FROM</span> employees<br/><span class="sql-kw">WHERE</span> salary > 50000 <span class="sql-op">AND</span> department = 'Sales';</div>
-
-                    <p class="mt-6"><strong class="text-blue-900">Example 2:</strong></p>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> product_name, price, (price * 0.15) <span class="sql-kw">AS</span> tax<br/><span class="sql-kw">FROM</span> products<br/><span class="sql-kw">WHERE</span> price <span class="sql-op">BETWEEN</span> 50 <span class="sql-op">AND</span> 200 <span class="sql-op">AND</span> price * 0.15 > 10;</div>
-
-                    <div class="mt-8 pt-4 border-t-2 border-slate-300">
-                        <h3 class="text-lg md:text-xl font-bold mb-3">3.3 SQL FUNCTIONS [ DATE, TIME, NUMERIC,STRING Conversion ] :</h3>
-                        <p class="flex items-start gap-2 bg-yellow-50 p-4 border border-yellow-200 rounded font-sans text-slate-800">
-                            <span class="text-orange-500 font-bold">➤</span> 
-                            <span>In DBMS (Database Management System), SQL functions are predefined operations that perform specific tasks on data stored in a database. They help simplify complex queries by allowing you to perform calculations, format data, and manipulate values easily.</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Manam Maths mariyu Logic kalipi okate query lo rayachu. Exam lo adigithe ee kinda unna '10% bonus' example rayandi perfect ga marks padutayi. Last lo SQL functions anevi calculations and formating ni inka easy ga cheyadaniki pre-defined ga untayi ani chepparu.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Footer -->
-    <div class="max-w-4xl mx-auto mt-16 text-center text-slate-500 text-sm mb-10">
-        <p class="flex items-center justify-center gap-2">
-            <i data-lucide="database" class="w-4 h-4"></i> Crafted specifically for Lohitha Sai — Pure HTML Exam ready presentation!
-        </p>
-    </div>
-
-    <!-- Initialize Lucide Icons -->
     <script>
-        lucide.createIcons();
+        // File download chese function
+        function downloadFile() {
+            const codeContent = document.getElementById('codeContent').value;
+            let filenameInput = document.getElementById('filename').value.trim();
+            const statusMessage = document.getElementById('statusMessage');
+
+            // Code emi lekapothe alert ivvandi (UI lo message chupinchadam)
+            if (!codeContent) {
+                showMessage("Dayachesi code ni paste cheyandi!", "text-red-500");
+                return;
+            }
+
+            // Filename lekapothe default ga 'index.html' ani ivvandi
+            if (!filenameInput) {
+                filenameInput = "index";
+            }
+
+            // Extension .html ani confirm cheskondi
+            const finalFilename = filenameInput.endsWith('.html') ? filenameInput : `${filenameInput}.html`;
+
+            try {
+                // Blob create cheyadam (Text ni file data ga marchadam)
+                const blob = new Blob([codeContent], { type: 'text/html;charset=utf-8' });
+                
+                // Temporary URL create cheyadam
+                const url = URL.createObjectURL(blob);
+                
+                // Invisible 'a' tag create chesi download trigger cheyadam
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = finalFilename;
+                
+                document.body.appendChild(a);
+                a.click();
+                
+                // Cleanup
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showMessage(`Success! ${finalFilename} download ayyindi.`, "text-green-600");
+            } catch (error) {
+                console.error("Download fail ayyindi:", error);
+                showMessage("Download fail ayyindi. Malli try cheyandi.", "text-red-500");
+            }
+        }
+
+        // Textarea clear chese function
+        function clearContent() {
+            document.getElementById('codeContent').value = '';
+            document.getElementById('filename').value = '';
+            const statusMsg = document.getElementById('statusMessage');
+            statusMsg.classList.add('hidden');
+        }
+
+        // Message chupinchadaniki helper function
+        function showMessage(text, colorClass) {
+            const statusMsg = document.getElementById('statusMessage');
+            statusMsg.textContent = text;
+            statusMsg.className = `mt-4 text-center text-sm font-medium ${colorClass}`;
+            statusMsg.classList.remove('hidden');
+            
+            // 3 seconds tarvata message hide cheyali
+            setTimeout(() => {
+                statusMsg.classList.add('hidden');
+            }, 3000);
+        }
     </script>
 </body>
 </html>
