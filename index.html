@@ -4,22 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KB HTML</title>
-    <!-- Tailwind CSS for styling -->
+    <title>DBMS Unit-4: Schema Refinement</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Custom CSS to keep HTML clean */
-        .exam-table-container { overflow-x: auto; margin-top: 0.75rem; margin-bottom: 0.75rem; }
+        .exam-table-container { overflow-x: auto; margin: 1rem 0; }
         .exam-table { width: 100%; border-collapse: collapse; border: 1px solid #94a3b8; color: #1e293b; font-size: 0.95rem; }
         .exam-table th { border: 1px solid #94a3b8; padding: 0.5rem 0.75rem; text-align: left; font-weight: bold; background-color: #e2e8f0; }
         .exam-table td { border: 1px solid #94a3b8; padding: 0.375rem 0.75rem; }
         .exam-table tr:nth-child(even) { background-color: #f8fafc; }
         
-        .sql-block { background-color: #1e293b; color: #f1f5f9; font-family: monospace; font-size: 0.95rem; padding: 0.75rem; border-radius: 0.5rem; margin: 0.5rem 0; box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.1); border: 1px solid #334155; white-space: pre-wrap; line-height: 1.5; }
-        .sql-kw { color: #60a5fa; font-weight: bold; } /* SQL Keywords Blue */
-        .sql-op { color: #f87171; font-weight: bold; } /* SQL Operators Red */
+        .code-block { background-color: #f1f5f9; color: #0f172a; font-family: monospace; font-size: 0.95rem; padding: 0.75rem; border-radius: 0.5rem; margin: 0.5rem 0; border: 1px solid #cbd5e1; white-space: pre-wrap; line-height: 1.5; }
         
         .exam-paper { background: white; border-radius: 0.5rem 0.5rem 0 0; border-top: 8px solid #2563eb; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); position: relative; overflow: hidden; width: 100%; }
         .margin-line-1 { position: absolute; top: 0; left: 2rem; width: 1px; height: 100%; background-color: #fecaca; z-index: 0; }
@@ -27,7 +22,8 @@
         .paper-content { position: relative; z-index: 10; padding: 2rem 2.5rem 2.5rem 4rem; font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; color: #0f172a; line-height: 1.6; }
         
         .explanation-box { width: 91.666667%; margin-top: -1rem; position: relative; z-index: 20; background: linear-gradient(to right, #064e3b, #134e4a); border-radius: 0.75rem; padding: 1.25rem 1.5rem; box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.3); border: 1px solid rgba(16, 185, 129, 0.3); }
-        .chk { color: #2563eb; font-weight: bold; } /* Checkmark color */
+        .chk { color: #2563eb; font-weight: bold; }
+        .fd { font-weight: bold; color: #b91c1c; font-family: monospace; }
     </style>
 </head>
 <body class="min-h-screen bg-slate-950 text-slate-200 font-sans p-4 md:p-8">
@@ -35,20 +31,19 @@
     <!-- Header Section -->
     <div class="max-w-5xl mx-auto mb-10 text-center">
         <div class="inline-flex items-center justify-center p-3 bg-emerald-600/20 rounded-full mb-4 ring-1 ring-emerald-500/50">
-            <i data-lucide="graduation-cap" class="w-10 h-10 text-emerald-400"></i>
+            <i data-lucide="book-open" class="w-10 h-10 text-emerald-400"></i>
         </div>
         <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-4 tracking-tight">
-            SQL Nested Queries & Grouping
+            UNIT-IV: Schema Refinement
         </h1>
         <p class="text-slate-400 text-lg max-w-2xl mx-auto">
-            HTML KB VERSION!
+            (Normalization & Functional Dependencies) - KB😘 for Lohitha Sai.
         </p>
     </div>
 
-    <!-- Content Section -->
     <div class="max-w-5xl mx-auto space-y-12">
 
-        <!-- PART 1: Assertions & Triggers -->
+        <!-- PART 1: Intro & Anomalies -->
         <div class="group flex flex-col items-center">
             <div class="exam-paper">
                 <div class="margin-line-1"></div>
@@ -56,20 +51,33 @@
                 <div class="paper-content">
                     <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">1</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">ASSERTIONS & TRIGGERS</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">INTRO TO SCHEMA REFINEMENT & ANOMALIES</h2>
                     </div>
                     
-                    <p class="mb-2">);</p>
-                    <p class="mb-2">dept_id NUMBER PRIMARY KEY,<br/> dept_name VARCHAR2(100)</p>
-                    <div class="sql-block"><span class="sql-kw">CREATE TABLE</span> employees (<br/>);<br/>emp_id NUMBER PRIMARY KEY,<br/>name VARCHAR2(100),<br/>dept_id NUMBER,<br/><span class="sql-kw">CONSTRAINT</span> fk_dept <span class="sql-kw">FOREIGN KEY</span> (dept_id) <span class="sql-kw">REFERENCES</span> departments(dept_id)</div>
-                    
-                    <h4 class="font-bold text-lg mt-4 mb-2 underline">6. Assertions (Note: Not supported in Oracle)</h4>
-                    <p class="mb-2">Oracle does not support CREATE ASSERTION, unlike the SQL standard.</p>
-                    <p class="flex items-start gap-2 mb-2"><span class="font-bold border border-slate-400 px-1 text-xs mt-1">☐</span> <span><strong>Workaround:</strong><br/>Use triggers to simulate assertions.</span></p>
-                    <p class="mb-4">Example: To enforce a constraint across multiple tables, write a BEFORE INSERT or BEFORE UPDATE trigger.</p>
-                    
-                    <p class="font-bold mb-2">Example using Trigger (simulating assertion):</p>
-                    <div class="sql-block"><span class="sql-kw">CREATE OR REPLACE TRIGGER</span> check_total_salary<br/><span class="sql-kw">BEFORE INSERT OR UPDATE ON</span> employees<br/><span class="sql-kw">FOR EACH ROW</span><br/><span class="sql-kw">DECLARE</span><br/>  total_salary NUMBER;<br/><span class="sql-kw">BEGIN</span><br/>  <span class="sql-kw">SELECT SUM</span>(salary) <span class="sql-kw">INTO</span> total_salary <span class="sql-kw">FROM</span> employees;<br/>  <span class="sql-kw">IF</span> total_salary + :NEW.salary > 1000000 <span class="sql-kw">THEN</span><br/>    RAISE_APPLICATION_ERROR(-20001, 'Total salary cannot exceed 1 million');<br/>  <span class="sql-kw">END IF</span>;<br/><span class="sql-kw">END</span>;</div>
+                    <p class="mb-3"><strong>Schema Refinement</strong> is the process of improving a database schema using well-defined techniques. The most effective technique is <strong>decomposition</strong>, where a large table is split into smaller, well-structured tables.</p>
+                    <p class="mb-4"><strong>Normalization</strong> is the process of organizing data by dividing large tables into smaller tables. This ensures the design avoids anomalies, eliminates data redundancy, and maintains integrity.</p>
+
+                    <h3 class="text-lg font-bold text-blue-900 underline mb-2">Redundancy</h3>
+                    <p class="mb-2">Redundancy refers to the repetition or duplication of the same data stored in multiple places. Example:</p>
+                    <div class="exam-table-container">
+                        <table class="exam-table">
+                            <thead><tr><th>StudentID</th><th>StudentName</th><th>Course</th><th>Instructor</th></tr></thead>
+                            <tbody>
+                                <tr><td>101</td><td>Ravi</td><td>DBMS</td><td>Rao</td></tr>
+                                <tr><td>102</td><td>Sita</td><td>DBMS</td><td>Rao</td></tr>
+                                <tr><td>103</td><td>Kumar</td><td>DBMS</td><td>Rao</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mb-6 italic text-sm">Here, the Instructor name "Rao" is repeated for every student enrolled in DBMS. This is data redundancy.</p>
+
+                    <h3 class="text-lg font-bold text-blue-900 underline mb-2">Anomalies</h3>
+                    <p class="mb-3">Anomalies are problems that occur in poorly designed (unnormalized) databases (flat file database).</p>
+                    <ul class="space-y-3 list-decimal list-inside ml-2">
+                        <li><strong>Insertion Anomaly:</strong> Occurs when certain data cannot be inserted without inserting other unnecessary data. <em>(Ex: Cannot add a new course unless a student enrolls in it).</em></li>
+                        <li><strong>Update Anomaly:</strong> Occurs when updating data in multiple rows leads to inconsistency. <em>(Ex: Changing instructor "Rao" to "Sharma" requires multiple updates).</em></li>
+                        <li><strong>Deletion Anomaly:</strong> Occurs when deleting a record unintentionally removes important information. <em>(Ex: Deleting the last student in DBMS deletes the course info too).</em></li>
+                    </ul>
                 </div>
             </div>
             <div class="explanation-box">
@@ -77,13 +85,13 @@
                     <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Ikkada Foreign key ela rayalo previous topic ending icchad. Main ga "Assertions" gurinchi undi. SQL lo conditions pettadaniki Assertion vadataru kani Oracle database danini support cheyadu. Anduke daniki alternative ga (Workaround) "Triggers" vadatharu. Paina unna trigger code total salary 1 million datakunda check chestundi.</p>
+                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Schema Refinement and Normalization ante pedda tables ni chinnaga, neat ga vidagottadam. Okate pedda table vidadithe same data malli malli vastundi (Redundancy). Deeni valla manam kotha data Insert cheyalanna, Update cheyalanna, Delete cheyalanna errors / data loss vastundi. Vatini "Anomalies" antaru.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PART 2: 3.6 Nested Queries -->
+        <!-- PART 2: Decomposition & Purpose -->
         <div class="group flex flex-col items-center">
             <div class="exam-paper">
                 <div class="margin-line-1"></div>
@@ -91,37 +99,53 @@
                 <div class="paper-content">
                     <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">2</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">3.6 NESTED QUERIES</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">DECOMPOSITION & NORMALIZATION</h2>
                     </div>
                     
-                    <h3 class="text-lg md:text-xl font-bold mb-3">3.6 NESTED QUERIES :</h3>
-                    <div class="space-y-2 mb-4">
-                        <p class="flex items-start gap-2"><span class="chk">☑</span> <span>A nested query (also known as a subquery) is a query embedded inside another query.</span></p>
-                        <p class="flex items-start gap-2"><span class="chk">☑</span> <span>It is useful when you need to retrieve data that depends on the result of another query.</span></p>
-                        <p class="flex items-start gap-2"><span class="chk">☑</span> <span>The inner query executes first and its result is used by outer query.</span></p>
-                        <p class="flex items-start gap-2"><span class="chk">☑</span> <span>Nested queries are often used in the WHERE, HAVING, FROM, or SELECT clauses of a SQL statement.</span></p>
+                    <h3 class="text-lg font-bold text-blue-900 mb-2">Solution To Anomalies: Decomposition of Tables</h3>
+                    <p class="mb-3">By decomposing the table into smaller tables, these problems are eliminated. Data is stored only once, ensuring no redundancy and no anomalies.</p>
+                    
+                    <div class="flex gap-4">
+                        <div class="exam-table-container w-1/2">
+                            <table class="exam-table">
+                                <thead><tr><th colspan="2" class="text-center bg-blue-100">Student Table</th></tr><tr><th>StudentID</th><th>StudentName</th></tr></thead>
+                                <tbody><tr><td>101</td><td>Ravi</td></tr><tr><td>102</td><td>Sita</td></tr></tbody>
+                            </table>
+                        </div>
+                        <div class="exam-table-container w-1/2">
+                            <table class="exam-table">
+                                <thead><tr><th colspan="2" class="text-center bg-blue-100">Course Table</th></tr><tr><th>Course</th><th>Instructor</th></tr></thead>
+                                <tbody><tr><td>DBMS</td><td>Rao</td></tr></tbody>
+                            </table>
+                        </div>
                     </div>
 
-                    <h4 class="font-bold underline mb-2">Key characteristics of nested queries:</h4>
-                    <ul class="list-disc list-inside space-y-1 mb-4 ml-4">
-                        <li>Inner query runs before outer query.</li>
-                        <li>Results of inner query for comparison of input data.</li>
-                        <li>Nested queries are particularly useful for breaking down complex operations into smaller manageable parts, making it easy to retrieve specific results from database.</li>
+                    <h4 class="font-bold underline mt-6 mb-2">Purpose of Normalization:</h4>
+                    <ul class="list-disc list-inside space-y-1 mb-4">
+                        <li>Minimize the redundancy in data.</li>
+                        <li>Remove insert, update, and delete anomalies.</li>
+                        <li>Reduce the need to organize the data when it is modified.</li>
                     </ul>
 
-                    <h4 class="font-bold underline mb-2">Advantages of Nested Queries :</h4>
-                    <ul class="list-disc list-inside space-y-1 mb-4 ml-4">
-                        <li>Simplifies complex queries, enhances flexibility and improves readability.</li>
-                        <li>Commonly used for filtering data, performing calculations or joining database datasets indirectly.</li>
-                    </ul>
-
-                    <h4 class="font-bold underline mb-2">Types of Nested Queries:</h4>
-                    <ol class="list-decimal list-inside space-y-2 mb-4 font-medium">
-                        <li><strong class="text-blue-800">Non-Correlated Subqueries:</strong> The inner query can be executed independently of the outer query.</li>
-                        <li><strong class="text-blue-800">Correlated Subqueries:</strong> The inner query depends on values from the outer query. It is evaluated once for each row in the outer query.</li>
-                    </ol>
-
-                    <p class="bg-blue-50 p-3 rounded border-l-4 border-blue-500 font-sans text-sm"><strong class="text-blue-900">Correlated Nested Query:</strong> The inner query depends on the outer query for its execution for each row processed by the outer query. The operators used in correlated nested queries are exists, not exists.</p>
+                    <div class="flex flex-col md:flex-row gap-6 mt-6">
+                        <div class="flex-1 bg-green-50 p-4 rounded border border-green-200">
+                            <h4 class="font-bold text-green-800 mb-2">Advantages:</h4>
+                            <ol class="list-decimal list-inside space-y-1 text-sm text-green-900">
+                                <li>Greater overall database organization.</li>
+                                <li>Unnecessary redundant data reduced.</li>
+                                <li>Data integrity is easily maintained.</li>
+                                <li>Security is easier to maintain or manage.</li>
+                            </ol>
+                        </div>
+                        <div class="flex-1 bg-red-50 p-4 rounded border border-red-200">
+                            <h4 class="font-bold text-red-800 mb-2">Disadvantages:</h4>
+                            <p class="text-sm text-red-900 mb-2">Produces a lot of small tables requiring primary/foreign key relationships.</p>
+                            <ul class="list-disc list-inside text-sm text-red-900 space-y-1">
+                                <li><strong>Performance:</strong> Joins slow processing.</li>
+                                <li><strong>Complex queries:</strong> Developers must code complex queries to merge data.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="explanation-box">
@@ -129,13 +153,13 @@
                     <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Oka query lopala inko query ni rasthe danine "Nested Query" leda "Subquery" antaru. Lopala unna query (inner query) first run ayyi aa output ni bayata unna query (outer query) ki isthundi. Ivi 2 types: 1. Non-Correlated (Inner query independent ga run avtundi), 2. Correlated (Inner query run avvali ante outer query meeda depend avvali).</p>
+                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Aa anomalies ni solve cheyyali ante data ni multiple tables loki decompose (divide) cheyyali. Ikkada Student table, Course table ga vidagottaru. Deeni valla data neat ga untundi (Advantage), kani output thevalante tables join cheyyali kabatti speed thagguthundi and queries hard avthayi (Disadvantage).</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PART 3: Structure & Set Operators -->
+        <!-- PART 3: Functional Dependency & Axioms -->
         <div class="group flex flex-col items-center">
             <div class="exam-paper">
                 <div class="margin-line-1"></div>
@@ -143,22 +167,39 @@
                 <div class="paper-content">
                     <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">3</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">STRUCTURE & SET OPERATORS</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">FUNCTIONAL DEPENDENCY & AXIOMS</h2>
                     </div>
                     
-                    <h4 class="font-bold mb-2">Basic Structure of a Nested Query:</h4>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> column1, column2<br/><span class="sql-kw">FROM</span> table1<br/><span class="sql-kw">WHERE</span> column1 = (<span class="sql-kw">SELECT</span> column1 <span class="sql-kw">FROM</span> table2 <span class="sql-kw">WHERE</span> condition);</div>
+                    <h3 class="text-lg font-bold text-blue-900 mb-2">Concept of Functional Dependency:</h3>
+                    <p class="mb-2">Functional Dependencies are fundamental to the process of Normalization. A functional dependency is a <em>"type of constraint that is a generalization of the notation of the key"</em>.</p>
+                    <p class="mb-4">It describes the <strong>relationship between attributes (columns)</strong> in a table. It is represented by an arrow sign <span class="font-bold text-xl">(→)</span>.</p>
                     
-                    <p class="mb-4 text-sm mt-3">Set comparison operators allow you to compare a value with a set of values returned by a subquery. These operators are particularly useful when you need to check for membership in a set or compare values against a set.</p>
+                    <div class="bg-yellow-50 border border-yellow-200 p-4 rounded mb-6 font-sans">
+                        <p class="font-bold text-lg text-slate-800 mb-2">FD : X → Y</p>
+                        <p class="text-sm text-slate-700">Means that the values of Y are determined by the values of X. Two tuples sharing the same values of X will necessarily have the same values of Y. An attribute on left hand side is known as <strong>"Determinant"</strong> (Here X is a Determinant).</p>
+                    </div>
 
-                    <h4 class="font-bold underline mb-3 text-blue-900">Set Comparison Operators:</h4>
-                    <ul class="space-y-3 font-sans text-slate-800">
-                        <li><strong class="text-red-600 bg-red-50 px-1 rounded border border-red-200">= ANY / = SOME:</strong> Matches if the value is equal to any of the values returned by the subquery.</li>
-                        <li><strong class="text-red-600 bg-red-50 px-1 rounded border border-red-200">IN:</strong> Matches if the value is contained in the set returned by the subquery.</li>
-                        <li><strong class="text-red-600 bg-red-50 px-1 rounded border border-red-200">= ALL:</strong> Matches if the value is equal to all the values returned by the subquery.</li>
-                        <li><strong class="text-red-600 bg-red-50 px-1 rounded border border-red-200">NOT IN:</strong> Matches if the value is not contained in the set returned by the subquery.</li>
-                        <li><strong class="text-red-600 bg-red-50 px-1 rounded border border-red-200">> ANY, < ANY, >= ANY, <=ANY:</strong> Matches if the value is greater than, less than, etc., any of the values returned by the subquery.</li>
-                    </ul>
+                    <h3 class="text-lg font-bold text-blue-900 mb-2">Armstrong Axioms (Inference Rules):</h3>
+                    <p class="mb-4 text-sm">Armstrong axioms define the set of rules for reasoning about functional dependencies and to infer all the functional dependencies on a relational database.</p>
+
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="flex-1">
+                            <h4 class="font-bold underline mb-2">Primary axioms:</h4>
+                            <ul class="space-y-2 font-mono text-sm bg-slate-100 p-3 rounded border border-slate-200">
+                                <li>1. <span class="font-bold text-blue-700">Reflexivity:</span> If Y &subseteq; X, then X → Y</li>
+                                <li>2. <span class="font-bold text-blue-700">Augmentation:</span> If X → Y, then XZ → YZ</li>
+                                <li>3. <span class="font-bold text-blue-700">Transitivity:</span> If X → Y and Y → Z, then X → Z</li>
+                            </ul>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold underline mb-2">Secondary / Derived axioms:</h4>
+                            <ul class="space-y-2 font-mono text-sm bg-slate-100 p-3 rounded border border-slate-200">
+                                <li>4. <span class="font-bold text-blue-700">Union:</span> If X → Y and X → Z, then X → YZ</li>
+                                <li>5. <span class="font-bold text-blue-700">Decomposition:</span> If X → YZ, then X → Y and X → Z</li>
+                                <li>6. <span class="font-bold text-blue-700">Pseudo-transitivity:</span> If X → Y and WY → Z, then WX → Z</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="explanation-box">
@@ -166,13 +207,13 @@
                     <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Basic syntax lo WHERE tarvata malli inko (SELECT...) query rayadam chusam. Alanti subqueries tho check cheyadaniki Set Operators vadataru. ANY ante edaina okati match avvali, ALL ante anni match avvali, IN ante aa list lo undali, NOT IN ante list lo undakudadhu ani artham.</p>
+                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Functional Dependency (FD) ante oka column (X) ni base cheskuni inko column (Y) data thelusukovadam. X ni 'Determinant' antaru. Armstrong axioms anevi FDs ni derive cheyadaniki vaduthamu. (Ex: Transitivity ante X nunchi Y vachi, Y nunchi Z vasthe.. direct ga X nunchi Z vastundi ani artham).</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PART 4: Tables Reference -->
+        <!-- PART 4: Attribute Closure & Types of FDs -->
         <div class="group flex flex-col items-center">
             <div class="exam-paper">
                 <div class="margin-line-1"></div>
@@ -180,70 +221,35 @@
                 <div class="paper-content">
                     <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">4</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">REFERENCE TABLES</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">CLOSURE & TYPES OF FDs</h2>
                     </div>
-                    
-                    <p class="font-bold mb-4">Let us consider sailors, reserves and boats tables</p>
-                    
-                    <div class="flex flex-col lg:flex-row gap-6">
-                        <div class="flex-1">
-                            <h4 class="font-bold text-blue-900 mb-1">Table1: sailors</h4>
-                            <div class="exam-table-container">
-                                <table class="exam-table text-sm">
-                                    <thead><tr><th>SID</th><th>SNAME</th><th>RATING</th><th>AGE</th></tr></thead>
-                                    <tbody>
-                                        <tr><td>22</td><td>Dustin</td><td>7</td><td>45</td></tr>
-                                        <tr><td>29</td><td>Brutus</td><td>1</td><td>33</td></tr>
-                                        <tr><td>31</td><td>Lubber</td><td>8</td><td>55</td></tr>
-                                        <tr><td>32</td><td>Andy</td><td>8</td><td>25</td></tr>
-                                        <tr><td>58</td><td>Rusty</td><td>10</td><td>35</td></tr>
-                                        <tr><td>64</td><td>Horatio</td><td>7</td><td>35</td></tr>
-                                        <tr><td>71</td><td>Zorba</td><td>10</td><td>16</td></tr>
-                                        <tr><td>74</td><td>Horatio</td><td>9</td><td>40</td></tr>
-                                        <tr><td>85</td><td>Art</td><td>3</td><td>25</td></tr>
-                                        <tr><td>95</td><td>Bob</td><td>3</td><td>63</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
 
-                        <div class="flex-1 flex flex-col gap-4">
-                            <div>
-                                <h4 class="font-bold text-blue-900 mb-1">Table2: Boats</h4>
-                                <div class="exam-table-container">
-                                    <table class="exam-table text-sm">
-                                        <thead><tr><th>BID</th><th>BNAME</th><th>COLOR</th></tr></thead>
-                                        <tbody>
-                                            <tr><td>101</td><td>Interlake</td><td>blue</td></tr>
-                                            <tr><td>102</td><td>Interlake</td><td>red</td></tr>
-                                            <tr><td>103</td><td>Clipper</td><td>green</td></tr>
-                                            <tr><td>104</td><td>Marine</td><td>red</td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-blue-900 mb-1">Table3: Reserves</h4>
-                                <div class="exam-table-container">
-                                    <table class="exam-table text-sm">
-                                        <thead><tr><th>SID</th><th>BID</th><th>DAY</th></tr></thead>
-                                        <tbody>
-                                            <tr><td>22</td><td>101</td><td>10-Oct-98</td></tr>
-                                            <tr><td>22</td><td>102</td><td>10-Oct-98</td></tr>
-                                            <tr><td>22</td><td>103</td><td>08-Oct-98</td></tr>
-                                            <tr><td>22</td><td>104</td><td>07-Oct-98</td></tr>
-                                            <tr><td>31</td><td>102</td><td>10-Nov-98</td></tr>
-                                            <tr><td>31</td><td>103</td><td>06-Nov-98</td></tr>
-                                            <tr><td>31</td><td>104</td><td>12-Nov-98</td></tr>
-                                            <tr><td>64</td><td>101</td><td>05-Sep-98</td></tr>
-                                            <tr><td>64</td><td>102</td><td>08-Sep-98</td></tr>
-                                            <tr><td>74</td><td>103</td><td>08-Sep-98</td></tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h3 class="text-lg font-bold text-blue-900 mb-2">Closure of a Set of Attributes (F⁺):</h3>
+                    <p class="mb-4 text-sm">Attribute closure of an attribute set can be defined as the set of attributes which can be functionally determined from it. Written as X⁺.</p>
+                    
+                    <h3 class="text-lg font-bold text-blue-900 mb-3 underline">Types of functional dependencies:</h3>
+                    <ul class="space-y-4 text-sm text-slate-800 font-sans">
+                        <li>
+                            <span class="font-bold text-red-700 bg-red-50 px-1 rounded border border-red-200">1. Fully Functional Dependency:</span>
+                            If the determinant of the FD is either candidate key or super key. (Y cannot determine any subset of X). Ex: ABC → D, but neither A, B, C, AB, BC, AC determines D.
+                        </li>
+                        <li>
+                            <span class="font-bold text-red-700 bg-red-50 px-1 rounded border border-red-200">2. Partial Functional Dependency:</span>
+                            If a non-prime attribute is getting derived by only a <strong>part</strong> of the candidate key. (Ex: If key is AB, and B → C, then C is partially dependent).
+                        </li>
+                        <li>
+                            <span class="font-bold text-red-700 bg-red-50 px-1 rounded border border-red-200">3. Transitive Functional Dependency:</span>
+                            If a non-prime attribute is getting derived by another non-prime attribute. i.e., X → Y, and Y → Z then X → Z holds.
+                        </li>
+                        <li>
+                            <span class="font-bold text-red-700 bg-red-50 px-1 rounded border border-red-200">4. Trivial Functional Dependency:</span>
+                            Related to Reflexive rule. If Y is subset of X then X → Y holds. Ex: <span class="fd">ABC → BC</span>.
+                        </li>
+                        <li>
+                            <span class="font-bold text-red-700 bg-red-50 px-1 rounded border border-red-200">5. Multi-Valued Dependency:</span>
+                            For each value of X, there is a set of values Y and set of values Z, and Y is independent of Z. Denoted as <span class="fd">X ↠ Y / Z</span>.
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="explanation-box">
@@ -251,13 +257,13 @@
                     <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Ivi mundu mundu vache examples kosam reference tables. Sailors (Navikulu), Boats (Padavalu), mariyu yee navikudu yee padavanu yee rojuna reserve cheskunnadu ani cheppe Reserves table. Ivi chusthu next examples chudali.</p>
+                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Attribute closure (+) ante icchina FDs nunchi oka attribute entha data ni derive cheyagalado kanukkodam. Types lo: Partial ante sagam key meedane depend avvadam. Transitive ante oka non-key inko non-key meeda depend avvadam. Trivial ante (AB -> B) lanti simple vi. Ivi exam lo 5 marks ki adugutaru.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PART 5: ALL & ANY -->
+        <!-- PART 5: Keys in DBMS -->
         <div class="group flex flex-col items-center">
             <div class="exam-paper">
                 <div class="margin-line-1"></div>
@@ -265,39 +271,26 @@
                 <div class="paper-content">
                     <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">5</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">EXAMPLES: ALL & ANY</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">KEYS IN DBMS</h2>
                     </div>
                     
-                    <div class="mb-8">
-                        <h4 class="font-bold text-lg mb-2 text-blue-900 underline">ALL:</h4>
-                        <p class="flex items-start gap-2 mb-2"><span class="chk">☑</span> <span>The ALL operator returns true if all of the subquery values meet the conditions.</span></p>
-                        <p class="font-bold">Example:</p>
-                        <div class="sql-block"><span class="sql-kw">select</span> s.sid <span class="sql-kw">from</span> sailors s <span class="sql-kw">where</span> s.rating >=<span class="sql-op">ALL</span> (<span class="sql-kw">select</span> s2.rating <span class="sql-kw">from</span> sailors s2);</div>
-                        <p class="font-bold mt-2">output:</p>
-                        <div class="exam-table-container">
-                            <table class="exam-table" style="width: auto;">
-                                <thead><tr><th>SID</th></tr></thead>
-                                <tbody><tr><td>58</td></tr><tr><td>71</td></tr></tbody>
-                            </table>
-                        </div>
+                    <p class="mb-4"><strong>Prime and non-prime attributes:</strong> Attributes which are parts of any candidate key of relation are called as prime attribute, others are non-prime attributes.</p>
+                    
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded mb-4">
+                        <h4 class="font-bold text-blue-900 mb-2">Candidate Key:</h4>
+                        <p class="text-sm mb-2">Candidate Key is minimal set of attributes of a relation which can be used to identify a tuple uniquely.</p>
+                        <p class="text-sm font-mono text-slate-600">Consider: student(sno, sname, sphone, age)<br/>we can take sno as candidate key.</p>
+                        <p class="text-sm mt-2"><strong>Types:</strong> 1. Simple (one attribute), 2. Composite (multiple attributes).</p>
                     </div>
 
-                    <div>
-                        <h4 class="font-bold text-lg mb-2 text-blue-900 underline">ANY:</h4>
-                        <p class="flex items-start gap-2 mb-2"><span class="chk">✓</span> <span>The ANY operator returns true if any of the subquery values meet the conditions.</span></p>
-                        <p class="font-bold">Example:</p>
-                        <div class="sql-block"><span class="sql-kw">select</span> s.sid <span class="sql-kw">from</span> sailors s <span class="sql-kw">where</span> s.rating > <span class="sql-op">ANY</span><br/>(<span class="sql-kw">select</span> s2.rating <span class="sql-kw">from</span> sailors s2 <span class="sql-kw">where</span> s2.sname <span class="sql-kw">like</span> 'B%b');</div>
-                        <p class="font-bold mt-2">Output:</p>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="exam-table-container my-0" style="width: auto;">
-                                <table class="exam-table">
-                                    <thead><tr><th>SID</th></tr></thead>
-                                    <tbody>
-                                        <tr><td>58</td></tr><tr><td>71</td></tr><tr><td>74</td></tr><tr><td>31</td></tr><tr><td>32</td></tr><tr><td>64</td></tr><tr><td>22</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded">
+                        <h4 class="font-bold text-blue-900 mb-2">Super Key:</h4>
+                        <p class="text-sm mb-2">Super Key is set of attributes of a relation which can be used to identify a tuple uniquely.</p>
+                        <ul class="list-disc list-inside text-sm mb-2 text-slate-700 ml-2">
+                            <li>Adding zero or more attributes to candidate key generates super key.</li>
+                            <li>A candidate key is a super key but vice versa is not true.</li>
+                        </ul>
+                        <p class="text-sm font-mono text-slate-600">Consider: student(sno, sname, sphone, age)<br/>we can take sno, (sno, sname) as super key</p>
                     </div>
                 </div>
             </div>
@@ -306,13 +299,13 @@
                     <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">ALL example lo subquery nunchi vachina anni ratings kante evari rating ayithe greater than or equal (>=) undo valla SID matrame vastundi (Highest rating unna vallu). ANY example lo 'B' tho start ayyi 'b' tho end ayye valla (ex: Bob) rating kante evaridi ekkuva undo valla id's vastayi.</p>
+                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Table lo data ni uniquely identify chese vatini Keys antaru. Candidate key ante anni keys kante chinnadi (minimal). Super key ante Candidate key ki extra attributes (sname lanti) add chesina vachedi. Key lo part ayye attributes ni Prime antaru, migatha vatini Non-Prime antaru.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PART 6: IN, NOT IN, EXISTS, NOT EXISTS -->
+        <!-- PART 6: Operations: Finding Candidate Keys -->
         <div class="group flex flex-col items-center">
             <div class="exam-paper">
                 <div class="margin-line-1"></div>
@@ -320,39 +313,42 @@
                 <div class="paper-content">
                     <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">6</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">IN, NOT IN & EXISTS</h2>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h4 class="font-bold text-lg mb-1 text-blue-900 underline">IN:</h4>
-                        <p class="flex items-start gap-2 mb-2"><span class="chk">✓</span> <span>The outer query retrieves data only for the values that match those written by the inner query.</span></p>
-                        <div class="sql-block"><span class="sql-kw">select</span> s.sname <span class="sql-kw">from</span> sailors s <span class="sql-kw">where</span> s.sid <span class="sql-op">IN</span> (<span class="sql-kw">select</span> r.sid <span class="sql-kw">from</span> reserves r <span class="sql-kw">where</span> r.bid = 103);</div>
-                        <p class="font-bold mt-1">output:</p>
-                        <div class="exam-table-container mt-1"><table class="exam-table" style="width:auto;"><thead><tr><th>SNAME</th></tr></thead><tbody><tr><td>Dustin</td></tr><tr><td>Lubber</td></tr><tr><td>Horatio</td></tr></tbody></table></div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">FINDING CANDIDATE KEYS</h2>
                     </div>
 
-                    <div class="mb-6">
-                        <h4 class="font-bold text-lg mb-1 text-blue-900 underline">NOT IN:</h4>
-                        <p class="flex items-start gap-2 mb-2"><span class="chk">✓</span> <span>The outer query retrieves the data only for the values that are not present in the inner query result</span></p>
-                        <div class="sql-block"><span class="sql-kw">select</span> s.sname <span class="sql-kw">from</span> sailors s <span class="sql-kw">where</span> s.sid <span class="sql-op">NOT IN</span> (<span class="sql-kw">select</span> r.sid <span class="sql-kw">from</span> reserves r <span class="sql-kw">where</span> r.bid = 103);</div>
-                        <p class="font-bold mt-1">output:</p>
-                        <div class="flex flex-wrap gap-4 mt-1"><div class="exam-table-container my-0" style="width:auto;"><table class="exam-table"><thead><tr><th>SNAME</th></tr></thead><tbody><tr><td>Brutus</td></tr><tr><td>Andy</td></tr><tr><td>Rusty</td></tr><tr><td>Horatio</td></tr><tr><td>Zorba</td></tr><tr><td>Art</td></tr><tr><td>Bob</td></tr></tbody></table></div></div>
-                    </div>
+                    <p class="mb-4">Using closure sets to identify keys from Functional Dependencies.</p>
 
                     <div class="mb-6">
-                        <h4 class="font-bold text-lg mb-1 text-blue-900 underline">EXIST:</h4>
-                        <p class="flex items-start gap-2 mb-2"><span class="chk">✔</span> <span>The exit query tests whether a subquery succeeds at least one row.</span></p>
-                        <div class="sql-block"><span class="sql-kw">select</span> s.sname <span class="sql-kw">from</span> sailors s <span class="sql-kw">where</span> <span class="sql-op">EXISTS</span> (<span class="sql-kw">select</span> * <span class="sql-kw">from</span> reserves r <span class="sql-kw">where</span> r.bid = 103 <span class="sql-kw">and</span> r.sid=s.sid);</div>
-                        <p class="font-bold mt-1">output:</p>
-                        <div class="exam-table-container mt-1"><table class="exam-table" style="width:auto;"><thead><tr><th>SNAME</th></tr></thead><tbody><tr><td>Dustin</td></tr><tr><td>Lubber</td></tr><tr><td>Horatio</td></tr></tbody></table></div>
+                        <p class="font-bold text-blue-900">Example 1: Find candidate keys for R(ABCD) having FDs AB → CD, C → A, D → A.</p>
+                        <div class="code-block text-sm">
+Sol: From the given FD's, the attribute B is key attribute because it is not in RHS of functional dependency.
+B⁺ = B (not a candidate key, find the combinations of B)
+
+AB⁺ = ABCD (∵ AB→CD)
+BC⁺ = BCAD (∵ C→A, AB→CD)
+BD⁺ = BDA  (∵ D→A)
+
+From the above attributes AB and BC determines all attributes.
+Result: AB, BC are candidate keys.
+                        </div>
                     </div>
 
-                    <div class="mb-6">
-                        <h4 class="font-bold text-lg mb-1 text-blue-900 underline">NOT EXIST:</h4>
-                        <p class="flex items-start gap-2 mb-2"><span class="chk">☑</span> <span>It checks if the subquery returns no rows.</span></p>
-                        <div class="sql-block"><span class="sql-kw">select</span> s.sname <span class="sql-kw">from</span> sailors s <span class="sql-kw">where <span class="sql-op">NOT EXISTS</span></span><br/>(<span class="sql-kw">select</span> * <span class="sql-kw">from</span> reserves r <span class="sql-kw">where</span> r.bid = 103 <span class="sql-kw">and</span> r.sid=s.sid);</div>
-                        <p class="font-bold mt-1">Output:</p>
-                        <div class="flex flex-wrap gap-4 mt-1"><div class="exam-table-container my-0" style="width:auto;"><table class="exam-table"><thead><tr><th>SNAME</th></tr></thead><tbody><tr><td>Brutus</td></tr><tr><td>Andy</td></tr><tr><td>Rusty</td></tr><tr><td>Horatio</td></tr><tr><td>Zorba</td></tr><tr><td>Art</td></tr><tr><td>Bob</td></tr></tbody></table></div></div>
+                    <div>
+                        <p class="font-bold text-blue-900">Example 2: Find candidate keys for R(ABCDE) having FDs A → BC, CD → E, B → D, E → A.</p>
+                        <div class="code-block text-sm">
+Sol: No attribute is strictly a key attribute because all are in RHS of FD. So check all LHS attributes.
+A⁺ = ABCDE (A→BC, B→D, CD→E)
+B⁺ = BD
+E⁺ = EABCD (E→A, A→BC, B→D)
+C⁺ = C
+D⁺ = D
+
+CD⁺ = CDEAB (CD→E, E→A, A→BC)
+BC⁺ = BCDEA (B→D, CD→E, E→A)
+
+From the above, A, E, CD and BC determines all attributes.
+Result: A, E, CD, BC are candidate keys.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -361,13 +357,13 @@
                     <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">IN vadi boat id 103 unna sailors perlu thecharu. NOT IN vadithe boat id 103 leni varu (migatha varu) vastaru. EXISTS kuda same IN lagane pani chestundi kani adi data unte TRUE istundi. NOT EXISTS ante data lekapothe TRUE isthundi.</p>
+                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Candidate keys ela kanukkovaalo ee examples lo undi. Rule 1: Right Hand Side (RHS) lo leni attributes ni kachitanga key lo undali. Vati closure (+) kanukkunte anni columns vasthe ade key. Raka pothe daniki inko column add chesi malli kanukovali.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PART 7: 3.7 Sub Queries Intro -->
+        <!-- PART 7: Normal Forms Intro & 1NF/2NF -->
         <div class="group flex flex-col items-center">
             <div class="exam-paper">
                 <div class="margin-line-1"></div>
@@ -375,28 +371,27 @@
                 <div class="paper-content">
                     <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">7</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">3.7 SUB QUERIES</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">NORMAL FORMS (1NF & 2NF)</h2>
                     </div>
                     
-                    <div class="bg-blue-50 p-4 border-l-4 border-blue-500 mb-6 font-sans text-sm">
-                        <p class="flex items-start gap-2 mb-2"><span class="chk">☑</span> <span>Nested queries (subqueries) are powerful SQL constructs that allow for complex filtering, aggregation, and conditional logic.</span></p>
-                        <p class="flex items-start gap-2 mb-2"><span class="chk">☑</span> <span>These queries can be either non-correlated or correlated, and they can also use set comparison operators to compare values against a set returned by a sub-query.</span></p>
-                        <p class="flex items-start gap-2"><span class="chk">☑</span> <span>The examples above demonstrate various practical applications of nested queries, including filtering data, performing calculations, and checking complex conditions.</span></p>
-                    </div>
+                    <p class="mb-4 text-sm font-bold text-blue-900 border-b border-slate-200 pb-1">Points to Remember: 1NF is mandatory, 2NF deals with partial dependencies, 3NF deals with transitive dependencies.</p>
 
-                    <h3 class="text-lg md:text-xl font-bold mb-3 underline">3.7 Sub Queries</h3>
-                    <p class="mb-2">A subquery or inner query or nested query is a query within another SQL query and embedded within the WHERE clause.</p>
-                    <p class="mb-2">Subquery is used to return the data that will be used in the main query as a condition to further restrict the data to be retrieved.</p>
-                    <p class="mb-2">Subqueries can be used with the SELECT, INSERT, UPDATE and DELETE statements along with the operators, =, >=, <=, <, >, IN, BETWEEN, etc</p>
-                    <p class="mb-4">Subqueries are a powerful feature in SQL that can simplify complex queries by breaking them into smaller, more manageable pieces.</p>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">First Normal Form (1NF):</h3>
+                    <ul class="list-decimal list-inside text-sm mb-4 text-slate-800 space-y-1 ml-2">
+                        <li>Each attribute name must be unique.</li>
+                        <li><strong>Each attribute value must be single or atomic (Single Valued).</strong></li>
+                        <li>There are no repeating groups.</li>
+                    </ul>
 
-                    <h4 class="font-bold text-blue-900 mb-2">What is nested sub-query?</h4>
-                    <p class="mb-2"><strong>Ans:</strong> sub-query inside another query is called nested sub-query.</p>
-                    <p class="mb-2">Example: Find the names of sailors who have reserved a red boat.</p>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2 border-t border-slate-200 pt-4">Second Normal Form (2NF):</h3>
+                    <p class="text-sm mb-2">A relation is in 2NF if it is already in 1NF and it has <strong>no Partial Dependency</strong> (i.e., no non-prime attribute is dependent on only a part of the candidate key).</p>
                     
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> sname <span class="sql-kw">FROM</span> Sailors<br/><span class="sql-kw">WHERE</span> sid <span class="sql-op">IN</span> (<br/>  <span class="sql-kw">SELECT</span> sid<br/>  <span class="sql-kw">FROM</span> Reserves<br/>  <span class="sql-kw">WHERE</span> bid <span class="sql-op">IN</span> (<br/>    <span class="sql-kw">SELECT</span> bid<br/>    <span class="sql-kw">FROM</span> Boats<br/>    <span class="sql-kw">WHERE</span> color = 'red'<br/>  )<br/>);</div>
-                    <p class="font-bold mt-2">Output:</p>
-                    <div class="exam-table-container mt-1"><table class="exam-table" style="width:auto;"><thead><tr><th>SNAME</th></tr></thead><tbody><tr><td>Dustin</td></tr><tr><td>Lubber</td></tr><tr><td>Horatio</td></tr></tbody></table></div>
+                    <div class="bg-blue-50 p-4 border border-blue-200 rounded mt-4 font-sans text-sm">
+                        <p class="font-bold text-blue-900 mb-1">Q1: Given R(ABCD) and F:{AB → C, B → D}. Decompose into 2NF.</p>
+                        <p><strong>Step 1:</strong> Find Primary Key. B is not on RHS, so necessary. AB⁺ = ABCD. Primary key = AB.</p>
+                        <p><strong>Step 2:</strong> Check 2NF rules. B → D means D (non-prime) is derived by B (part of key AB). This is Partial Dependency.</p>
+                        <p><strong>Step 3:</strong> Decompose table. R1(ABC) with key AB, and R2(BD) with key B.</p>
+                    </div>
                 </div>
             </div>
             <div class="explanation-box">
@@ -404,13 +399,13 @@
                     <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Sub query ni inner query leda nested query ani kuda antaru. Okadani lopala inkomati ravadam annamata. Ee example lo chuste "red boat evaru theeskunnaru" ani thelusukovadaniki, first Boats table nunchi red boat id thenchukunnam (Subquery 1). Aa id tho Reserves table nunchi sailor id thecham (Subquery 2). Aa sailor id theeskelli main query lo Sailors table lo petti perlu thecham. Idi Multi-level subquery best example.</p>
+                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">1NF lo okko box lo okate value (Atomic) undali (Ex: Colors box lo "Red, Green" rendu undakudadhu). 2NF loki ravali ante 1NF lo undali, mariyu Partial Dependency undakudadhu. Ante Candidate key lo unna sagam part meedane vere values depend avvakudadhu.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PART 8: Sub Query Techniques & EMP Table -->
+        <!-- PART 8: Third Normal Form (3NF) -->
         <div class="group flex flex-col items-center">
             <div class="exam-paper">
                 <div class="margin-line-1"></div>
@@ -418,38 +413,22 @@
                 <div class="paper-content">
                     <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">8</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">SUB QUERY TYPES & EMP TABLE</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">THIRD NORMAL FORM (3NF)</h2>
                     </div>
                     
-                    <p class="mb-4 text-sm font-sans text-slate-700">By using techniques like set membership, set comparison, tests for empty relations, and testing for the absence of duplicate tuples, you can write more expressive and flexible SQL queries.</p>
-                    
-                    <ul class="list-disc list-inside space-y-2 mb-6 ml-2 font-sans text-slate-800 text-sm">
-                        <li><strong>Set Membership:</strong> Use IN to filter results based on a set of values.</li>
-                        <li><strong>Set Comparison:</strong> Use operators like ALL, ANY, and comparison operators to compare values with the result set of a subquery.</li>
-                        <li><strong>Test for Empty Relations:</strong> Use EXISTS and NOT EXISTS to check for the presence or absence of rows in a subquery.</li>
-                        <li><strong>Test for Absence of Duplicate Tuples:</strong> Use DISTINCT or correlated subqueries to ensure no duplicates in the results.</li>
+                    <p class="mb-2">A database is in third normal form if it satisfies the following conditions:</p>
+                    <ul class="list-disc list-inside text-sm mb-4 text-slate-800 space-y-1 ml-2 font-bold">
+                        <li>It is in 2NF.</li>
+                        <li>There is no transitive functional dependency.</li>
                     </ul>
-                    <p class="mb-6 text-sm italic">These techniques are essential for working with relational databases, enabling you to build more complex and efficient SQL queries.</p>
+                    <p class="text-sm text-slate-700 mb-4 bg-slate-50 p-3 border border-slate-200 rounded">By transitive functional dependency, we mean: A is functionally dependent on B, and B is functionally dependent on C. In this case, C is transitively dependent on A via B. (<strong>A non-key attribute is depending on a non-key attribute</strong>).</p>
 
-                    <h4 class="font-bold text-lg mb-2 text-blue-900 underline">Types of Sub Queries:</h4>
-                    <ol class="list-decimal list-inside space-y-2 mb-6 font-medium">
-                        <li><strong>Single-row Subquery:</strong> Returns one row</li>
-                        <li><strong>Multi-row Subquery:</strong> Returns multiple rows</li>
-                        <li><strong>Correlated Subquery:</strong> Uses values from the outer query</li>
-                    </ol>
-
-                    <h4 class="font-bold mb-2">Reference EMP Table:</h4>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead><tr><th>emp_id</th><th>Name</th><th>department_id</th><th>salary</th><th>manager_id</th></tr></thead>
-                            <tbody>
-                                <tr><td>1</td><td>Alice</td><td>10</td><td>6000</td><td>3</td></tr>
-                                <tr><td>2</td><td>Bob</td><td>20</td><td>7000</td><td>4</td></tr>
-                                <tr><td>3</td><td>Charlie</td><td>10</td><td>8000</td><td>NULL</td></tr>
-                                <tr><td>4</td><td>David</td><td>20</td><td>9000</td><td>NULL</td></tr>
-                                <tr><td>5</td><td>Emma</td><td>10</td><td>7500</td><td>3</td></tr>
-                            </tbody>
-                        </table>
+                    <div class="bg-blue-50 p-4 border border-blue-200 rounded mt-4 font-sans text-sm">
+                        <p class="font-bold text-blue-900 mb-1">Q1: Given R(ABCDE) and F:{AB → C, B → D, D → E}. Decompose into 3NF.</p>
+                        <p><strong>Step 1:</strong> Find Primary Key. AB⁺ = ABCDE. Primary key = AB.</p>
+                        <p><strong>Step 2:</strong> Check 2NF. B → D is a partial dependency. Decompose to ABC and BDE. Now table is in 2NF.</p>
+                        <p><strong>Step 3:</strong> Check 3NF. In BDE, D → E exists. D is non-key, E is non-key. This is Transitive dependency.</p>
+                        <p><strong>Step 4:</strong> Decompose to 3NF: R1(ABC), R2(BD), R3(DE).</p>
                     </div>
                 </div>
             </div>
@@ -458,13 +437,13 @@
                     <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Sub queries lo Set methods (IN, ANY, EXISTS) vadatam valana complex problems solve cheyyachu. Sub queries anevi 3 types: Single row (Output okate row isthundi), Multi-row (Ekkuva rows isthundi), Correlated (Outer query nunchi values theeskuni run avtundi). Kinda unna 'emp' table ni base cheskuni next examples untayi.</p>
+                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">3NF loki ravali ante table 2NF lo undali, mariyu Transitive Dependency undakudadhu. Ante oka "Non-key attribute inko Non-key attribute ni determine cheyyakudadhu". Ala unte vatini kotha table ga (R3: DE laga) vidagotteyali.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PART 9: Sub Queries Examples -->
+        <!-- PART 9: Boyce-Codd Normal Form (BCNF) -->
         <div class="group flex flex-col items-center">
             <div class="exam-paper">
                 <div class="margin-line-1"></div>
@@ -472,45 +451,29 @@
                 <div class="paper-content">
                     <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">9</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">SUB QUERY EXAMPLES</h2>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h4 class="font-bold text-lg mb-2 text-blue-900">1. Single-row Subquery</h4>
-                        <p class="flex items-start gap-2 mb-1"><span class="font-bold border border-slate-400 px-1 text-xs mt-1">☐</span> Returns one row and one column.</p>
-                        <p class="flex items-start gap-2 mb-2"><span class="font-bold border border-slate-400 px-1 text-xs mt-1">☐</span> Used with comparison operators like =, >, <, >=, <=,</p>
-                        <p class="italic mb-2 text-sm">Example: Find employees earning more than the lowest salary in the company.</p>
-                        <div class="sql-block"><span class="sql-kw">SELECT</span> name, salary <span class="sql-kw">FROM</span> emp <span class="sql-kw">WHERE</span> salary > (<span class="sql-kw">SELECT MIN</span>(salary) <span class="sql-kw">FROM</span> emp);</div>
-                        <div class="bg-slate-50 p-3 rounded border border-slate-200 text-sm font-sans mt-2">
-                            <p><strong>Step 1:</strong> Compute Minimum Salary. <span class="text-blue-700">Select min(Salary) from employees</span>  -> MIN(salary) = 6000</p>
-                            <p><strong>Step 2:</strong> Employees Earning More Than 6000</p>
-                            <div class="flex gap-4 mt-1"><div class="exam-table-container my-0" style="width:auto;"><table class="exam-table text-xs"><thead><tr><th>Name</th><th>Salary</th></tr></thead><tbody><tr><td>Bob</td><td>7000</td></tr><tr><td>Charlie</td><td>8000</td></tr><tr><td>David</td><td>9000</td></tr><tr><td>Emma</td><td>7500</td></tr></tbody></table></div></div>
-                        </div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">BOYCE-CODD NORMAL FORM (BCNF)</h2>
                     </div>
 
-                    <div class="mb-6">
-                        <h4 class="font-bold text-lg mb-2 text-blue-900">2. Multi-row Subquery</h4>
-                        <ul class="list-disc list-inside space-y-1 mb-2 ml-4"><li>Returns multiple rows.</li><li>Used with IN, ANY, ALL.</li></ul>
-                        <p class="italic mb-2 text-sm">Example: Find employees in departments that have at least one employee earning more than 7500.</p>
-                        <div class="sql-block"><span class="sql-kw">SELECT</span> name <span class="sql-kw">FROM</span> emp<br/><span class="sql-kw">WHERE</span> department_id <span class="sql-op">IN</span> (<span class="sql-kw">SELECT</span> department_id <span class="sql-kw">FROM</span> emp <span class="sql-kw">WHERE</span> salary > 7500);</div>
-                        <div class="bg-slate-50 p-3 rounded border border-slate-200 text-sm font-sans mt-2">
-                            <p><strong>Step 1:</strong> Find Departments Where Someone Earns More Than 7500<br/>Charlie (10) -> 8000, David (20) -> 9000. Departments = {10, 20}</p>
-                            <p><strong>Step 2:</strong> Employees from These Departments</p>
-                            <div class="flex gap-4 mt-1"><div class="exam-table-container my-0" style="width:auto;"><table class="exam-table text-xs"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>Alice</td></tr><tr><td>Charlie</td></tr><tr><td>Emma</td></tr><tr><td>Bob</td></tr></tbody></table></div></div>
-                        </div>
-                    </div>
+                    <p class="mb-3 text-lg">A relation is said to be in BCNF, if and only if <strong>every determinant should be a candidate key</strong>.</p>
+                    <ul class="list-disc list-inside text-sm mb-6 text-slate-800 space-y-2 ml-2">
+                        <li>BCNF is the advance version of 3NF. It is <strong>stricter than 3NF</strong>.</li>
+                        <li>A table is in 3NF if for every functional dependency X → Y, X is the super key of the table OR Y is a prime attribute.</li>
+                        <li>For BCNF, the table should be in 3NF and for every FD (X → Y), <strong>LHS (X) must be a super key</strong>.</li>
+                    </ul>
 
-                    <div>
-                        <h4 class="font-bold text-lg mb-2 text-blue-900">3. Correlated Subquery</h4>
-                        <p class="flex items-start gap-2 mb-1"><span class="font-bold border border-slate-400 px-1 text-xs mt-1">☐</span> Uses values from the outer query.</p>
-                        <p class="flex items-start gap-2 mb-2"><span class="font-bold border border-slate-400 px-1 text-xs mt-1">☐</span> Subquery runs once for each row in the outer query.</p>
-                        <p class="italic mb-2 text-sm">Example: Find employees earning more than the average salary of their department.</p>
-                        <div class="sql-block"><span class="sql-kw">SELECT</span> name <span class="sql-kw">FROM</span> emp e<br/><span class="sql-kw">WHERE</span> salary > (<span class="sql-kw">SELECT AVG</span>(salary) <span class="sql-kw">FROM</span> emp <span class="sql-kw">WHERE</span> department_id = e.department_id);</div>
-                        <div class="bg-slate-50 p-3 rounded border border-slate-200 text-sm font-sans mt-2">
-                            <p><strong>Step 1:</strong> Compute Average Salary Per Department<br/>Department 10 -> (6000+8000+7500)/3 = 7166.67<br/>Department 20 -> (7000+9000)/2 = 8000</p>
-                            <p><strong>Step 2:</strong> Employees Who Earn More Than Their Department's Average</p>
-                            <div class="flex gap-4 mt-1"><div class="exam-table-container my-0" style="width:auto;"><table class="exam-table text-xs"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>Charlie</td></tr><tr><td>David</td></tr></tbody></table></div></div>
-                        </div>
+                    <p class="font-bold text-blue-900 mb-2">Example Problem:</p>
+                    <div class="code-block text-sm">
+EMPLOYEE Table: emp_id, emp_nationality, emp_dept, dept_type, dept_no_of_emp
+FDs: 
+EMP_ID → EMP_NATIONALITY
+EMP_DEPT → DEPT_TYPE, DEPT_NO_OF_EMP
+Candidate key: {EMP_ID, EMP_DEPT}
+
+The table is not in BCNF because neither EMP_DEPT nor EMP_ID alone are super keys.
+To convert into BCNF, decompose into three tables:
+1. EMP_COUNTRY (emp_id, emp_nationality)
+2. EMP_DEPT (emp_dept, dept_type, dept_no_of_emp)
+3. EMP_DEPT_MAPPING (emp_id, emp_dept)
                     </div>
                 </div>
             </div>
@@ -519,13 +482,13 @@
                     <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Single row lo lopala query MIN salary antundi, idi okate value isthundi (6000). Multi row lo 7500 kante ekkuva salary unna valla departments antundi, idhi ekkuva values isthundi {10,20}. Correlated sub query matram prathi row check chestunnappudu malli malli run ayyi aaa department yokka average salary thestundi. Prathidi clear steps lo undi exam ki perfect.</p>
+                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">BCNF anedi 3NF kante chaala strict rule. Deeni main rule okkate: X -> Y ani unte, X anedi kachitanga Super Key / Candidate key ayyi undali. Leda decomposition cheyyali. Paina example lo EMP_DEPT -> DEPT_TYPE ani undi kani EMP_DEPT single ga key kadu, anduke 3 tables ga vidagottaru.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PART 10: 3.8 Grouping -->
+        <!-- PART 10: 4NF & Surrogate Key -->
         <div class="group flex flex-col items-center">
             <div class="exam-paper">
                 <div class="margin-line-1"></div>
@@ -533,59 +496,28 @@
                 <div class="paper-content">
                     <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
                         <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">10</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">3.8 GROUPING & HAVING</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">FOURTH NORMAL FORM (4NF) & SURROGATE KEY</h2>
                     </div>
                     
-                    <h3 class="text-lg md:text-xl font-bold mb-3 underline">3.8 Grouping:</h3>
-                    <p class="flex items-start gap-2 mb-2"><span class="chk">✓</span> <span>The SQL GROUP BY clause is used in collaboration with the SELECT statement to arrange identical data into groups.</span></p>
-                    <p class="flex items-start gap-2 mb-2"><span class="chk">☑</span> <span>This GROUP BY clause follows the WHERE clause in a SELECT statement and precedes the having clause.</span></p>
-                    <p class="flex items-start gap-2 mb-4"><span class="chk">☑</span> <span>The GROUP BY clause is used to group rows that have the same values in specified columns, often used with aggregate functions like SUM(), COUNT(), AVG(), MIN(), and MAX().</span></p>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Fourth Normal Form (4NF):</h3>
+                    <p class="mb-4 text-sm">A relation said to be in 4NF if it is in BCNF and should have <strong>no multi-valued dependency</strong>.</p>
                     
-                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg font-mono text-sm shadow-sm mb-6">
-                        <div class="font-bold text-slate-700 mb-1 border-b border-blue-200 pb-1 font-sans">Syntax:</div>
-                        <span class="sql-kw">SELECT</span> column1, AGG_FUNC(column2)<br/>
-                        <span class="sql-kw">FROM</span> table_name<br/>
-                        <span class="sql-kw">GROUP BY</span> column1;
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded mb-6 text-sm">
+                        <p class="font-bold text-blue-900 mb-2">Multi Valued Dependency:</p>
+                        <p class="mb-1">For a dependency A → B, if for a single value of A, multiple values of B exist.</p>
+                        <p class="mb-1">A table should have at-least 3 columns. For R(A, B, C), if there is a MVD between A and B, then B and C should be independent of each other.</p>
+                        <p class="italic text-slate-600 mt-2">Ex: StudentID 21 has courses [Computer, Math] and hobbies [Dancing, Singing]. Course and Hobby are independent, creating unnecessary repetition. Decompose to STUDENT_COURSE and STUDENT_HOBBY tables.</p>
                     </div>
 
-                    <p class="font-bold mb-2">☑ Taking Sailors, Boats, Reserves tables</p>
-                    <p class="mb-4 text-sm font-sans">Schema: Sailors (SID, sname, Rating, Age)<br/>Boats (BID, bname, Color)<br/>Reserves(SID, BID, Date)</p>
-
-                    <p class="font-bold mb-1">1. Find the age of youngest Sailor for each Rating level.</p>
-                    <div class="sql-block"><span class="sql-kw">select</span> s.rating,<span class="sql-kw">min</span>(s.age) <span class="sql-kw">as</span> youngest <span class="sql-kw">from</span> sailors s <span class="sql-kw">group by</span> s.rating;</div>
-                    <div class="exam-table-container mb-6"><table class="exam-table" style="width:auto;"><thead><tr><th>RATING</th><th>YOUNGEST</th></tr></thead><tbody><tr><td>1</td><td>33</td></tr><tr><td>8</td><td>25</td></tr><tr><td>7</td><td>35</td></tr><tr><td>3</td><td>25</td></tr><tr><td>10</td><td>16</td></tr><tr><td>9</td><td>40</td></tr></tbody></table></div>
-
-                    <p class="font-bold mb-1">2. Average salary > 50000</p>
-                    <div class="sql-block"><span class="sql-kw">SELECT</span> department_id, <span class="sql-kw">AVG</span>(salary)<br/><span class="sql-kw">FROM</span> employees<br/><span class="sql-kw">WHERE</span> job_title = 'Engineer'<br/><span class="sql-kw">GROUP BY</span> department_id<br/><span class="sql-kw">HAVING AVG</span>(salary) > 50000;</div>
-                    <p class="text-sm italic mb-6">First filters engineers, groups them by department, and then filters only those departments where the average salary is more than 50,000</p>
-
-                    <h4 class="font-bold text-lg mb-2 text-blue-900 underline">Having:</h4>
-                    <p class="mb-2 text-sm">The Having clause is used along with the Group by clause. The Having clause can be used to select and reject row groups.</p>
-                    <p class="mb-2 text-sm">The format of the Having clause is similar to the Where clause consisting of the keywords Having followed by a search condition.</p>
-                    <p class="mb-4 text-sm">The Having clause thus specifies a search condition for groups</p>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2 border-t border-slate-200 pt-4">Concept of Surrogate Key:</h3>
+                    <p class="text-sm mb-2">Alternate of Primary Key that allows duplication of data's/records. It is a unique identification key, like an <strong>artificial key</strong> to production key (which may be alphanumeric), but the surrogate key is always single numeric key.</p>
                     
-                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg font-mono text-sm shadow-sm mb-6">
-                        <div class="font-bold text-slate-700 mb-1 border-b border-blue-200 pb-1 font-sans">Syntax:</div>
-                        <span class="sql-kw">select</span> (list of columns, aggregate function) <span class="sql-kw">from</span> &lt;tablename&gt;<br/>
-                        <span class="sql-kw">group by</span> column name<br/>
-                        <span class="sql-kw">having</span> (condition);
-                    </div>
-
-                    <p class="font-bold mb-1 text-sm">1. Find the age of youngest Sailor who is eligible to vote i.e. at least 18 years old for each Rating level with at least 2 such Sailors.</p>
-                    <div class="sql-block"><span class="sql-kw">select</span> s.rating,<span class="sql-kw">min</span>(s.age) <span class="sql-kw">as</span> min_age<br/><span class="sql-kw">from</span> sailors s<br/><span class="sql-kw">where</span> s.age >= 18<br/><span class="sql-kw">group by</span> s.rating <span class="sql-kw">having count</span>(*) > 1;</div>
-                    <p class="font-bold mt-1">output:</p>
-                    <div class="exam-table-container mt-1 mb-6"><table class="exam-table" style="width:auto;"><thead><tr><th>RATING</th><th>MIN AGE</th></tr></thead><tbody><tr><td>8</td><td>25</td></tr><tr><td>7</td><td>35</td></tr><tr><td>3</td><td>25</td></tr></tbody></table></div>
-
-                    <h4 class="font-bold text-lg mb-2 text-blue-900 underline">Key Differences: WHERE vs HAVING</h4>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead><tr><th>Clause</th><th>Filters...</th><th>Used With Aggregates?</th></tr></thead>
-                            <tbody>
-                                <tr><td>WHERE</td><td>Before grouping</td><td>☐ No</td></tr>
-                                <tr><td>HAVING</td><td>After grouping</td><td>☐ Yes</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <ul class="list-disc list-inside text-sm mb-4 text-slate-800 space-y-1 ml-2">
+                        <li>The value is never reused and is unique within the whole system.</li>
+                        <li>It is <strong>system generated</strong> and an integer.</li>
+                        <li>The value cannot be manipulated by the user or application.</li>
+                    </ul>
+                    <p class="text-sm font-bold text-blue-900">Example: Oracle uses SEQUENCE, MYSQL uses Auto_Increment, and SQL Server uses IDENTITY.</p>
                 </div>
             </div>
             <div class="explanation-box">
@@ -593,66 +525,7 @@
                     <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">GROUP BY vadi same data unna vatini okko group la (Department leda Rating batti) divide chestaru. Group chesina data meeda filter pettalante WHERE pani cheyadu, "HAVING" vadali. WHERE clause normal rows ni filter chesthe (Before grouping), HAVING clause groups form ayyaka filter chestundi (After grouping). Idi exam lo pakka adige difference table.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 11: 3.9 Aggregate Functions -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">11</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">3.9 AGGREGATE FUNCTIONS</h2>
-                    </div>
-                    
-                    <h3 class="text-lg md:text-xl font-bold mb-3 underline">3.9 Aggregate Functions:</h3>
-                    <h4 class="font-bold text-blue-900 mb-2">Aggregate function:</h4>
-                    <ul class="list-disc list-inside space-y-1 mb-4 ml-4 font-sans text-sm">
-                        <li>It is a function where the values of multiple rows are grouped together, has input on certain criteria to form single value of more significant value.</li>
-                        <li>They are used in select and having causes.</li>
-                        <li>Returns a single result on group of rows.</li>
-                    </ul>
-                    <p class="mb-4">The aggregate functions are <strong class="bg-slate-200 px-1 rounded">MAX(), MIN(), SUM(), AVG(), COUNT(), COUNT(*)</strong>.</p>
-
-                    <h4 class="font-bold text-blue-900 mb-2 underline">Aggregate functions are:</h4>
-                    <ul class="space-y-3 font-sans text-slate-800 mb-6">
-                        <li><strong class="text-indigo-700 bg-indigo-50 px-1 rounded border border-indigo-200 font-mono">MAX():</strong> It returns the max value in given columns.</li>
-                        <li><strong class="text-indigo-700 bg-indigo-50 px-1 rounded border border-indigo-200 font-mono">MIN():</strong> It returns the min value in given columns</li>
-                        <li><strong class="text-indigo-700 bg-indigo-50 px-1 rounded border border-indigo-200 font-mono">SUM():</strong> It returns sum of all numeric values in givencolumn</li>
-                        <li><strong class="text-indigo-700 bg-indigo-50 px-1 rounded border border-indigo-200 font-mono">AVG():</strong> It returns the average of all values in given.columns.</li>
-                        <li><strong class="text-indigo-700 bg-indigo-50 px-1 rounded border border-indigo-200 font-mono">COUNT():</strong> It returns the total number of all values in the given column (excluding null values).</li>
-                        <li><strong class="text-indigo-700 bg-indigo-50 px-1 rounded border border-indigo-200 font-mono">COUNT(*):</strong> It returns the total number of all rows in the given table (including null values).</li>
-                    </ul>
-
-                    <h4 class="font-bold mb-2">Consider the following table:</h4>
-                    <div class="exam-table-container mb-4">
-                        <table class="exam-table">
-                            <thead><tr><th>emp_id</th><th>emp_name</th><th>department</th><th>salary</th><th>age</th></tr></thead>
-                            <tbody>
-                                <tr><td>1</td><td>Alice</td><td>HR</td><td>50000</td><td>30</td></tr>
-                                <tr><td>2</td><td>Bob</td><td>IT</td><td>70000</td><td>28</td></tr>
-                                <tr><td>3</td><td>Charlie</td><td>IT</td><td>65000</td><td>35</td></tr>
-                                <tr><td>4</td><td>Diana</td><td>HR</td><td>52000</td><td>40</td></tr>
-                                <tr><td>5</td><td>Ethan</td><td>Sales</td><td>60000</td><td>32</td></tr>
-                                <tr><td>6</td><td>ABC</td><td></td><td></td><td></td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <p class="font-mono text-slate-700 bg-slate-100 p-2 rounded inline-block border border-slate-200"><strong>MIN():</strong> find minimum value in the given column</p>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Chala rows nunchi data teeskuni single output result isthe vatini "Aggregate functions" antaru. Ivi mukhayamga calculations ki vadataru. MAX() pedda value isthundi, MIN() chinna value isthundi, SUM() total isthundi, AVG() average isthundi. COUNT() entha data undo count chestundi (Null values vadilesi). Kani COUNT(*) mathram Null values thoti saha motham rows count isthundi.</p>
+                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">4NF loki ravali ante Multi-valued dependency undakudadhu (oka value ki 2 independent lists undadam, like Student ki multiple courses and multiple hobbies unte, rendu veru veru tables cheyyali). Surrogate key ante manam create chesedi kadu, system automatically generate chese unique numbers (ex: MySQL lo Auto_increment).</p>
                     </div>
                 </div>
             </div>
@@ -663,11 +536,10 @@
     <!-- Footer -->
     <div class="max-w-4xl mx-auto mt-16 text-center text-slate-500 text-sm mb-10">
         <p class="flex items-center justify-center gap-2">
-            <i data-lucide="database" class="w-4 h-4"></i> Crafted specifically for Lohitha Sai — Perfect Exam HTML! Beating GPT effortlessly.
+            <i data-lucide="database" class="w-4 h-4"></i> Crafted specifically for Lohitha Sai — Pure HTML Exam Presentation!
         </p>
     </div>
 
-    <!-- Initialize Lucide Icons -->
     <script>
         lucide.createIcons();
     </script>
