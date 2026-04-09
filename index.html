@@ -1,122 +1,283 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
 <head>
-<meta charset="UTF-8">
-<title>DBMS UNIT-3 Notes</title><style>
-body{font-family:Arial;background:#f5f5f5;padding:20px;line-height:1.6;}
-.part{background:#fff;padding:15px;margin:15px 0;border-radius:10px;}
-.title{font-weight:bold;font-size:18px;margin-bottom:8px;}
-.telugu{background:#e0f2f1;padding:10px;margin-top:10px;border-radius:6px;}
-</style></head><body><h2>📘 DBMS UNIT-3 (Page 1–5)</h2><div class="part">
-<div class="title">PART 1: College & Material Details</div><p>SESHADRI RAO GUDLAVALLERU ENGINEERING COLLEGE
-Academics Strengthening & Advancement (AS&A)
-Department of CSE(AI & ML)
-R – 23
-II B.Tech. II Semester
-Learning Material On
-DATABASE MANAGEMENT SYSTEMS
-UNIT – III “SQL”
-Prepared by : Mrs.G.Kalyani , Mr.N.Narayana
-Dept of CSE(AI&ML)
-SRGEC, Gudlavalleru</p><div class="telugu">
-Idi cover page information.  
-College details, subject name, unit details and prepared by faculty names ivanni untayi.
-</div>
-</div><div class="part">
-<div class="title">PART 2: Course Objectives</div><p>Course Objectives:
- To Introduce database management systems and to give a good formal foundation on the relational model of data and Relational Algebra
- To introduce the concepts of SQL for storage, retrieval and manipulation of data in a relational database.
- To demonstrate the conceptual design and logical database design through normalization
- To provide an overview of transaction management, concurrency control and indexing.</p><div class="telugu">
-Objectives ante course lo nerchukune main goals:
-- DBMS basics  
-- SQL usage  
-- Normalization  
-- Transactions & indexing concepts
-</div>
-</div><div class="part">
-<div class="title">PART 3: Course Outcomes</div><p>Course Outcomes:
- describe the importance of DBMS and derive a model in the form of ER diagram
- develop simple queries using SQL
- develop complex queries using SQL
- apply principles of normalization
- demonstrate transaction techniques</p><div class="telugu">
-Outcomes ante course complete ayyaka student ki vachche skills:
-- SQL queries rayadam  
-- database design cheyyadam  
-- normalization apply cheyyadam  
-</div>
-</div><div class="part">
-<div class="title">PART 4: UNIT – III SQL</div><p>UNIT III: SQL: Basic SQL querying using WHERE clause,
-Arithmetic & logical operations,
-SQL functions (Date and Time, Numeric, String conversion),
-Creating tables,
-Joins, grouping, aggregation.</p><div class="telugu">
-UNIT-3 lo:
-- SQL queries  
-- functions  
-- joins  
-- grouping  
-anni concepts cover chestaru
-</div>
-</div><div class="part">
-<div class="title">PART 5: SELECT Statement</div><p>The SELECT statement in SQL is used to query data from a database.
-The syntax can be quite flexible depending on the complexity of your query.</p><div class="telugu">
-SELECT statement:
-- database nundi data retrieve cheyyadaniki use chestaru  
-- SQL lo most important command
-</div>
-</div><div class="part">
-<div class="title">PART 6: Syntax</div><pre>
-SELECT [DISTINCT] column1, column2
-FROM table_name
-WHERE condition
-GROUP BY column
-HAVING condition
-ORDER BY column ASC/DESC;
-</pre><div class="telugu">
-Syntax meaning:
-- SELECT → columns  
-- FROM → table  
-- WHERE → filter  
-- GROUP BY → grouping  
-- ORDER BY → sorting  
-</div>
-</div><div class="part">
-<div class="title">PART 7: Explanation</div><p>1. SELECT: Specifies columns
-2. DISTINCT: Removes duplicates
-3. FROM: Table name
-4. WHERE: Filters rows
-5. GROUP BY: Groups data
-6. HAVING: Filters grouped data
-7. ORDER BY: Sorts data</p><div class="telugu">
-Each keyword role clear ga:
-- SELECT → emi kavalo  
-- WHERE → condition  
-- GROUP BY → grouping  
-- ORDER BY → arrange
-</div>
-</div><div class="part">
-<div class="title">PART 8: Examples</div><p>Example 1:
-SELECT first_name, last_name FROM employees;Example 2:
-SELECT first_name, last_name, salary
-FROM employees
-WHERE salary > 50000;
+<title>UNIT 3 SQL</title>
+</head>
+<body>
 
-Example 3:
+<pre>
+UNIT – 3 Concepts of SQL
+
+3.1 BASIC SQL QUERYING (SELECT AND PROJECT) using WHERE Clause :
+
+✓ The SELECT statement in SQL is used to query data from a database.
+✓ The syntax can be quite flexible depending on the complexity of your query.
+✓ Here is the complete syntax of the SELECT statement in DBMS:
+
+Complete syntax of SELECT:
+SELECT [DISTINCT] column1, column2, ...
+FROM table_names
+[WHERE condition]
+[GROUP BY column1, column2, ...]
+[HAVING condition]
+[ORDER BY column1, column2, ... [ASC|DESC]]
+
+Explanation of each part:
+1. SELECT:
+   ○ Specifies the columns that you want to retrieve. You can select one or more columns, or even use * to select all columns.
+2. DISTINCT (optional):
+   ○ Used to eliminate duplicate values in the result set. Only unique rows will be returned.
+3. column1, column2, ...:
+   ○ Specifies the list of columns you want to retrieve data from.
+4. FROM table_name:
+   ○ Specifies the table from which to retrieve the data.
+5. WHERE condition (optional):
+   ○ Filters the records based on a specified condition. Only rows that satisfy the condition will be included in the result.
+6. GROUP BY column1, column2, ... (optional):
+   ○ Groups rows that have the same values in specified columns. It is typically used with aggregate functions like COUNT(), SUM(), AVG(), etc.
+7. HAVING condition (optional):
+   ○ Filters the grouped records (after aggregation). It is used with GROUP BY to filter groups based on a condition.
+8. ORDER BY column1, column2, ... [ASC|DESC] (optional):
+   ○ Sorts the result set based on one or more columns. You can specify ascending (ASC, which is default) or descending (DESC) order.
+
+Sample Employees table:
+employee_id   first_name   last_name   salary   department
+1001          John         Smith       60000    Sales
+1002          Jane         Doe         75000    Marketing
+1003          Alice        Johnson     82000    Engineering
+1004          Bob          Brown       54000    Human Resources
+1005          Clara        Wilson      98000    Engineering
+1006          David        Lee         67000    Sales
+1007          Emma         Davis       72000    Marketing
+1008          Frank        Moore       50000    Support
+1009          Grace        Taylor      88000    Engineering
+1010          Henry        Miller      59000    Support
+
+
+Example 1: Simple SELECT query
+SELECT first_name, last_name FROM employees;
+
+Output:
+first_name   last_name
+John         Smith
+Jane         Doe
+Alice        Johnson
+Bob          Brown
+Clara        Wilson
+David        Lee
+Emma         Davis
+Frank        Moore
+Grace        Taylor
+Henry        Miller
+
+
+Example 2: SELECT with WHERE clause
+SELECT first_name, last_name, salary FROM employees WHERE salary > 50000;
+
+Output:
+first_name   last_name   salary
+John         Smith       60000
+Jane         Doe         75000
+Alice        Johnson     82000
+Bob          Brown       54000
+Clara        Wilson      98000
+David        Lee         67000
+Emma         Davis       72000
+Grace        Taylor      88000
+Henry        Miller      59000
+
+
+Example 3: SELECT with DISTINCT
 SELECT DISTINCT department FROM employees;
 
-Example 4:
-SELECT department, COUNT()
-FROM employees
-GROUP BY department
-HAVING COUNT() > 1;</p>
+Output:
+department
+Sales
+Marketing
+Engineering
+Human Resources
+Support
 
-<div class="telugu">
-Examples:
-- basic select  
-- condition based select  
-- distinct values  
-- grouping & counting
-</div>
-</div></body>
+
+Example 4: SELECT with GROUP BY and HAVING
+SELECT department, COUNT(*) AS employee_count FROM employees
+GROUP BY department HAVING COUNT(*) > 1;
+
+Output:
+department   employee_count
+Engineering  3
+Marketing    2
+Sales        2
+Support      2
+Marketing    2
+
+
+Example 5: SELECT with ORDER BY
+SELECT last_name FROM employees ORDER BY salary DESC;
+
+Output:
+last_name
+Wilson
+Taylor
+Smith
+Moore
+Miller
+Lee
+Johnson
+Doe
+Davis
+Brown
+
+
+Note:
+✓ order by column by using column number also
+✓ by default order by is ascending order
+
+
+Example 6: SELECT with LIMIT/ROWNUM
+SELECT first_name, last_name FROM employees WHERE ROWNUM<=5;
+
+Output:
+first_name   last_name
+John         Smith
+Jane         Doe
+Alice        Johnson
+Bob          Brown
+Clara        Wilson
+
+
+Example 7: SELECT with multiple conditions in WHERE
+SELECT * FROM employees WHERE salary > 65000 AND department = 'Sales';
+
+Output:
+employee_id   first_name   last_name   Salary   department
+1006          David        Lee         67000    Sales
+
+
+3.2 Arithmetic and logical operations:
+In SQL, you can perform arithmetic and logical operations to manipulate data and filter records.
+Here's a breakdown of both types of operations:
+
+1. Arithmetic Operations in SQL
+Arithmetic operations allow you to perform calculations on numeric data. The basic arithmetic operators in SQL are:
+• + (Addition)
+• - (Subtraction)
+• * (Multiplication)
+• / (Division)
+• % (Modulo – remainder of division)
+
+
+Example of Arithmetic Operations:
+Let’s say we have a table sales with columns price and quantity.
+
+PRICE   QUANTITY
+19.99   2
+5.49    10
+12      5
+7.25    8
+49.99   1
+3.5     20
+15      3
+100     1
+9.99    6
+2.99    15
+
+Example:
+SELECT price, quantity, price * quantity AS total_sales FROM sales;
+This query calculates the total sales by multiplying price and quantity.
+
+Output:
+PRICE   QUANTITY   TOTAL_SALES
+19.99   2          39.98
+5.49    10         54.9
+12      5          60
+7.25    8          58
+49.99   1          49.99
+3.5     20         70
+15      3          45
+100     1          100
+9.99    6          59.94
+2.99    15         44.85
+
+
+Example 2: Adding a value to a column
+SELECT product_name, price, price + 10 AS new_price FROM products;
+This query increases the price by 10 and displays the updated price as new_price.
+
+Example 3: Using division and modulo
+SELECT order_id, quantity, quantity / 2 AS half_quantity, quantity % 2 AS remainder FROM orders;
+This query calculates half of the quantity and also returns the remainder when quantity is divided by 2.
+
+
+2. Logical Operations in SQL
+Logical operations in SQL are used to filter records based on boolean logic. The basic logical operators in SQL are:
+• AND: Combines two conditions; both must be true for the record to be included.
+• OR: Combines two conditions; at least one must be true for the record to be included.
+• NOT: Reverses the truth value of a condition.
+• BETWEEN: Tests if a value is within a range of values.
+
+• IN: Tests if a value matches any value in a list of values.
+• LIKE: Used for pattern matching in strings.
+
+
+Example of Logical Operations:
+
+AND Operator:
+This query returns employees whose salary is greater than 50,000 and who work in the "Sales" department.
+SELECT first_name, last_name, salary, department
+FROM employees
+WHERE salary > 50000 AND department = 'Sales';
+
+OR Operator:
+This query returns employees who are in either the "Sales" or "Marketing" departments.
+SELECT first_name, last_name, salary, department
+FROM employees
+WHERE department = 'Sales' OR department = 'Marketing';
+
+NOT Operator:
+This query returns employees who do not work in the "HR" department.
+SELECT first_name, last_name, department
+FROM employees WHERE NOT department = 'HR';
+
+BETWEEN Operator:
+This query returns employees who are in either the "Sales", "Marketing", or "Finance" departments.
+SELECT first_name, last_name, salary
+FROM employees
+WHERE salary BETWEEN 40000 AND 60000;
+
+IN Operator:
+SELECT first_name, last_name, department
+FROM employees
+WHERE department IN ('Sales', 'Marketing', 'Finance');
+
+LIKE Operator (for pattern matching):
+This query returns employees whose first name starts with the letter "J". The % symbol is a wildcard that matches zero or more characters.
+SELECT first_name, last_name
+FROM employees
+WHERE first_name LIKE 'J%';
+
+
+Combining Arithmetic and Logical Operations
+
+You can combine both arithmetic and logical operations in a single SQL query to perform more complex queries.
+
+Example:
+This query calculates a 10% bonus (salary * 0.1) for employees in the "Sales" department who have a salary greater than 50,000.
+SELECT first_name, last_name, salary, (salary * 0.1) AS bonus
+FROM employees
+WHERE salary > 50000 AND department = 'Sales';
+
+Example 2:
+SELECT product_name, price, (price * 0.15) AS tax
+FROM products
+WHERE price BETWEEN 50 AND 200 AND price * 0.15 > 10;
+
+
+3.3 SQL FUNCTIONS [ DATE,TIME ,NUMERIC ,STRING Conversion ] :
+
+➤ In DBMS (Database Management System), SQL functions are predefined operations that perform specific tasks on data stored in a database. They help simplify complex queries by allowing you to perform calculations, format data, and manipulate values easily.
+
+</pre>
+
+</body>
 </html>
