@@ -1,550 +1,459 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DBMS Unit-4: Schema Refinement</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>3 Years of Us - Lohitha</title>
+    <!-- Tailwind CSS for Layout -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- Confetti Library for Grand Finale -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
     <style>
-        .exam-table-container { overflow-x: auto; margin: 1rem 0; }
-        .exam-table { width: 100%; border-collapse: collapse; border: 1px solid #94a3b8; color: #1e293b; font-size: 0.95rem; }
-        .exam-table th { border: 1px solid #94a3b8; padding: 0.5rem 0.75rem; text-align: left; font-weight: bold; background-color: #e2e8f0; }
-        .exam-table td { border: 1px solid #94a3b8; padding: 0.375rem 0.75rem; }
-        .exam-table tr:nth-child(even) { background-color: #f8fafc; }
+        /* Custom CSS - Ultra Pro Max Graphics */
+        :root {
+            --primary: #ec4899; /* Pink 500 */
+            --secondary: #8b5cf6; /* Violet 500 */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Prevent scrolling during animations */
+            background-color: #030008;
+            font-family: 'Outfit', sans-serif;
+            color: white;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Canvas for Stars */
+        #starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255,255,255,0.02);
+            border-radius: 24px;
+        }
+
+        /* 3D Card Effects */
+        .perspective-container {
+            perspective: 1000px;
+        }
         
-        .code-block { background-color: #f1f5f9; color: #0f172a; font-family: monospace; font-size: 0.95rem; padding: 0.75rem; border-radius: 0.5rem; margin: 0.5rem 0; border: 1px solid #cbd5e1; white-space: pre-wrap; line-height: 1.5; }
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
         
-        .exam-paper { background: white; border-radius: 0.5rem 0.5rem 0 0; border-top: 8px solid #2563eb; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); position: relative; overflow: hidden; width: 100%; }
-        .margin-line-1 { position: absolute; top: 0; left: 2rem; width: 1px; height: 100%; background-color: #fecaca; z-index: 0; }
-        .margin-line-2 { position: absolute; top: 0; left: 2.25rem; width: 1px; height: 100%; background-color: #fecaca; z-index: 0; }
-        .paper-content { position: relative; z-index: 10; padding: 2rem 2.5rem 2.5rem 4rem; font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; color: #0f172a; line-height: 1.6; }
-        
-        .explanation-box { width: 91.666667%; margin-top: -1rem; position: relative; z-index: 20; background: linear-gradient(to right, #064e3b, #134e4a); border-radius: 0.75rem; padding: 1.25rem 1.5rem; box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.3); border: 1px solid rgba(16, 185, 129, 0.3); }
-        .chk { color: #2563eb; font-weight: bold; }
-        .fd { font-weight: bold; color: #b91c1c; font-family: monospace; }
+        .tilt-content {
+            transform: translateZ(60px); /* Pops the content out */
+        }
+
+        /* Glowing Animations */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 20px rgba(236, 72, 153, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 60px rgba(236, 72, 153, 0.8), 0 0 100px rgba(139, 92, 246, 0.6); transform: scale(1.05); }
+            100% { box-shadow: 0 0 20px rgba(236, 72, 153, 0.4); transform: scale(1); }
+        }
+
+        .btn-glow {
+            animation: pulseGlow 2s infinite;
+        }
+
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(to right, #f87171, #ec4899, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .font-romantic {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Screen Transitions */
+        .screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            transform: scale(0.9);
+        }
+
+        .screen.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        /* Floating Heart Animation */
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5) rotate(45deg); opacity: 0; }
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: #ec4899;
+            pointer-events: none;
+            animation: float linear forwards;
+            z-index: 5;
+        }
+
+        /* Cinematic Text Reveal */
+        .cinematic-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease-out;
+        }
+        .cinematic-text.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
-<body class="min-h-screen bg-slate-950 text-slate-200 font-sans p-4 md:p-8">
+<body>
 
-    <!-- Header Section -->
-    <div class="max-w-5xl mx-auto mb-10 text-center">
-        <div class="inline-flex items-center justify-center p-3 bg-emerald-600/20 rounded-full mb-4 ring-1 ring-emerald-500/50">
-            <i data-lucide="book-open" class="w-10 h-10 text-emerald-400"></i>
+    <!-- Starfield Background Canvas -->
+    <canvas id="starfield"></canvas>
+
+    <!-- Screen 1: The Intro -->
+    <div id="screen-1" class="screen active p-4">
+        <div class="relative flex flex-col items-center justify-center">
+            <div class="w-32 h-32 rounded-full border-2 border-pink-500/30 flex items-center justify-center mb-8 relative">
+                <!-- Glowing core -->
+                <div class="absolute inset-0 rounded-full btn-glow bg-gradient-to-tr from-pink-600 to-purple-600 opacity-20 blur-xl"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-pink-500 animate-pulse drop-shadow-[0_0_15px_rgba(236,72,153,1)]" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            
+            <h2 class="text-sm md:text-base tracking-[0.3em] text-pink-300/70 mb-4 font-bold uppercase">System Initialized</h2>
+            <h1 class="text-4xl md:text-6xl font-black text-white text-center mb-12 drop-shadow-2xl">
+                Ready to travel back <br/>
+                <span class="text-gradient">3 Years?</span>
+            </h1>
+
+            <button onclick="startWarp()" class="relative group px-10 py-4 bg-transparent rounded-full overflow-hidden border border-pink-500/50 hover:border-pink-400 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer">
+                <div class="absolute inset-0 bg-gradient-to-r from-pink-600/20 to-purple-600/20 group-hover:opacity-100 transition-opacity"></div>
+                <span class="relative font-bold tracking-widest text-pink-100">ENTER OUR UNIVERSE</span>
+            </button>
         </div>
-        <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-4 tracking-tight">
-            UNIT-IV: Schema Refinement
-        </h1>
-        <p class="text-slate-400 text-lg max-w-2xl mx-auto">
-            (Normalization & Functional Dependencies) - KB😘 for Lohitha Sai.
-        </p>
     </div>
 
-    <div class="max-w-5xl mx-auto space-y-12">
-
-        <!-- PART 1: Intro & Anomalies -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">1</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">INTRO TO SCHEMA REFINEMENT & ANOMALIES</h2>
-                    </div>
-                    
-                    <p class="mb-3"><strong>Schema Refinement</strong> is the process of improving a database schema using well-defined techniques. The most effective technique is <strong>decomposition</strong>, where a large table is split into smaller, well-structured tables.</p>
-                    <p class="mb-4"><strong>Normalization</strong> is the process of organizing data by dividing large tables into smaller tables. This ensures the design avoids anomalies, eliminates data redundancy, and maintains integrity.</p>
-
-                    <h3 class="text-lg font-bold text-blue-900 underline mb-2">Redundancy</h3>
-                    <p class="mb-2">Redundancy refers to the repetition or duplication of the same data stored in multiple places. Example:</p>
-                    <div class="exam-table-container">
-                        <table class="exam-table">
-                            <thead><tr><th>StudentID</th><th>StudentName</th><th>Course</th><th>Instructor</th></tr></thead>
-                            <tbody>
-                                <tr><td>101</td><td>Ravi</td><td>DBMS</td><td>Rao</td></tr>
-                                <tr><td>102</td><td>Sita</td><td>DBMS</td><td>Rao</td></tr>
-                                <tr><td>103</td><td>Kumar</td><td>DBMS</td><td>Rao</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="mb-6 italic text-sm">Here, the Instructor name "Rao" is repeated for every student enrolled in DBMS. This is data redundancy.</p>
-
-                    <h3 class="text-lg font-bold text-blue-900 underline mb-2">Anomalies</h3>
-                    <p class="mb-3">Anomalies are problems that occur in poorly designed (unnormalized) databases (flat file database).</p>
-                    <ul class="space-y-3 list-decimal list-inside ml-2">
-                        <li><strong>Insertion Anomaly:</strong> Occurs when certain data cannot be inserted without inserting other unnecessary data. <em>(Ex: Cannot add a new course unless a student enrolls in it).</em></li>
-                        <li><strong>Update Anomaly:</strong> Occurs when updating data in multiple rows leads to inconsistency. <em>(Ex: Changing instructor "Rao" to "Sharma" requires multiple updates).</em></li>
-                        <li><strong>Deletion Anomaly:</strong> Occurs when deleting a record unintentionally removes important information. <em>(Ex: Deleting the last student in DBMS deletes the course info too).</em></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Schema Refinement and Normalization ante pedda tables ni chinnaga, neat ga vidagottadam. Okate pedda table vidadithe same data malli malli vastundi (Redundancy). Deeni valla manam kotha data Insert cheyalanna, Update cheyalanna, Delete cheyalanna errors / data loss vastundi. Vatini "Anomalies" antaru.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 2: Decomposition & Purpose -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">2</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">DECOMPOSITION & NORMALIZATION</h2>
-                    </div>
-                    
-                    <h3 class="text-lg font-bold text-blue-900 mb-2">Solution To Anomalies: Decomposition of Tables</h3>
-                    <p class="mb-3">By decomposing the table into smaller tables, these problems are eliminated. Data is stored only once, ensuring no redundancy and no anomalies.</p>
-                    
-                    <div class="flex gap-4">
-                        <div class="exam-table-container w-1/2">
-                            <table class="exam-table">
-                                <thead><tr><th colspan="2" class="text-center bg-blue-100">Student Table</th></tr><tr><th>StudentID</th><th>StudentName</th></tr></thead>
-                                <tbody><tr><td>101</td><td>Ravi</td></tr><tr><td>102</td><td>Sita</td></tr></tbody>
-                            </table>
-                        </div>
-                        <div class="exam-table-container w-1/2">
-                            <table class="exam-table">
-                                <thead><tr><th colspan="2" class="text-center bg-blue-100">Course Table</th></tr><tr><th>Course</th><th>Instructor</th></tr></thead>
-                                <tbody><tr><td>DBMS</td><td>Rao</td></tr></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <h4 class="font-bold underline mt-6 mb-2">Purpose of Normalization:</h4>
-                    <ul class="list-disc list-inside space-y-1 mb-4">
-                        <li>Minimize the redundancy in data.</li>
-                        <li>Remove insert, update, and delete anomalies.</li>
-                        <li>Reduce the need to organize the data when it is modified.</li>
-                    </ul>
-
-                    <div class="flex flex-col md:flex-row gap-6 mt-6">
-                        <div class="flex-1 bg-green-50 p-4 rounded border border-green-200">
-                            <h4 class="font-bold text-green-800 mb-2">Advantages:</h4>
-                            <ol class="list-decimal list-inside space-y-1 text-sm text-green-900">
-                                <li>Greater overall database organization.</li>
-                                <li>Unnecessary redundant data reduced.</li>
-                                <li>Data integrity is easily maintained.</li>
-                                <li>Security is easier to maintain or manage.</li>
-                            </ol>
-                        </div>
-                        <div class="flex-1 bg-red-50 p-4 rounded border border-red-200">
-                            <h4 class="font-bold text-red-800 mb-2">Disadvantages:</h4>
-                            <p class="text-sm text-red-900 mb-2">Produces a lot of small tables requiring primary/foreign key relationships.</p>
-                            <ul class="list-disc list-inside text-sm text-red-900 space-y-1">
-                                <li><strong>Performance:</strong> Joins slow processing.</li>
-                                <li><strong>Complex queries:</strong> Developers must code complex queries to merge data.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Aa anomalies ni solve cheyyali ante data ni multiple tables loki decompose (divide) cheyyali. Ikkada Student table, Course table ga vidagottaru. Deeni valla data neat ga untundi (Advantage), kani output thevalante tables join cheyyali kabatti speed thagguthundi and queries hard avthayi (Disadvantage).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 3: Functional Dependency & Axioms -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">3</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">FUNCTIONAL DEPENDENCY & AXIOMS</h2>
-                    </div>
-                    
-                    <h3 class="text-lg font-bold text-blue-900 mb-2">Concept of Functional Dependency:</h3>
-                    <p class="mb-2">Functional Dependencies are fundamental to the process of Normalization. A functional dependency is a <em>"type of constraint that is a generalization of the notation of the key"</em>.</p>
-                    <p class="mb-4">It describes the <strong>relationship between attributes (columns)</strong> in a table. It is represented by an arrow sign <span class="font-bold text-xl">(→)</span>.</p>
-                    
-                    <div class="bg-yellow-50 border border-yellow-200 p-4 rounded mb-6 font-sans">
-                        <p class="font-bold text-lg text-slate-800 mb-2">FD : X → Y</p>
-                        <p class="text-sm text-slate-700">Means that the values of Y are determined by the values of X. Two tuples sharing the same values of X will necessarily have the same values of Y. An attribute on left hand side is known as <strong>"Determinant"</strong> (Here X is a Determinant).</p>
-                    </div>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-2">Armstrong Axioms (Inference Rules):</h3>
-                    <p class="mb-4 text-sm">Armstrong axioms define the set of rules for reasoning about functional dependencies and to infer all the functional dependencies on a relational database.</p>
-
-                    <div class="flex flex-col md:flex-row gap-6">
-                        <div class="flex-1">
-                            <h4 class="font-bold underline mb-2">Primary axioms:</h4>
-                            <ul class="space-y-2 font-mono text-sm bg-slate-100 p-3 rounded border border-slate-200">
-                                <li>1. <span class="font-bold text-blue-700">Reflexivity:</span> If Y &subseteq; X, then X → Y</li>
-                                <li>2. <span class="font-bold text-blue-700">Augmentation:</span> If X → Y, then XZ → YZ</li>
-                                <li>3. <span class="font-bold text-blue-700">Transitivity:</span> If X → Y and Y → Z, then X → Z</li>
-                            </ul>
-                        </div>
-                        <div class="flex-1">
-                            <h4 class="font-bold underline mb-2">Secondary / Derived axioms:</h4>
-                            <ul class="space-y-2 font-mono text-sm bg-slate-100 p-3 rounded border border-slate-200">
-                                <li>4. <span class="font-bold text-blue-700">Union:</span> If X → Y and X → Z, then X → YZ</li>
-                                <li>5. <span class="font-bold text-blue-700">Decomposition:</span> If X → YZ, then X → Y and X → Z</li>
-                                <li>6. <span class="font-bold text-blue-700">Pseudo-transitivity:</span> If X → Y and WY → Z, then WX → Z</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Functional Dependency (FD) ante oka column (X) ni base cheskuni inko column (Y) data thelusukovadam. X ni 'Determinant' antaru. Armstrong axioms anevi FDs ni derive cheyadaniki vaduthamu. (Ex: Transitivity ante X nunchi Y vachi, Y nunchi Z vasthe.. direct ga X nunchi Z vastundi ani artham).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 4: Attribute Closure & Types of FDs -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">4</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">CLOSURE & TYPES OF FDs</h2>
-                    </div>
-
-                    <h3 class="text-lg font-bold text-blue-900 mb-2">Closure of a Set of Attributes (F⁺):</h3>
-                    <p class="mb-4 text-sm">Attribute closure of an attribute set can be defined as the set of attributes which can be functionally determined from it. Written as X⁺.</p>
-                    
-                    <h3 class="text-lg font-bold text-blue-900 mb-3 underline">Types of functional dependencies:</h3>
-                    <ul class="space-y-4 text-sm text-slate-800 font-sans">
-                        <li>
-                            <span class="font-bold text-red-700 bg-red-50 px-1 rounded border border-red-200">1. Fully Functional Dependency:</span>
-                            If the determinant of the FD is either candidate key or super key. (Y cannot determine any subset of X). Ex: ABC → D, but neither A, B, C, AB, BC, AC determines D.
-                        </li>
-                        <li>
-                            <span class="font-bold text-red-700 bg-red-50 px-1 rounded border border-red-200">2. Partial Functional Dependency:</span>
-                            If a non-prime attribute is getting derived by only a <strong>part</strong> of the candidate key. (Ex: If key is AB, and B → C, then C is partially dependent).
-                        </li>
-                        <li>
-                            <span class="font-bold text-red-700 bg-red-50 px-1 rounded border border-red-200">3. Transitive Functional Dependency:</span>
-                            If a non-prime attribute is getting derived by another non-prime attribute. i.e., X → Y, and Y → Z then X → Z holds.
-                        </li>
-                        <li>
-                            <span class="font-bold text-red-700 bg-red-50 px-1 rounded border border-red-200">4. Trivial Functional Dependency:</span>
-                            Related to Reflexive rule. If Y is subset of X then X → Y holds. Ex: <span class="fd">ABC → BC</span>.
-                        </li>
-                        <li>
-                            <span class="font-bold text-red-700 bg-red-50 px-1 rounded border border-red-200">5. Multi-Valued Dependency:</span>
-                            For each value of X, there is a set of values Y and set of values Z, and Y is independent of Z. Denoted as <span class="fd">X ↠ Y / Z</span>.
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Attribute closure (+) ante icchina FDs nunchi oka attribute entha data ni derive cheyagalado kanukkodam. Types lo: Partial ante sagam key meedane depend avvadam. Transitive ante oka non-key inko non-key meeda depend avvadam. Trivial ante (AB -> B) lanti simple vi. Ivi exam lo 5 marks ki adugutaru.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 5: Keys in DBMS -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">5</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">KEYS IN DBMS</h2>
-                    </div>
-                    
-                    <p class="mb-4"><strong>Prime and non-prime attributes:</strong> Attributes which are parts of any candidate key of relation are called as prime attribute, others are non-prime attributes.</p>
-                    
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded mb-4">
-                        <h4 class="font-bold text-blue-900 mb-2">Candidate Key:</h4>
-                        <p class="text-sm mb-2">Candidate Key is minimal set of attributes of a relation which can be used to identify a tuple uniquely.</p>
-                        <p class="text-sm font-mono text-slate-600">Consider: student(sno, sname, sphone, age)<br/>we can take sno as candidate key.</p>
-                        <p class="text-sm mt-2"><strong>Types:</strong> 1. Simple (one attribute), 2. Composite (multiple attributes).</p>
-                    </div>
-
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded">
-                        <h4 class="font-bold text-blue-900 mb-2">Super Key:</h4>
-                        <p class="text-sm mb-2">Super Key is set of attributes of a relation which can be used to identify a tuple uniquely.</p>
-                        <ul class="list-disc list-inside text-sm mb-2 text-slate-700 ml-2">
-                            <li>Adding zero or more attributes to candidate key generates super key.</li>
-                            <li>A candidate key is a super key but vice versa is not true.</li>
-                        </ul>
-                        <p class="text-sm font-mono text-slate-600">Consider: student(sno, sname, sphone, age)<br/>we can take sno, (sno, sname) as super key</p>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Table lo data ni uniquely identify chese vatini Keys antaru. Candidate key ante anni keys kante chinnadi (minimal). Super key ante Candidate key ki extra attributes (sname lanti) add chesina vachedi. Key lo part ayye attributes ni Prime antaru, migatha vatini Non-Prime antaru.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 6: Operations: Finding Candidate Keys -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">6</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">FINDING CANDIDATE KEYS</h2>
-                    </div>
-
-                    <p class="mb-4">Using closure sets to identify keys from Functional Dependencies.</p>
-
-                    <div class="mb-6">
-                        <p class="font-bold text-blue-900">Example 1: Find candidate keys for R(ABCD) having FDs AB → CD, C → A, D → A.</p>
-                        <div class="code-block text-sm">
-Sol: From the given FD's, the attribute B is key attribute because it is not in RHS of functional dependency.
-B⁺ = B (not a candidate key, find the combinations of B)
-
-AB⁺ = ABCD (∵ AB→CD)
-BC⁺ = BCAD (∵ C→A, AB→CD)
-BD⁺ = BDA  (∵ D→A)
-
-From the above attributes AB and BC determines all attributes.
-Result: AB, BC are candidate keys.
-                        </div>
-                    </div>
-
-                    <div>
-                        <p class="font-bold text-blue-900">Example 2: Find candidate keys for R(ABCDE) having FDs A → BC, CD → E, B → D, E → A.</p>
-                        <div class="code-block text-sm">
-Sol: No attribute is strictly a key attribute because all are in RHS of FD. So check all LHS attributes.
-A⁺ = ABCDE (A→BC, B→D, CD→E)
-B⁺ = BD
-E⁺ = EABCD (E→A, A→BC, B→D)
-C⁺ = C
-D⁺ = D
-
-CD⁺ = CDEAB (CD→E, E→A, A→BC)
-BC⁺ = BCDEA (B→D, CD→E, E→A)
-
-From the above, A, E, CD and BC determines all attributes.
-Result: A, E, CD, BC are candidate keys.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">Candidate keys ela kanukkovaalo ee examples lo undi. Rule 1: Right Hand Side (RHS) lo leni attributes ni kachitanga key lo undali. Vati closure (+) kanukkunte anni columns vasthe ade key. Raka pothe daniki inko column add chesi malli kanukovali.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 7: Normal Forms Intro & 1NF/2NF -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">7</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">NORMAL FORMS (1NF & 2NF)</h2>
-                    </div>
-                    
-                    <p class="mb-4 text-sm font-bold text-blue-900 border-b border-slate-200 pb-1">Points to Remember: 1NF is mandatory, 2NF deals with partial dependencies, 3NF deals with transitive dependencies.</p>
-
-                    <h3 class="text-lg font-bold text-slate-800 mb-2">First Normal Form (1NF):</h3>
-                    <ul class="list-decimal list-inside text-sm mb-4 text-slate-800 space-y-1 ml-2">
-                        <li>Each attribute name must be unique.</li>
-                        <li><strong>Each attribute value must be single or atomic (Single Valued).</strong></li>
-                        <li>There are no repeating groups.</li>
-                    </ul>
-
-                    <h3 class="text-lg font-bold text-slate-800 mb-2 border-t border-slate-200 pt-4">Second Normal Form (2NF):</h3>
-                    <p class="text-sm mb-2">A relation is in 2NF if it is already in 1NF and it has <strong>no Partial Dependency</strong> (i.e., no non-prime attribute is dependent on only a part of the candidate key).</p>
-                    
-                    <div class="bg-blue-50 p-4 border border-blue-200 rounded mt-4 font-sans text-sm">
-                        <p class="font-bold text-blue-900 mb-1">Q1: Given R(ABCD) and F:{AB → C, B → D}. Decompose into 2NF.</p>
-                        <p><strong>Step 1:</strong> Find Primary Key. B is not on RHS, so necessary. AB⁺ = ABCD. Primary key = AB.</p>
-                        <p><strong>Step 2:</strong> Check 2NF rules. B → D means D (non-prime) is derived by B (part of key AB). This is Partial Dependency.</p>
-                        <p><strong>Step 3:</strong> Decompose table. R1(ABC) with key AB, and R2(BD) with key B.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">1NF lo okko box lo okate value (Atomic) undali (Ex: Colors box lo "Red, Green" rendu undakudadhu). 2NF loki ravali ante 1NF lo undali, mariyu Partial Dependency undakudadhu. Ante Candidate key lo unna sagam part meedane vere values depend avvakudadhu.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 8: Third Normal Form (3NF) -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">8</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">THIRD NORMAL FORM (3NF)</h2>
-                    </div>
-                    
-                    <p class="mb-2">A database is in third normal form if it satisfies the following conditions:</p>
-                    <ul class="list-disc list-inside text-sm mb-4 text-slate-800 space-y-1 ml-2 font-bold">
-                        <li>It is in 2NF.</li>
-                        <li>There is no transitive functional dependency.</li>
-                    </ul>
-                    <p class="text-sm text-slate-700 mb-4 bg-slate-50 p-3 border border-slate-200 rounded">By transitive functional dependency, we mean: A is functionally dependent on B, and B is functionally dependent on C. In this case, C is transitively dependent on A via B. (<strong>A non-key attribute is depending on a non-key attribute</strong>).</p>
-
-                    <div class="bg-blue-50 p-4 border border-blue-200 rounded mt-4 font-sans text-sm">
-                        <p class="font-bold text-blue-900 mb-1">Q1: Given R(ABCDE) and F:{AB → C, B → D, D → E}. Decompose into 3NF.</p>
-                        <p><strong>Step 1:</strong> Find Primary Key. AB⁺ = ABCDE. Primary key = AB.</p>
-                        <p><strong>Step 2:</strong> Check 2NF. B → D is a partial dependency. Decompose to ABC and BDE. Now table is in 2NF.</p>
-                        <p><strong>Step 3:</strong> Check 3NF. In BDE, D → E exists. D is non-key, E is non-key. This is Transitive dependency.</p>
-                        <p><strong>Step 4:</strong> Decompose to 3NF: R1(ABC), R2(BD), R3(DE).</p>
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">3NF loki ravali ante table 2NF lo undali, mariyu Transitive Dependency undakudadhu. Ante oka "Non-key attribute inko Non-key attribute ni determine cheyyakudadhu". Ala unte vatini kotha table ga (R3: DE laga) vidagotteyali.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 9: Boyce-Codd Normal Form (BCNF) -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">9</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">BOYCE-CODD NORMAL FORM (BCNF)</h2>
-                    </div>
-
-                    <p class="mb-3 text-lg">A relation is said to be in BCNF, if and only if <strong>every determinant should be a candidate key</strong>.</p>
-                    <ul class="list-disc list-inside text-sm mb-6 text-slate-800 space-y-2 ml-2">
-                        <li>BCNF is the advance version of 3NF. It is <strong>stricter than 3NF</strong>.</li>
-                        <li>A table is in 3NF if for every functional dependency X → Y, X is the super key of the table OR Y is a prime attribute.</li>
-                        <li>For BCNF, the table should be in 3NF and for every FD (X → Y), <strong>LHS (X) must be a super key</strong>.</li>
-                    </ul>
-
-                    <p class="font-bold text-blue-900 mb-2">Example Problem:</p>
-                    <div class="code-block text-sm">
-EMPLOYEE Table: emp_id, emp_nationality, emp_dept, dept_type, dept_no_of_emp
-FDs: 
-EMP_ID → EMP_NATIONALITY
-EMP_DEPT → DEPT_TYPE, DEPT_NO_OF_EMP
-Candidate key: {EMP_ID, EMP_DEPT}
-
-The table is not in BCNF because neither EMP_DEPT nor EMP_ID alone are super keys.
-To convert into BCNF, decompose into three tables:
-1. EMP_COUNTRY (emp_id, emp_nationality)
-2. EMP_DEPT (emp_dept, dept_type, dept_no_of_emp)
-3. EMP_DEPT_MAPPING (emp_id, emp_dept)
-                    </div>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">BCNF anedi 3NF kante chaala strict rule. Deeni main rule okkate: X -> Y ani unte, X anedi kachitanga Super Key / Candidate key ayyi undali. Leda decomposition cheyyali. Paina example lo EMP_DEPT -> DEPT_TYPE ani undi kani EMP_DEPT single ga key kadu, anduke 3 tables ga vidagottaru.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PART 10: 4NF & Surrogate Key -->
-        <div class="group flex flex-col items-center">
-            <div class="exam-paper">
-                <div class="margin-line-1"></div>
-                <div class="margin-line-2"></div>
-                <div class="paper-content">
-                    <div class="flex items-center mb-6 border-b-2 border-slate-200 pb-4">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white font-bold mr-4 shadow-md">10</div>
-                        <h2 class="text-xl md:text-2xl font-bold text-slate-800 uppercase tracking-wide font-sans">FOURTH NORMAL FORM (4NF) & SURROGATE KEY</h2>
-                    </div>
-                    
-                    <h3 class="text-lg font-bold text-slate-800 mb-2">Fourth Normal Form (4NF):</h3>
-                    <p class="mb-4 text-sm">A relation said to be in 4NF if it is in BCNF and should have <strong>no multi-valued dependency</strong>.</p>
-                    
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded mb-6 text-sm">
-                        <p class="font-bold text-blue-900 mb-2">Multi Valued Dependency:</p>
-                        <p class="mb-1">For a dependency A → B, if for a single value of A, multiple values of B exist.</p>
-                        <p class="mb-1">A table should have at-least 3 columns. For R(A, B, C), if there is a MVD between A and B, then B and C should be independent of each other.</p>
-                        <p class="italic text-slate-600 mt-2">Ex: StudentID 21 has courses [Computer, Math] and hobbies [Dancing, Singing]. Course and Hobby are independent, creating unnecessary repetition. Decompose to STUDENT_COURSE and STUDENT_HOBBY tables.</p>
-                    </div>
-
-                    <h3 class="text-lg font-bold text-slate-800 mb-2 border-t border-slate-200 pt-4">Concept of Surrogate Key:</h3>
-                    <p class="text-sm mb-2">Alternate of Primary Key that allows duplication of data's/records. It is a unique identification key, like an <strong>artificial key</strong> to production key (which may be alphanumeric), but the surrogate key is always single numeric key.</p>
-                    
-                    <ul class="list-disc list-inside text-sm mb-4 text-slate-800 space-y-1 ml-2">
-                        <li>The value is never reused and is unique within the whole system.</li>
-                        <li>It is <strong>system generated</strong> and an integer.</li>
-                        <li>The value cannot be manipulated by the user or application.</li>
-                    </ul>
-                    <p class="text-sm font-bold text-blue-900">Example: Oracle uses SEQUENCE, MYSQL uses Auto_Increment, and SQL Server uses IDENTITY.</p>
-                </div>
-            </div>
-            <div class="explanation-box">
-                <div class="flex items-start gap-4">
-                    <div class="bg-emerald-400/20 p-2 rounded-lg shrink-0 mt-1"><i data-lucide="lightbulb" class="w-6 h-6 text-emerald-400"></i></div>
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-widest mb-2 flex items-center gap-2">Clear Telugu Explanation <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i></h3>
-                        <p class="text-emerald-50 text-base md:text-lg leading-relaxed font-medium">4NF loki ravali ante Multi-valued dependency undakudadhu (oka value ki 2 independent lists undadam, like Student ki multiple courses and multiple hobbies unte, rendu veru veru tables cheyyali). Surrogate key ante manam create chesedi kadu, system automatically generate chese unique numbers (ex: MySQL lo Auto_increment).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <!-- Screen 2: The Story (Cinematic text) -->
+    <div id="screen-2" class="screen p-6 text-center">
+        <h2 id="story-text" class="text-3xl md:text-5xl lg:text-6xl font-light text-white leading-relaxed max-w-4xl drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]">
+            <!-- Text injected via JS -->
+        </h2>
     </div>
 
-    <!-- Footer -->
-    <div class="max-w-4xl mx-auto mt-16 text-center text-slate-500 text-sm mb-10">
-        <p class="flex items-center justify-center gap-2">
-            <i data-lucide="database" class="w-4 h-4"></i> Crafted specifically for Lohitha Sai — Pure HTML Exam Presentation!
-        </p>
+    <!-- Screen 3: The Holographic Proposal/Letter -->
+    <div id="screen-3" class="screen p-4 perspective-container w-full h-full">
+        <!-- 3D Tilt Card -->
+        <div id="tilt-card" class="tilt-card glass-panel max-w-2xl w-full mx-auto p-8 md:p-12 relative overflow-hidden">
+            <!-- Glare effect inside card -->
+            <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none rounded-[24px]"></div>
+            
+            <div class="tilt-content flex flex-col items-center">
+                <p class="text-pink-400 tracking-[0.2em] font-bold text-sm mb-4">1095 DAYS OF LOVE</p>
+                <h1 class="font-romantic text-6xl md:text-8xl text-gradient mb-6 drop-shadow-lg">Lohitha</h1>
+                
+                <div class="space-y-4 text-gray-200 text-lg md:text-xl font-light leading-relaxed text-left bg-black/20 p-6 rounded-2xl border border-white/10 mb-8 w-full">
+                    <p>Naa life loki vachi 3 years aindi... Kani ninnu chusina prathi roju, naaku <span class="text-pink-400 font-bold italic">first day</span> laage anipisthundi.</p>
+                    <p>Naa prathi navvuki, naa prathi success ki reason nuvve bangaaram.</p>
+                </div>
+
+                <div class="w-full border-t border-white/10 pt-8 mt-2 text-center">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-8 drop-shadow-md">
+                        Sare gani, inko 100 years naa thalanoppi baristhava? 🥺❤️
+                    </h2>
+                    
+                    <div class="relative h-24 w-full flex items-center justify-center gap-4 md:gap-8">
+                        <button onclick="triggerFinale()" class="btn-glow bg-gradient-to-r from-pink-600 to-rose-500 text-white font-bold py-4 px-8 md:px-12 rounded-full shadow-[0_0_20px_rgba(236,72,153,0.5)] transform transition-transform hover:scale-110 z-20 text-lg md:text-xl cursor-pointer">
+                            Baristha Le! 😍
+                        </button>
+                        
+                        <button id="noBtn" class="glass-panel text-gray-300 font-medium py-4 px-8 rounded-full transition-all duration-300 ease-out z-30 whitespace-nowrap text-lg absolute cursor-pointer" style="left: calc(50% + 80px);">
+                            No 😜
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Screen 4: The Grand Finale -->
+    <div id="screen-4" class="screen p-4 bg-black/80 backdrop-blur-sm">
+        <div class="glass-panel p-10 md:p-16 rounded-[2rem] text-center max-w-3xl border-pink-500/30">
+            <h1 class="font-romantic text-5xl md:text-7xl text-white mb-6 animate-pulse drop-shadow-[0_0_20px_rgba(236,72,153,0.8)]">
+                I Love You 3000! ♾️
+            </h1>
+            <h2 class="text-3xl md:text-5xl font-black text-gradient mb-8">
+                Happy 3rd Anniversary!
+            </h2>
+            <p class="text-xl text-gray-300 font-light italic">
+                "Ee 3 years okka lekka... Innumundu jaragaboyedhi inko lekka! Get ready for a lifetime together, Lohitha ❤️"
+            </p>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
     <script>
-        lucide.createIcons();
+        // --- 1. Starfield & Warp Drive Engine ---
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let stars = [];
+        let warpSpeed = 0; // 0 for normal, 1 for warp
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * width - width / 2;
+                this.y = Math.random() * height - height / 2;
+                this.z = Math.random() * width;
+                this.pz = this.z;
+            }
+            update() {
+                let speed = warpSpeed ? 40 : 2; // Warp speed vs normal float
+                this.z -= speed;
+                if (this.z < 1) {
+                    this.z = width;
+                    this.x = Math.random() * width - width / 2;
+                    this.y = Math.random() * height - height / 2;
+                    this.pz = this.z;
+                }
+            }
+            draw() {
+                let sx = (this.x / this.z) * width + width / 2;
+                let sy = (this.y / this.z) * height + height / 2;
+                let r = (1 - this.z / width) * 3;
+                
+                let px = (this.x / this.pz) * width + width / 2;
+                let py = (this.y / this.pz) * height + height / 2;
+                this.pz = this.z;
+
+                ctx.beginPath();
+                ctx.moveTo(px, py);
+                ctx.lineTo(sx, sy);
+                ctx.lineWidth = r;
+                
+                // Color based on warp speed
+                if(warpSpeed) {
+                    ctx.strokeStyle = `rgba(236, 72, 153, ${1 - this.z / width})`; // Pink streaks
+                } else {
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${1 - this.z / width})`;
+                }
+                ctx.stroke();
+            }
+        }
+
+        for (let i = 0; i < 400; i++) stars.push(new Star());
+
+        function animateStars() {
+            ctx.fillStyle = 'rgba(3, 0, 8, 0.4)'; // Trail effect
+            ctx.fillRect(0, 0, width, height);
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            requestAnimationFrame(animateStars);
+        }
+        animateStars();
+
+        // --- 2. Screen Management & Story Logic ---
+        function switchScreen(fromId, toId) {
+            document.getElementById(fromId).classList.remove('active');
+            setTimeout(() => {
+                document.getElementById(toId).classList.add('active');
+            }, 1000); // Wait for fade out
+        }
+
+        const storyLines = [
+            "1095 Days...",
+            "36 Months...",
+            "3 Beautiful Years...",
+            "Nee navvu naa life lo the best magic! ✨",
+            "Anduke ee chinna surprise..."
+        ];
+
+        function startWarp() {
+            warpSpeed = 1; // Trigger warp
+            document.getElementById('screen-1').classList.remove('active');
+            
+            // Hold warp for 2 seconds, then show story
+            setTimeout(() => {
+                warpSpeed = 0;
+                document.getElementById('screen-2').classList.add('active');
+                playStory();
+            }, 2000);
+        }
+
+        function playStory() {
+            const textEl = document.getElementById('story-text');
+            let index = 0;
+
+            function nextLine() {
+                if (index >= storyLines.length) {
+                    switchScreen('screen-2', 'screen-3');
+                    return;
+                }
+                textEl.innerText = storyLines[index];
+                textEl.classList.remove('reveal');
+                
+                // Force reflow
+                void textEl.offsetWidth; 
+                
+                textEl.classList.add('reveal');
+                index++;
+                setTimeout(nextLine, 3500); // 3.5s per line
+            }
+            nextLine();
+        }
+
+        // --- 3. 3D Holographic Card Tilt Effect ---
+        const tiltCard = document.getElementById('tilt-card');
+        const screen3 = document.getElementById('screen-3');
+
+        screen3.addEventListener('mousemove', (e) => {
+            // Only apply on desktop
+            if(window.innerWidth < 768) return; 
+
+            const rect = tiltCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calculate rotation (max 10 degrees)
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+            
+            tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        screen3.addEventListener('mouseleave', () => {
+            tiltCard.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        });
+
+        // --- 4. The "Ultra Dodging" No Button Logic ---
+        const noBtn = document.getElementById('noBtn');
+        const noTexts = [
+            "No 😜", 
+            "Barinchalsinde! 😤", 
+            "Dorakanu ga! 🏃‍♀️", 
+            "Option ledu baby! 🔒", 
+            "Nannu vadili ekkadki pothav! 😂",
+            "Inka try chesthunava? 🤭"
+        ];
+        let noClickCount = 0;
+
+        function dodgeButton(e) {
+            e.preventDefault(); // Prevent touch click
+            
+            // Change text
+            noClickCount = (noClickCount + 1) % noTexts.length;
+            noBtn.innerText = noTexts[noClickCount];
+
+            // Get safe boundaries (avoiding edges and overlapping the Yes button too much)
+            const padding = 20;
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+            
+            // Using window dimensions to jump anywhere on screen
+            const maxX = window.innerWidth - btnWidth - padding;
+            const maxY = window.innerHeight - btnHeight - padding;
+            
+            const newX = Math.max(padding, Math.random() * maxX);
+            const newY = Math.max(padding, Math.random() * maxY);
+
+            noBtn.style.position = 'fixed'; // Break out of flexbox
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
+        }
+
+        // Trigger on hover for mouse, touchstart for mobile
+        noBtn.addEventListener('mouseover', dodgeButton);
+        noBtn.addEventListener('touchstart', dodgeButton);
+
+        // --- 5. The Grand Finale (Confetti & Hearts) ---
+        function triggerFinale() {
+            switchScreen('screen-3', 'screen-4');
+            
+            // Fire Confetti
+            const duration = 5 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+                // Since particles fall down, start a bit higher than random
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+
+            // Floating Hearts Effect
+            for(let i=0; i<30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.className = 'floating-heart text-2xl md:text-4xl';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '100vh';
+                    heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    document.body.appendChild(heart);
+                    
+                    // Cleanup
+                    setTimeout(() => heart.remove(), 5000);
+                }, i * 150); // Stagger spawn
+            }
+        }
     </script>
 </body>
 </html>
-
-
-```
