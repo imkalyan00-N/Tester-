@@ -3,163 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PL/SQL Stored Functions - Tanglish Explanation</title>
+    <title>PL/SQL Procedures - Deep Dive (Tanglish)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .tanglish-text { line-height: 1.8; font-size: 1.05rem; }
-        .highlight-word { color: #0ea5e9; font-weight: 600; }
-        .section-title { border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; margin-bottom: 1rem; }
-        .gradient-text { background: linear-gradient(to right, #0284c7, #4f46e5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; }
+        .code-block { background-color: #1e1e1e; color: #d4d4d4; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem; }
+        .sql-keyword { color: #569cd6; font-weight: bold; }
+        .sql-string { color: #ce9178; }
+        .sql-comment { color: #6a9955; font-style: italic; }
+        .tanglish-explanation { background-color: #e0f2fe; border-left: 4px solid #3b82f6; padding: 1rem; margin-top: 0.5rem; border-radius: 0 0.5rem 0.5rem 0; color: #1e3a8a; }
+        .section-title { color: #1e40af; border-bottom: 2px solid #bfdbfe; padding-bottom: 0.5rem; margin-top: 2rem; margin-bottom: 1rem; font-weight: bold; font-size: 1.5rem; }
+        .highlight { font-weight: bold; color: #b91c1c; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 p-4 md:p-8">
+<body class="p-4 md:p-8">
 
-    <div class="max-w-5xl mx-auto space-y-8">
+    <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-10">
         
-        <!-- Header Section -->
-        <header class="text-center space-y-4">
-            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight gradient-text py-2">
-                PL/SQL Stored Functions In-Depth
-            </h1>
-            <p class="text-lg text-slate-700 bg-sky-50 p-4 rounded-xl shadow-sm border border-sky-100 inline-block">
-                <strong>AIM:</strong> Program development using creation of stored functions, invoke functions in SQL statements and write complex functions.
-            </p>
-        </header>
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-blue-800 mb-2">PL/SQL Procedures: Complete Deep Dive</h1>
+            <p class="text-gray-600">Theory & Program Explanation in Tanglish</p>
+        </div>
 
-        <!-- Part 1: Theory Explanation -->
-        <section class="bg-white rounded-2xl shadow-md p-6 md:p-8 border-t-4 border-sky-500">
-            <h2 class="text-2xl font-bold text-slate-800 section-title">Part 1: Theory - Asalu Stored Function ante enti? 🤔</h2>
-            
-            <div class="space-y-6 tanglish-text text-slate-700">
-                <p>
-                    <strong class="text-sky-600 text-xl">1. Definition & Uses</strong><br>
-                    Stored function ante oka named PL/SQL subprogram. Procedure ki, Function ki main difference entante... Function kachithanga oka <span class="highlight-word">single value ni RETURN cheyali</span> (using RETURN statement). Veetini manam direct ga SQL queries (SELECT) lopala vadeskovachu.
-                </p>
+        <!-- 1. AIM -->
+        <h2 class="section-title">1. AIM (Manam em achieve cheyali anukuntunnam?)</h2>
+        <p class="text-gray-800 text-lg">
+            <strong>AIM:</strong> Programs development using creation of procedures, passing parameters IN and OUT of procedures.
+        </p>
+        <div class="tanglish-explanation">
+            <strong>Explanation:</strong> Ee concept yokka main target enti ante, database lo Procedures ela create cheyali, vatiki variables (parameters) ni ela pass cheyali, mariyu aa procedure nunchi output (OUT parameters dwara) ela thechukovali anedi nerchukovadam.
+        </div>
 
-                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                    <strong class="text-sky-600">Enduku vadatharu? (Advantages & Applications):</strong>
-                    <ul class="list-disc pl-6 mt-2 space-y-1 text-sm">
-                        <li><strong>Code Reusability:</strong> Okkasari function rasi save cheste, db lo ekkadinunchaina call cheskovachu.</li>
-                        <li><strong>Calculations:</strong> Salary computation, Grades ivvadam, calculations cheyadaniki best.</li>
-                        <li><strong>Encapsulation:</strong> Complex business logic antha okachota dachi pettachu.</li>
-                    </ul>
-                </div>
+        <!-- 2. What is a Procedure -->
+        <h2 class="section-title">2. What is a Procedure? (Asalu Procedure ante enti?)</h2>
+        <ul class="list-disc list-inside space-y-2 text-gray-800">
+            <li>A procedure is a named PL/SQL subprogram that performs a specific task.</li>
+            <li>It can accept parameters, execute SQL/PL-SQL statements, and return results through OUT parameters.</li>
+        </ul>
+        <h3 class="text-xl font-bold mt-4 mb-2 text-gray-700">Procedures are mainly used to:</h3>
+        <ul class="list-disc list-inside space-y-1 text-gray-800 ml-4 mb-4">
+            <li>Modularize programs</li>
+            <li>Improve reusability</li>
+            <li>Reduce code repetition</li>
+            <li>Improve performance and security</li>
+        </ul>
+        <div class="tanglish-explanation">
+            <strong>Explanation:</strong> <br>
+            Procedure ante oka peru unna PL/SQL code block (subprogram). Idi oka specific pani cheyadaniki vadatham. <br><br>
+            <strong>Enduku vadali?:</strong>
+            <ul class="list-disc list-inside mt-2">
+                <li><strong>Modularize programs:</strong> Pedda code ni chinnna chinna mukkalu (modules) ga vidadeeyadam.</li>
+                <li><strong>Improve reusability & Reduce code repetition:</strong> Oka sari code rasi procedure create cheste, malli malli kotha code rayalsina avasaram ledu. Aa procedure peru tho call chesukunte chalu. Idi code repetition ni thaggisthundi.</li>
+                <li><strong>Improve performance & security:</strong> Anni SQL statements okesari database ki velthayi kabatti speed peruguthundi (network traffic thagguthundi). Alage tables direct ga access ivvakunda, procedure dwara access istham kabatti security kooda untundi.</li>
+            </ul>
+        </div>
 
-                <p>
-                    <strong class="text-sky-600 text-xl">2. Rules for using Functions in SQL ⚠️</strong><br>
-                    SQL statement (like SELECT) lopala function vadali ante konni strict rules unnayi:
-                </p>
-                <ul class="list-disc pl-6 space-y-2">
-                    <li>Kachithanga oka single value ye return cheyali.</li>
-                    <li>Function lopala <span class="highlight-word">DML commands (INSERT, UPDATE, DELETE) undakudadu</span>. Only read operations matrame (SELECT) allow chestundi.</li>
-                    <li>Parameters ga only <code>IN</code> (input) matrame ivvali. <code>OUT</code> or <code>IN OUT</code> parameters SQL calls lo pani cheyavu.</li>
+        <!-- 3. Syntax -->
+        <h2 class="section-title">3. Syntax for Creating a Procedure</h2>
+        <div class="code-block">
+<span class="sql-keyword">CREATE OR REPLACE PROCEDURE</span> procedure_name
+(
+    parameter_name <span class="sql-keyword">mode datatype</span>,
+    parameter_name <span class="sql-keyword">mode datatype</span>
+)
+<span class="sql-keyword">AS</span>
+<span class="sql-keyword">BEGIN</span>
+    <span class="sql-comment">-- executable statements</span>
+<span class="sql-keyword">END</span>;
+/
+        </div>
+        <div class="tanglish-explanation">
+            <strong>Explanation:</strong> <br>
+            <span class="highlight">CREATE OR REPLACE:</span> Kotha procedure create cheyadaniki <b>CREATE</b>. Oka vela same peru tho already unte dantlo changes update cheyadaniki <b>REPLACE</b> vadatham.<br>
+            Tarvatha brackets <code>()</code> lopaliki manam parameters (variables) pass chestham. Prathi parameter ki 3 vishayalu undali: <i>Name, Mode (IN/OUT), and Datatype (number/varchar2)</i>.
+        </div>
+
+        <!-- 4. Parameter Modes -->
+        <h2 class="section-title">4. Parameter Modes (Parameters lo rakalu)</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                <h3 class="font-bold text-lg text-blue-800 mb-2">IN Parameters</h3>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                    <li>Used to pass values to the procedure</li>
+                    <li>Read-only inside the procedure</li>
+                    <li>Cannot be modified</li>
                 </ul>
+                <p class="text-sm mt-3 text-gray-700 italic border-t pt-2 border-blue-200">
+                    <strong>Tanglish:</strong> Idi just input ivvadaniki. Bayata nunchi value lopaliki theeskelladaniki matrame. Lopala aa value ni manam change cheyalem (read-only). Default ga em ivvakapothe adi IN parameter e.
+                </p>
             </div>
-        </section>
-
-        <!-- Part 2: Table Setup -->
-        <section class="bg-white rounded-2xl shadow-md p-6 md:p-8 border-t-4 border-emerald-500">
-            <h2 class="text-2xl font-bold text-slate-800 section-title">Part 2: Pre-requisites (Table Setup) 🛠️</h2>
-            <p class="tanglish-text text-slate-700 mb-4">Function raase mundu oka chinna `dept` table create chesi oka record insert chedam. <i>(Note: Function lo dname ani fetch chestunnam kabatti, table creation lo column name ni `dname` ga modify chesanu.)</i></p>
-            
-<pre><code class="language-sql">CREATE TABLE dept (
-    deptno INT,
-    dname VARCHAR2(20)
-); 
-
-INSERT INTO dept VALUES (1219, 'sai');
-COMMIT;</code></pre>
-        </section>
-
-        <!-- Part 3: Creating the Function -->
-        <section class="bg-white rounded-2xl shadow-md p-6 md:p-8 border-t-4 border-purple-500">
-            <h2 class="text-2xl font-bold text-slate-800 section-title">Part 3: Creating the Function & Tanglish Breakdown 💻</h2>
-            
-            <div class="space-y-6">
-                <!-- Code Block 1 -->
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <h3 class="font-bold text-lg text-purple-600 mb-2">Step 1: Function Header & Variable Declaration</h3>
-<pre><code class="language-sql">CREATE OR REPLACE FUNCTION getname(dno NUMBER) 
-RETURN VARCHAR2 AS
-    fname1 VARCHAR2(30);</code></pre>
-                    <p class="mt-4 tanglish-text text-slate-700">
-                        <strong>Emaindi ikkada?</strong><br>
-                        👉 <code>getname</code> ane oka kotha function srustistunnam. Idi input ga <code>dno</code> (department number) ni theeskuntundi.<br>
-                        👉 Ee function output ga oka string ni isthundi kabatti, <span class="highlight-word">RETURN VARCHAR2</span> ani specify chesam.<br>
-                        👉 Output ni temporay ga store cheskodaniki <code>fname1</code> ane variable theeskunnam.
-                    </p>
-                </div>
-
-                <!-- Code Block 2 -->
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <h3 class="font-bold text-lg text-purple-600 mb-2">Step 2: Execution Body</h3>
-<pre><code class="language-sql">BEGIN
-    SELECT dname INTO fname1 FROM dept
-    WHERE deptno = dno;
-    
-    RETURN fname1;</code></pre>
-                    <p class="mt-4 tanglish-text text-slate-700">
-                        <strong>Emaindi ikkada?</strong><br>
-                        👉 Manam pass chesina input <code>dno</code> vadi, table lo aa id ki matching ga unna <code>dname</code> ni SELECT chestunnam.<br>
-                        👉 Vacchina peru ni <code>INTO fname1</code> antu mana variable loki veskunnam.<br>
-                        👉 Last ga, aa name ni function nunchi bayataki pampadaniki <span class="highlight-word">RETURN fname1;</span> vadam. Function ikkade end aipotundi (data dorikithe).
-                    </p>
-                </div>
-
-                <!-- Code Block 3 -->
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <h3 class="font-bold text-lg text-purple-600 mb-2">Step 3: Exception Handling (Error vasthe ela?)</h3>
-<pre><code class="language-sql">EXCEPTION 
-    WHEN no_data_found THEN
-        raise_application_error(-20100, 'The dno is not found');
-END;
-/</code></pre>
-                    <p class="mt-4 tanglish-text text-slate-700">
-                        <strong>Emaindi ikkada?</strong><br>
-                        👉 <strong>Key Point:</strong> Manam ichina <code>dno</code> asalu table lone lekapothe, SELECT query data theiyaledu. Appudu program crash avvakunda <code>no_data_found</code> exception help chestundi.<br>
-                        👉 <code>raise_application_error</code> vadi, mana own error number (-20100) tho manaki kavalsina message ni user ki chupisthunnam. Deeni valla system errors kakunda, clear messages vasthayi.
-                    </p>
-                </div>
-
+            <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                <h3 class="font-bold text-lg text-green-800 mb-2">OUT Parameters</h3>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                    <li>Used to return values from the procedure</li>
+                    <li>Value must be assigned inside the procedure</li>
+                    <li>Cannot accept input values</li>
+                </ul>
+                <p class="text-sm mt-3 text-gray-700 italic border-t pt-2 border-green-200">
+                    <strong>Tanglish:</strong> Procedure lopala calculate ayina result ni bayataki theeskuradaniki idi vadatham. Idhi input ni theeskodu, lopala unna result ni hold cheskuni bayataki isthundi.
+                </p>
             </div>
-        </section>
+            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                <h3 class="font-bold text-lg text-purple-800 mb-2">IN OUT Parameters</h3>
+                <ul class="list-disc list-inside text-sm space-y-1">
+                    <li>Used for both input and output</li>
+                    <li>Value can be modified and returned</li>
+                </ul>
+                <p class="text-sm mt-3 text-gray-700 italic border-t pt-2 border-purple-200">
+                    <strong>Tanglish:</strong> Idi 2-in-1. Modata input theeskuntundi. Lopala manam dani meeda calculations chesi same variable thone kotha value ni bayataki pampeyochochu.
+                </p>
+            </div>
+        </div>
 
-        <!-- Part 4: Calling the Function -->
-        <section class="bg-white rounded-2xl shadow-md p-6 md:p-8 border-t-4 border-amber-500">
-            <h2 class="text-2xl font-bold text-slate-800 section-title">Part 4: Calling the Function 🚀</h2>
-            <p class="tanglish-text text-slate-700 mb-4">Function ready aipoindi, mari danini ela test cheyali? Oka anonymous PL/SQL block rasi ee function ni call cheddam.</p>
+        <!-- 5. Calling a Procedure -->
+        <h2 class="section-title">5. Calling a Procedure (Procedure ni ela pilavali?)</h2>
+        <div class="code-block">
+<span class="sql-comment">-- Method 1: Using EXEC</span>
+<span class="sql-keyword">EXEC</span> procedure_name(parameters);
 
-<div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-<pre><code class="language-sql">SET SERVEROUTPUT ON;
+<span class="sql-comment">-- Method 2: Inside a PL/SQL block</span>
+<span class="sql-keyword">BEGIN</span>
+    procedure_name(parameters);
+<span class="sql-keyword">END</span>;
+/
+        </div>
+        <div class="tanglish-explanation">
+            <strong>Explanation:</strong> Create chesina procedure run avvali ante danini pilavali (call cheyali). SQL Plus prompt paina unte simple ga <code>EXEC</code> vadi pilavachu. Leda inko program nunchi call cheyali ante <code>BEGIN ... END;</code> (Anonymous block) lopala direct ga peru thote pilavachu.
+        </div>
 
-DECLARE
-    fname2 VARCHAR2(30); 
-    deptno2 NUMBER(5);
-BEGIN
-    deptno2 := 1219; -- Manam vethukuthunna department number
+        <!-- 6. Advantages & Differences -->
+        <h2 class="section-title">6. Advantages & Procedure vs Function</h2>
+        
+        <h3 class="text-lg font-bold text-gray-800">Advantages of Procedures:</h3>
+        <ul class="list-disc list-inside space-y-1 text-gray-800 ml-4 mb-4">
+            <li>Improves program structure</li>
+            <li>Enhances reusability</li>
+            <li>Reduces network traffic</li>
+            <li>Improves security by hiding business logic</li>
+            <li>Easy maintenance and debugging</li>
+        </ul>
+        <div class="tanglish-explanation mb-4">
+            <strong>Explanation:</strong> Code structure neat ga untundi. Oka sari rasi enni sarlaina vadukovachu. Client nunchi prathi chinna query velle badulu okesari procedure call velthundi kabatti network speed baguntundi. Asalu lopala em logic undo bayata user ki teliyadu kabatti security! Errors ochina easily fix cheyachu (maintenance).
+        </div>
+
+        <h3 class="text-lg font-bold text-gray-800">Difference Between Procedure and Function</h3>
+        <div class="overflow-x-auto mt-2">
+            <table class="min-w-full bg-white border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="py-2 px-4 border-b border-r text-left">Procedure</th>
+                        <th class="py-2 px-4 border-b text-left">Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-2 px-4 border-b border-r">May or may not return a value</td>
+                        <td class="py-2 px-4 border-b"><strong>Must</strong> return a value</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-b border-r">Uses OUT parameters to return values</td>
+                        <td class="py-2 px-4 border-b">Uses <code>RETURN</code> statement to return a value</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-r">Called using <code>EXEC</code> or inside a block</td>
+                        <td class="py-2 px-4">Can be used directly in SQL expressions (like <code>SELECT</code>)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tanglish-explanation mt-2">
+            <strong>Explanation:</strong> <br>
+            Idi chala important interview question! Procedure ki pakka result ivvali ane rule ledu, isthe OUT parameter tho isthundi. Kani Function matram pakka <code>RETURN</code> keyword vadi oka value ni return chesi theerali. Alage Function ni manam <code>SELECT function_name FROM dual;</code> ani SQL query lopalane direct ga vadukovachu, kani Procedure ni ala vadalem.
+        </div>
+
+        <!-- 7. THE PROGRAM SECTION -->
+        <h2 class="section-title">7. The Practical Program (Deep Dive)</h2>
+        
+        <h3 class="text-xl font-bold text-gray-800 mt-4">Step 1: Table Creation & Data Insertion</h3>
+        <div class="code-block">
+<span class="sql-keyword">CREATE TABLE</span> enquiry(enqno1 <span class="sql-keyword">number</span>, fname <span class="sql-keyword">varchar2</span>(30));
+<span class="sql-keyword">INSERT INTO</span> enquiry <span class="sql-keyword">VALUES</span>(111,<span class="sql-string">'sai'</span>);
+<span class="sql-keyword">INSERT INTO</span> enquiry <span class="sql-keyword">VALUES</span>(112,<span class="sql-string">'sindhu'</span>);
+        </div>
+        <div class="tanglish-explanation mb-6">
+            <strong>Explanation:</strong> First manam 'enquiry' ane table create chesthunnam. Indulo 2 columns unnayi. <code>enqno1</code> (Number datatype) mariyu <code>fname</code> (varchar2 datatype). Dani tarvatha rendo record lu insert chesam. Enquiry id 111 ki peru 'sai', 112 ki peru 'sindhu'.
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-800 mt-4">Step 2: The Procedure (`sriganesh`)</h3>
+        <div class="code-block">
+<span class="sql-keyword">CREATE OR REPLACE PROCEDURE</span> sriganesh(enquiryno1 <span class="sql-keyword">IN number</span>, fname1 <span class="sql-keyword">OUT varchar2</span>) <span class="sql-keyword">IS</span>
+    fname2 <span class="sql-keyword">varchar2</span>(30);
+<span class="sql-keyword">BEGIN</span>
+    <span class="sql-keyword">SELECT</span> fname <span class="sql-keyword">INTO</span> fname2
+    <span class="sql-keyword">FROM</span> enquiry
+    <span class="sql-keyword">WHERE</span> enqno1 = enquiryno1;
     
-    /* Function ni call chesi, vacchina result ni fname2 ki assign chestunnam */
-    fname2 := getname(deptno2); 
+    fname1 := fname2;
+<span class="sql-keyword">EXCEPTION</span>
+    <span class="sql-keyword">WHEN NO_DATA_FOUND THEN</span>
+        <span class="sql-keyword">RAISE_APPLICATION_ERROR</span>(-20100, <span class="sql-string">'The given number is not present'</span>);
+<span class="sql-keyword">END</span> sriganesh;
+/
+        </div>
+        <div class="tanglish-explanation mb-6">
+            <strong>Line-by-Line Tanglish Explanation:</strong> <br><br>
+            <code>CREATE OR REPLACE PROCEDURE sriganesh</code> : 'sriganesh' ane peru tho procedure create chesthunnam.<br><br>
+            <code>(enquiryno1 IN number, fname1 OUT varchar2)</code> : Ikkada 2 parameters unnayi. Manam number ni (enquiryno1) input ga istham (IN), daniki match ayye peru ni (fname1) procedure manaki output ga isthundi (OUT).<br><br>
+            <code>fname2 varchar2(30);</code> : Idi local variable. Ee procedure lopala matrame pani chestundi. Database nunchi vachina data ni temporary ga store cheskodaniki.<br><br>
+            <code>SELECT fname INTO fname2 FROM enquiry WHERE enqno1 = enquiryno1;</code> : Manam pass chesina input number (enquiryno1) ni table lo unna <code>enqno1</code> tho check chesthundi. Match ayithe, aa <code>fname</code> ni thechi manam paina declare chesina temporary variable <code>fname2</code> loki vesthundi (INTO).<br><br>
+            <code>fname1 := fname2;</code> : Ippudu result unna <code>fname2</code> ni, manam output ivvalsina parameter <code>fname1</code> loki assign chesthunnam. Idi direct ga program bayataki vellipothundi.<br><br>
+            <code>EXCEPTION ... NO_DATA_FOUND</code> : Oka vela manam ichina enquiry number table lo lekapothe SQL error isthundi. Aa error ni handle cheyadaniki idi. Lekapothe <code>RAISE_APPLICATION_ERROR</code> dwara manam own custom error (-20100) ni chupisthunnam (User-defined errors -20000 nunchi -20999 madhya undali).
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-800 mt-4">Step 3: Calling the Procedure (Anonymous Block)</h3>
+        <div class="code-block">
+<span class="sql-comment">-- Enable DBMS_OUTPUT to see the result</span>
+<span class="sql-keyword">SET SERVEROUTPUT ON</span>;
+
+<span class="sql-comment">-- Anonymous block to call the procedure</span>
+<span class="sql-keyword">DECLARE</span>
+    enqno2 <span class="sql-keyword">number</span>(5);
+    fname2 <span class="sql-keyword">varchar2</span>(30); 
+<span class="sql-keyword">BEGIN</span>
+    enqno2 := 111; <span class="sql-comment">-- Sample enqno</span>
     
-    /* Result print chestunnam */
-    DBMS_OUTPUT.PUT_LINE('The name is: ' || fname2); 
-END;
-/</code></pre>
-    <div class="mt-4 p-4 bg-black rounded-lg text-green-400 font-mono text-sm shadow-inner">
-        Output: The name is: sai
-    </div>
-    <p class="mt-4 tanglish-text text-slate-700">
-        <strong>Simple ga cheppalante:</strong> <code>getname(1219)</code> ani pilicham. Function lopala velli vethiki "sai" ane peru thechi, bayata unna <code>fname2</code> ki ichindi. Manam daanni print chesam!
-    </p>
-</div>
-        </section>
+    <span class="sql-comment">-- Call the procedure</span>
+    sriganesh(enqno2, fname2); 
+    
+    <span class="sql-comment">-- Output the result to the console</span>
+    dbms_output.put_line(<span class="sql-string">'The name is: '</span> || fname2); 
+<span class="sql-keyword">EXCEPTION</span>
+    <span class="sql-keyword">WHEN OTHERS THEN</span>
+        <span class="sql-comment">-- Handle any unexpected exceptions and display them</span>
+        dbms_output.put_line(<span class="sql-string">'Error: '</span> || <span class="sql-keyword">SQLERRM</span>);
+<span class="sql-keyword">END</span>;
+/
+        </div>
+        <div class="tanglish-explanation mb-6">
+            <strong>Line-by-Line Tanglish Explanation:</strong> <br><br>
+            <code>SET SERVEROUTPUT ON;</code> : PL/SQL lo emaina print chesedi screen meeda kanipinchali ante idi pakka ON cheyali. Leka pothe "PL/SQL procedure successfully completed" ani vasthundi kani result kanapadadu.<br><br>
+            <code>DECLARE enqno2 number(5); fname2 varchar2(30);</code> : Procedure ki values pass cheyadaniki, akkada nunchi vache value ni theeskodaniki ikkada kotha variables declare chesam.<br><br>
+            <code>enqno2 := 111;</code> : Manam search cheyalani anukuntunna enquiry number (Input).<br><br>
+            <code>sriganesh(enqno2, fname2);</code> : <strong>Idhe main Procedure Call!</strong> Manam procedure ki <code>enqno2</code> (111) ni pampisthunnam. Procedure run ayyaka, akkada assign ayina OUT parameter direct ga vachi ikkada unde <code>fname2</code> lo kurchuntundi.<br><br>
+            <code>dbms_output.put_line(...)</code> : Vachina result ni console lo print chesthunnam. So output "The name is: sai" ani print avthundi.<br><br>
+            <code>EXCEPTION WHEN OTHERS THEN</code> : Oka vela procedure call lo emaina error vasthe (example manam 113 ani pass cheste, procedure lo data ledu ani exception vasthundi kada), adi ikkada catch ayyi error message (SQLERRM) ni print chesthundi program crash avvakunda.
+        </div>
 
     </div>
-
-    <!-- Scripts for syntax highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
 </body>
 </html>
