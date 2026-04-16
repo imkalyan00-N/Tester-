@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PL/SQL Cursors - Tanglish Explanation</title>
+    <st src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .tanglish-text { line-height: 1.8; font-size: 1.05rem; }
+        .highlight-word { color: #2563eb; font-weight: 600; }
+        .section-title { border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto space-y-8">
+        
+        <!-- Header Section -->
+        <header class="text-center space-y-4">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-indigo-700 tracking-tight">
+                PL/SQL Cursors In-Depth (Tanglish)
+            </h1>
+            <p class="text-lg text-slate-600 bg-indigo-50 p-4 rounded-lg shadow-sm border border-indigo-100 inline-block">
+                <strong>AIM:</strong> Develop programs using features parameters in a CURSOR, FOR UPDATE CURSOR, WHERE CURRENT of clause and CURSOR variables.
+            </p>
+        </header>
+
+        <!-- Part 1: Theory Explanation -->
+        <section class="bg-white rounded-2xl shadow-md p-6 md:p-8 border-t-4 border-indigo-500">
+            <h2 class="text-2xl font-bold text-slate-800 section-title">Part 1: Theory - Asalu Cursor ante enti? 🤔</h2>
+            
+            <div class="space-y-6 tanglish-text text-slate-700">
+                <p>
+                    <strong class="text-indigo-600 text-xl">1. What is a Cursor?</strong><br>
+                    Cursor ante simple ga oka <span class="highlight-word">pointer</span>. Manam SQL query (SELECT) execute chesinappudu, database kontha memory allocate chestundi result ni store cheyadaniki. Aa memory area ni point chese daanne cursor antaru. PL/SQL lo query results ni <span class="highlight-word">row-by-row process cheyadaniki</span> idi baaga use avtundi.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <strong class="text-indigo-600">Implicit Cursor:</strong>
+                        <p class="mt-2 text-sm">Manam INSERT, UPDATE, DELETE chesinappudu leda single-row SELECT rasinappudu, Oracle thanantha taanu automatically ga create chesukune cursor idi. Manam declare cheyalsina avasaram ledu.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <strong class="text-indigo-600">Explicit Cursor:</strong>
+                        <p class="mt-2 text-sm">Multiple rows ni return chese SELECT queries ni handle cheyadaniki manam own ga rase cursor idi. <strong>Steps:</strong> Declare &rarr; Open &rarr; Fetch &rarr; Close.</p>
+                    </div>
+                </div>
+
+                <p>
+                    <strong class="text-indigo-600 text-xl">2. Advanced Cursor Features:</strong>
+                </p>
+                <ul class="list-disc pl-6 space-y-3">
+                    <li><strong>Cursor with Parameters:</strong> Manam functions ki parameters pass chesinatte, Cursors ki kuda runtime lo values pass cheyachu. Deeni valla <span class="highlight-word">okate cursor ni different values isthu reuse</span> cheskovachu. flexibility perugutundi.</li>
+                    <li><strong>FOR UPDATE Cursor:</strong> Ee cursor tho manam ye rows aite fetch chesthamo, aa rows ni database <span class="highlight-word">lock chestundi</span>. Manam update chese lopu vere evaru ah rows ni modify cheyakunda aaputundi.</li>
+                    <li><strong>WHERE CURRENT OF:</strong> Idi <code>FOR UPDATE</code> ki best friend. Loop thirugutunnappudu, cursor exact ga ye row daggara undo, aa specific row ni matrame update/delete cheyadaniki ee clause vadtharu. Primary keys petti malla WHERE condition rayalsina avasaram ledu.</li>
+                    <li><strong>Cursor Variables (REF CURSOR):</strong> Normal cursors static (fix ayyi untayi compile time lone). Kani REF CURSOR <span class="highlight-word">dynamic</span> ga untundi. Oka sari declare chesi, different different SELECT queries ni daniki assign cheyachu run-time lo. Ee variables ni parameters laaga vere programs ki kuda pass cheyachu.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Part 2: Table Setup -->
+        <section class="bg-white rounded-2xl shadow-md p-6 md:p-8 border-t-4 border-green-500">
+            <h2 class="text-2xl font-bold text-slate-800 section-title">Part 2: Pre-requisites (Table Setup) 🛠️</h2>
+            <p class="tanglish-text text-slate-700 mb-4">Mundu program run chese mundu manam oka <code>employees</code> table create chesi kontha dummy data veskovali. Ikada chudandi:</p>
+            
+<pre><code class="language-sql">CREATE TABLE employees (
+    emp_id NUMBER PRIMARY KEY,
+    emp_name VARCHAR2(50),
+    deptno NUMBER,
+    salary NUMBER(8,2)
+);
+
+INSERT INTO employees VALUES (101, 'Ravi', 10, 25000);
+INSERT INTO employees VALUES (102, 'Suresh', 10, 28000);
+INSERT INTO employees VALUES (103, 'Anil', 20, 30000);
+INSERT INTO employees VALUES (104, 'Kiran', 10, 26000);
+COMMIT;</code></pre>
+        </section>
+
+        <!-- Part 3: Program & Explanation -->
+        <section class="bg-white rounded-2xl shadow-md p-6 md:p-8 border-t-4 border-rose-500">
+            <h2 class="text-2xl font-bold text-slate-800 section-title">Part 3: The PL/SQL Program & Tanglish Breakdown 💻</h2>
+            <p class="tanglish-text text-slate-700 mb-4">Ippudu meesichina code ni mukkalu mukkalu ga chesi arthamayyela cheptha.</p>
+
+            <div class="space-y-6">
+                <!-- Code Block 1 -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-lg text-rose-600 mb-2">Step 1: Declaration Section</h3>
+<pre><code class="language-sql">DECLARE
+    /* 1. Cursor with parameter and FOR UPDATE */
+    CURSOR emp_cur (p_deptno NUMBER) IS
+        SELECT emp_id, salary FROM employees 
+        WHERE deptno = p_deptno FOR UPDATE;
+
+    v_empid employees.emp_id%TYPE;
+    v_salary employees.salary%TYPE;
+
+    /* 2. Cursor Variable (REF CURSOR) */
+    TYPE emp_refcur IS REF CURSOR;
+    emp_cv emp_refcur;</code></pre>
+                    <p class="mt-4 tanglish-text text-slate-700">
+                        <strong>Emaindi ikkada?</strong><br>
+                        👉 <code>emp_cur</code> ane cursor declare chesam. Daniki <code>p_deptno</code> ane parameter isthunnam. Anduke adi Parameterized Cursor. <br>
+                        👉 Last lo <code>FOR UPDATE</code> pettaam. Ante ee cursor lagina records annitini evaru touch cheyakunda lock avtay.<br>
+                        👉 <code>v_empid</code>, <code>v_salary</code> variables declare chesam data ni hold cheyadaniki.<br>
+                        👉 <code>TYPE emp_refcur IS REF CURSOR</code> tho oka dynamic cursor type create chesam, and <code>emp_cv</code> ani variable create chesam dani kosam.
+                    </p>
+                </div>
+
+                <!-- Code Block 2 -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-lg text-rose-600 mb-2">Step 2: Execution - Fetch and Update</h3>
+<pre><code class="language-sql">BEGIN
+    /* Open parameterized cursor with parameter value 10 */
+    OPEN emp_cur(10);
+    LOOP
+        FETCH emp_cur INTO v_empid, v_salary;
+        EXIT WHEN emp_cur%NOTFOUND;
+
+        /* Update current row using WHERE CURRENT OF */
+        UPDATE employees SET salary = salary + 1000 
+        WHERE CURRENT OF emp_cur;
+    END LOOP;
+    CLOSE emp_cur;</code></pre>
+                    <p class="mt-4 tanglish-text text-slate-700">
+                        <strong>Emaindi ikkada?</strong><br>
+                        👉 <code>OPEN emp_cur(10);</code> Ikkada parameter value <code>10</code> pass chestunnam. So idi department 10 valla data ni matrame lock chestundi.<br>
+                        👉 <code>LOOP</code> petti data ni okkoti ga <code>FETCH</code> chestunnam variables loki.<br>
+                        👉 Data aipoyaka loop nunchi bayataki ravadaniki <code>EXIT WHEN emp_cur%NOTFOUND</code> vadam.<br>
+                        👉 Asalu twist ikkade undi: <code>UPDATE</code> query lo <code>WHERE CURRENT OF emp_cur</code> anagane, cursor present ye row daggara undo ah row yoka salary ni 1000 penchuthundi. Simple and efficient! Tarwata cursor close chesam.
+                    </p>
+                </div>
+
+                <!-- Code Block 3 -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-lg text-rose-600 mb-2">Step 3: Using REF CURSOR to Display Output</h3>
+<pre><code class="language-sql">    /* Open cursor variable to display updated data */
+    OPEN emp_cv FOR
+        SELECT emp_id, salary FROM employees 
+        WHERE deptno = 10;
+        
+    DBMS_OUTPUT.PUT_LINE('Employee ID   Salary');
+    LOOP
+        FETCH emp_cv INTO v_empid, v_salary;
+        EXIT WHEN emp_cv%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE(v_empid || '          ' || v_salary);
+    END LOOP;
+    CLOSE emp_cv;
+END;
+/</code></pre>
+                    <p class="mt-4 tanglish-text text-slate-700">
+                        <strong>Emaindi ikkada?</strong><br>
+                        👉 Ippudu Update aina kotha data ni chudataniki REF CURSOR (<code>emp_cv</code>) vaduthunnam. Normal cursors declare lo ne open autay, kani idhi <code>OPEN ... FOR ...</code> syntax tho directly executable section lo open chesi query pass chestunnam. <i>(Idi REF cursor speciality)</i>.<br>
+                        👉 Malli same Loop vadi, <code>FETCH</code> chesi, <code>DBMS_OUTPUT</code> vadi terminal lo print chestunnam. Final ga close chesesam.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scripts for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+</body>
+</html>
