@@ -3,253 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PL/SQL Procedures - Deep Dive (Tanglish)</title>
+    <title>Interrupts - English + Tenglish Deep Explanation</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; }
-        .code-block { background-color: #1e1e1e; color: #d4d4d4; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; font-family: 'Courier New', Courier, monospace; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem; }
-        .sql-keyword { color: #569cd6; font-weight: bold; }
-        .sql-string { color: #ce9178; }
-        .sql-comment { color: #6a9955; font-style: italic; }
-        .tanglish-explanation { background-color: #e0f2fe; border-left: 4px solid #3b82f6; padding: 1rem; margin-top: 0.5rem; border-radius: 0 0.5rem 0.5rem 0; color: #1e3a8a; }
-        .section-title { color: #1e40af; border-bottom: 2px solid #bfdbfe; padding-bottom: 0.5rem; margin-top: 2rem; margin-bottom: 1rem; font-weight: bold; font-size: 1.5rem; }
-        .highlight { font-weight: bold; color: #b91c1c; }
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: #0b1120;
+            background-image: radial-gradient(circle at top center, #1e1b4b, #0b1120);
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+        }
+        .concept-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .concept-card:hover {
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+        .english-text {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-bottom: 2px dashed rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            font-style: italic;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        .tenglish-explanation {
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            line-height: 1.7;
+        }
+        .tenglish-title {
+            color: #38bdf8;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .highlight { color: #facc15; font-weight: 600; }
+        .mass-example { color: #f472b6; font-weight: 600; }
     </style>
 </head>
 <body class="p-4 md:p-8">
 
-    <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-10">
+    <div class="max-w-4xl mx-auto pt-4 pb-12">
         
-        <div class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-blue-800 mb-2">PL/SQL Procedures: Complete Deep Dive</h1>
-            <p class="text-gray-600">Theory & Program Explanation in Tanglish</p>
-        </div>
+        <h1 class="text-3xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-2">
+            ⚡ Interrupts: Deep Explanation
+        </h1>
+        <p class="text-center text-gray-400 mb-10 text-lg">English Text + Tenglish Mass Explanation (Part by Part)</p>
 
-        <!-- 1. AIM -->
-        <h2 class="section-title">1. AIM (Manam em achieve cheyali anukuntunnam?)</h2>
-        <p class="text-gray-800 text-lg">
-            <strong>AIM:</strong> Programs development using creation of procedures, passing parameters IN and OUT of procedures.
-        </p>
-        <div class="tanglish-explanation">
-            <strong>Explanation:</strong> Ee concept yokka main target enti ante, database lo Procedures ela create cheyali, vatiki variables (parameters) ni ela pass cheyali, mariyu aa procedure nunchi output (OUT parameters dwara) ela thechukovali anedi nerchukovadam.
-        </div>
-
-        <!-- 2. What is a Procedure -->
-        <h2 class="section-title">2. What is a Procedure? (Asalu Procedure ante enti?)</h2>
-        <ul class="list-disc list-inside space-y-2 text-gray-800">
-            <li>A procedure is a named PL/SQL subprogram that performs a specific task.</li>
-            <li>It can accept parameters, execute SQL/PL-SQL statements, and return results through OUT parameters.</li>
-        </ul>
-        <h3 class="text-xl font-bold mt-4 mb-2 text-gray-700">Procedures are mainly used to:</h3>
-        <ul class="list-disc list-inside space-y-1 text-gray-800 ml-4 mb-4">
-            <li>Modularize programs</li>
-            <li>Improve reusability</li>
-            <li>Reduce code repetition</li>
-            <li>Improve performance and security</li>
-        </ul>
-        <div class="tanglish-explanation">
-            <strong>Explanation:</strong> <br>
-            Procedure ante oka peru unna PL/SQL code block (subprogram). Idi oka specific pani cheyadaniki vadatham. <br><br>
-            <strong>Enduku vadali?:</strong>
-            <ul class="list-disc list-inside mt-2">
-                <li><strong>Modularize programs:</strong> Pedda code ni chinnna chinna mukkalu (modules) ga vidadeeyadam.</li>
-                <li><strong>Improve reusability & Reduce code repetition:</strong> Oka sari code rasi procedure create cheste, malli malli kotha code rayalsina avasaram ledu. Aa procedure peru tho call chesukunte chalu. Idi code repetition ni thaggisthundi.</li>
-                <li><strong>Improve performance & security:</strong> Anni SQL statements okesari database ki velthayi kabatti speed peruguthundi (network traffic thagguthundi). Alage tables direct ga access ivvakunda, procedure dwara access istham kabatti security kooda untundi.</li>
-            </ul>
-        </div>
-
-        <!-- 3. Syntax -->
-        <h2 class="section-title">3. Syntax for Creating a Procedure</h2>
-        <div class="code-block">
-<span class="sql-keyword">CREATE OR REPLACE PROCEDURE</span> procedure_name
-(
-    parameter_name <span class="sql-keyword">mode datatype</span>,
-    parameter_name <span class="sql-keyword">mode datatype</span>
-)
-<span class="sql-keyword">AS</span>
-<span class="sql-keyword">BEGIN</span>
-    <span class="sql-comment">-- executable statements</span>
-<span class="sql-keyword">END</span>;
-/
-        </div>
-        <div class="tanglish-explanation">
-            <strong>Explanation:</strong> <br>
-            <span class="highlight">CREATE OR REPLACE:</span> Kotha procedure create cheyadaniki <b>CREATE</b>. Oka vela same peru tho already unte dantlo changes update cheyadaniki <b>REPLACE</b> vadatham.<br>
-            Tarvatha brackets <code>()</code> lopaliki manam parameters (variables) pass chestham. Prathi parameter ki 3 vishayalu undali: <i>Name, Mode (IN/OUT), and Datatype (number/varchar2)</i>.
-        </div>
-
-        <!-- 4. Parameter Modes -->
-        <h2 class="section-title">4. Parameter Modes (Parameters lo rakalu)</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h3 class="font-bold text-lg text-blue-800 mb-2">IN Parameters</h3>
-                <ul class="list-disc list-inside text-sm space-y-1">
-                    <li>Used to pass values to the procedure</li>
-                    <li>Read-only inside the procedure</li>
-                    <li>Cannot be modified</li>
-                </ul>
-                <p class="text-sm mt-3 text-gray-700 italic border-t pt-2 border-blue-200">
-                    <strong>Tanglish:</strong> Idi just input ivvadaniki. Bayata nunchi value lopaliki theeskelladaniki matrame. Lopala aa value ni manam change cheyalem (read-only). Default ga em ivvakapothe adi IN parameter e.
-                </p>
+        <!-- Part 1: Intro -->
+        <div class="concept-card">
+            <div class="english-text">
+                "Interrupts are a game-changer for system efficiency because they eliminate the need for the CPU to sit around waiting for other components to finish their jobs."
             </div>
-            <div class="bg-green-50 p-4 rounded-lg border border-green-200">
-                <h3 class="font-bold text-lg text-green-800 mb-2">OUT Parameters</h3>
-                <ul class="list-disc list-inside text-sm space-y-1">
-                    <li>Used to return values from the procedure</li>
-                    <li>Value must be assigned inside the procedure</li>
-                    <li>Cannot accept input values</li>
-                </ul>
-                <p class="text-sm mt-3 text-gray-700 italic border-t pt-2 border-green-200">
-                    <strong>Tanglish:</strong> Procedure lopala calculate ayina result ni bayataki theeskuradaniki idi vadatham. Idhi input ni theeskodu, lopala unna result ni hold cheskuni bayataki isthundi.
-                </p>
-            </div>
-            <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                <h3 class="font-bold text-lg text-purple-800 mb-2">IN OUT Parameters</h3>
-                <ul class="list-disc list-inside text-sm space-y-1">
-                    <li>Used for both input and output</li>
-                    <li>Value can be modified and returned</li>
-                </ul>
-                <p class="text-sm mt-3 text-gray-700 italic border-t pt-2 border-purple-200">
-                    <strong>Tanglish:</strong> Idi 2-in-1. Modata input theeskuntundi. Lopala manam dani meeda calculations chesi same variable thone kotha value ni bayataki pampeyochochu.
+            <div class="tenglish-explanation">
+                <div class="tenglish-title">🧠 Asalu Matter Enti? (Introduction)</div>
+                <p class="text-gray-300">
+                    System speed ga (efficient ga) pani cheyadaniki <span class="highlight">Interrupts</span> anevi nijamgane oka game-changer. Endukante, vere components (disk, keyboard lanti vi) vaati pani complete cheskune daka, mana CPU kurchuni waste ga wait cheyalsina avasaram lekunda chestayi. Simple ga cheppalante, oka manager (CPU) tana pani tanu cheskuntu, worker (component) pani aypoyaka pilavagane velladam lanti di.
                 </p>
             </div>
         </div>
 
-        <!-- 5. Calling a Procedure -->
-        <h2 class="section-title">5. Calling a Procedure (Procedure ni ela pilavali?)</h2>
-        <div class="code-block">
-<span class="sql-comment">-- Method 1: Using EXEC</span>
-<span class="sql-keyword">EXEC</span> procedure_name(parameters);
-
-<span class="sql-comment">-- Method 2: Inside a PL/SQL block</span>
-<span class="sql-keyword">BEGIN</span>
-    procedure_name(parameters);
-<span class="sql-keyword">END</span>;
-/
-        </div>
-        <div class="tanglish-explanation">
-            <strong>Explanation:</strong> Create chesina procedure run avvali ante danini pilavali (call cheyali). SQL Plus prompt paina unte simple ga <code>EXEC</code> vadi pilavachu. Leda inko program nunchi call cheyali ante <code>BEGIN ... END;</code> (Anonymous block) lopala direct ga peru thote pilavachu.
+        <!-- Part 2: Polling -->
+        <div class="concept-card">
+            <div class="english-text">
+                "To understand why they are efficient, you have to look at the alternative: Polling. In a polling system, the CPU repeatedly asks a device (like a keyboard or a disk drive), 'Are you done yet? How about now?' This wastes millions of clock cycles that could be used for actual processing. Here is how interrupts improve efficiency, along with some real-world examples."
+            </div>
+            <div class="tenglish-explanation">
+                <div class="tenglish-title">🔄 Polling vs Interrupts (The Alternative)</div>
+                <p class="text-gray-300">
+                    Idi ardham kavali ante manam mundu "Polling" gurinchi telskukovali. Polling ante CPU prathi chinna daniki <span class="text-pink-400 italic">"Pani aypoyinda? Ippudu aypoyinda?"</span> ani repeatedly adagadam. Chinna pillalu journey lo "Ochesama? Ochesama?" ani virikinchi nattu. 
+                    <br><br>Deeni valla CPU actual ga cheyalsina panulaki time dorakaka (millions of clock cycles) waste aypotayi. Interrupts vasthe ee thalanొప్పి undadu.
+                </p>
+            </div>
         </div>
 
-        <!-- 6. Advantages & Differences -->
-        <h2 class="section-title">6. Advantages & Procedure vs Function</h2>
-        
-        <h3 class="text-lg font-bold text-gray-800">Advantages of Procedures:</h3>
-        <ul class="list-disc list-inside space-y-1 text-gray-800 ml-4 mb-4">
-            <li>Improves program structure</li>
-            <li>Enhances reusability</li>
-            <li>Reduces network traffic</li>
-            <li>Improves security by hiding business logic</li>
-            <li>Easy maintenance and debugging</li>
-        </ul>
-        <div class="tanglish-explanation mb-4">
-            <strong>Explanation:</strong> Code structure neat ga untundi. Oka sari rasi enni sarlaina vadukovachu. Client nunchi prathi chinna query velle badulu okesari procedure call velthundi kabatti network speed baguntundi. Asalu lopala em logic undo bayata user ki teliyadu kabatti security! Errors ochina easily fix cheyachu (maintenance).
+        <!-- Part 3: Point 1 -->
+        <div class="concept-card">
+            <div class="english-text">
+                "1. Maximizing CPU Utilization<br>
+                In an interrupt-driven system, the CPU starts an I/O operation and then immediately switches to a different task. When the external device is ready, it sends a hardware signal (the interrupt) to the CPU. The CPU pauses its current work, handles the device, and then goes back to what it was doing.<br>
+                Example: Imagine you are downloading a large file. Without interrupts, your computer might freeze because the CPU is stuck "watching" the network card. With interrupts, you can keep editing a document or browsing the web while the network card handles the data in the background."
+            </div>
+            <div class="tenglish-explanation">
+                <div class="tenglish-title">🚀 1. CPU Time ni 100% Vaadukovadam</div>
+                <p class="text-gray-300 mb-3">
+                    CPU oka pani start chesi ventane vere paniloki vellipotundi. Aa first pani aypoyaka device nunchi oka hardware signal (interrupt) vastundi. Appudu CPU current pani aapi, aa vachina signal ni chuskuni, malli patadi akkadi nunche continue chestundi. Asalu CPU okka second kuda khaaliga kurchodu.
+                </p>
+                <div class="bg-gray-800/50 p-4 rounded-lg border-l-4 border-fuchsia-500">
+                    <p class="text-gray-300 text-sm md:text-base">
+                        <span class="mass-example">💡 Deep Example:</span> Nuvvu 10GB movie download pedithe, adi avvadaniki 1 hour paditundi. Interrupts lekapote aa 1 hour CPU adhe chustu undi system freeze aypotundi. Kani interrupts valla download background lo avtuntundi, nuvvu prasantham ga vere tabs open chesi web browsing cheskovachu.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <h3 class="text-lg font-bold text-gray-800">Difference Between Procedure and Function</h3>
-        <div class="overflow-x-auto mt-2">
-            <table class="min-w-full bg-white border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="py-2 px-4 border-b border-r text-left">Procedure</th>
-                        <th class="py-2 px-4 border-b text-left">Function</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="py-2 px-4 border-b border-r">May or may not return a value</td>
-                        <td class="py-2 px-4 border-b"><strong>Must</strong> return a value</td>
-                    </tr>
-                    <tr>
-                        <td class="py-2 px-4 border-b border-r">Uses OUT parameters to return values</td>
-                        <td class="py-2 px-4 border-b">Uses <code>RETURN</code> statement to return a value</td>
-                    </tr>
-                    <tr>
-                        <td class="py-2 px-4 border-r">Called using <code>EXEC</code> or inside a block</td>
-                        <td class="py-2 px-4">Can be used directly in SQL expressions (like <code>SELECT</code>)</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="tanglish-explanation mt-2">
-            <strong>Explanation:</strong> <br>
-            Idi chala important interview question! Procedure ki pakka result ivvali ane rule ledu, isthe OUT parameter tho isthundi. Kani Function matram pakka <code>RETURN</code> keyword vadi oka value ni return chesi theerali. Alage Function ni manam <code>SELECT function_name FROM dual;</code> ani SQL query lopalane direct ga vadukovachu, kani Procedure ni ala vadalem.
+        <!-- Part 4: Point 2 -->
+        <div class="concept-card">
+            <div class="english-text">
+                "2. Reducing Latency (Responsiveness)<br>
+                Interrupts allow the system to react to "urgent" events immediately rather than waiting for the next time the CPU decides to check on a device.<br>
+                Example: When you move your mouse or press a key, an interrupt is triggered. The CPU stops its background tasks for a fraction of a millisecond to update the cursor position or register the character. If the system used polling, there might be a noticeable lag between your movement and the screen's reaction if the CPU was busy with a heavy calculation."
+            </div>
+            <div class="tenglish-explanation">
+                <div class="tenglish-title">⚡ 2. Ventane React Avvadam (Zero Lag)</div>
+                <p class="text-gray-300 mb-3">
+                    "Urgent" panulu (clicks, button presses) vachinappudu CPU ventaane respond avthundi. CPU eppudo vachi check chestundi le ani wait cheyalsina avasaram ledu.
+                </p>
+                <div class="bg-gray-800/50 p-4 rounded-lg border-l-4 border-fuchsia-500">
+                    <p class="text-gray-300 text-sm md:text-base">
+                        <span class="mass-example">💡 Deep Example:</span> Nuvvu gaming aadetappudu fast ga mouse move cheyagane leda key press cheyagane oka interrupt trigger avtundi. Ventane CPU background panulu anni aapi (fraction of a millisecond lo) cursor ni update chestundi. Ade Polling ayunte, lag (gap) ochi game lo chiki poyedivivi.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <!-- 7. THE PROGRAM SECTION -->
-        <h2 class="section-title">7. The Practical Program (Deep Dive)</h2>
-        
-        <h3 class="text-xl font-bold text-gray-800 mt-4">Step 1: Table Creation & Data Insertion</h3>
-        <div class="code-block">
-<span class="sql-keyword">CREATE TABLE</span> enquiry(enqno1 <span class="sql-keyword">number</span>, fname <span class="sql-keyword">varchar2</span>(30));
-<span class="sql-keyword">INSERT INTO</span> enquiry <span class="sql-keyword">VALUES</span>(111,<span class="sql-string">'sai'</span>);
-<span class="sql-keyword">INSERT INTO</span> enquiry <span class="sql-keyword">VALUES</span>(112,<span class="sql-string">'sindhu'</span>);
-        </div>
-        <div class="tanglish-explanation mb-6">
-            <strong>Explanation:</strong> First manam 'enquiry' ane table create chesthunnam. Indulo 2 columns unnayi. <code>enqno1</code> (Number datatype) mariyu <code>fname</code> (varchar2 datatype). Dani tarvatha rendo record lu insert chesam. Enquiry id 111 ki peru 'sai', 112 ki peru 'sindhu'.
-        </div>
-
-        <h3 class="text-xl font-bold text-gray-800 mt-4">Step 2: The Procedure (`sriganesh`)</h3>
-        <div class="code-block">
-<span class="sql-keyword">CREATE OR REPLACE PROCEDURE</span> sriganesh(enquiryno1 <span class="sql-keyword">IN number</span>, fname1 <span class="sql-keyword">OUT varchar2</span>) <span class="sql-keyword">IS</span>
-    fname2 <span class="sql-keyword">varchar2</span>(30);
-<span class="sql-keyword">BEGIN</span>
-    <span class="sql-keyword">SELECT</span> fname <span class="sql-keyword">INTO</span> fname2
-    <span class="sql-keyword">FROM</span> enquiry
-    <span class="sql-keyword">WHERE</span> enqno1 = enquiryno1;
-    
-    fname1 := fname2;
-<span class="sql-keyword">EXCEPTION</span>
-    <span class="sql-keyword">WHEN NO_DATA_FOUND THEN</span>
-        <span class="sql-keyword">RAISE_APPLICATION_ERROR</span>(-20100, <span class="sql-string">'The given number is not present'</span>);
-<span class="sql-keyword">END</span> sriganesh;
-/
-        </div>
-        <div class="tanglish-explanation mb-6">
-            <strong>Line-by-Line Tanglish Explanation:</strong> <br><br>
-            <code>CREATE OR REPLACE PROCEDURE sriganesh</code> : 'sriganesh' ane peru tho procedure create chesthunnam.<br><br>
-            <code>(enquiryno1 IN number, fname1 OUT varchar2)</code> : Ikkada 2 parameters unnayi. Manam number ni (enquiryno1) input ga istham (IN), daniki match ayye peru ni (fname1) procedure manaki output ga isthundi (OUT).<br><br>
-            <code>fname2 varchar2(30);</code> : Idi local variable. Ee procedure lopala matrame pani chestundi. Database nunchi vachina data ni temporary ga store cheskodaniki.<br><br>
-            <code>SELECT fname INTO fname2 FROM enquiry WHERE enqno1 = enquiryno1;</code> : Manam pass chesina input number (enquiryno1) ni table lo unna <code>enqno1</code> tho check chesthundi. Match ayithe, aa <code>fname</code> ni thechi manam paina declare chesina temporary variable <code>fname2</code> loki vesthundi (INTO).<br><br>
-            <code>fname1 := fname2;</code> : Ippudu result unna <code>fname2</code> ni, manam output ivvalsina parameter <code>fname1</code> loki assign chesthunnam. Idi direct ga program bayataki vellipothundi.<br><br>
-            <code>EXCEPTION ... NO_DATA_FOUND</code> : Oka vela manam ichina enquiry number table lo lekapothe SQL error isthundi. Aa error ni handle cheyadaniki idi. Lekapothe <code>RAISE_APPLICATION_ERROR</code> dwara manam own custom error (-20100) ni chupisthunnam (User-defined errors -20000 nunchi -20999 madhya undali).
+        <!-- Part 5: Point 3 -->
+        <div class="concept-card">
+            <div class="english-text">
+                "3. Power Efficiency<br>
+                Interrupts allow a processor to go into a "sleep" or low-power state. Instead of staying awake just to poll sensors, the CPU can shut down almost entirely until an external event (like a timer or a sensor trigger) "wakes" it up via an interrupt.<br>
+                Example: A smart thermostat doesn't need its processor running at full speed 24/7. It stays in sleep mode and only "wakes up" when the temperature sensor sends an interrupt indicating the room has reached a certain threshold."
+            </div>
+            <div class="tenglish-explanation">
+                <div class="tenglish-title">🔋 3. Power ni Save Cheyadam</div>
+                <p class="text-gray-300 mb-3">
+                    CPU eppudu melukuni prathi chinna sensor ni adigi check chese badulu prasantham ga "sleep" (low-power) mode loki vellipotundi. Edo okati jariginappudu oka external event vachi CPU ni "wakes up" (nidra leputundi). Deeni valla battery chalavaraku save avtundi.
+                </p>
+                <div class="bg-gray-800/50 p-4 rounded-lg border-l-4 border-fuchsia-500">
+                    <p class="text-gray-300 text-sm md:text-base">
+                        <span class="mass-example">💡 Deep Example:</span> Oka smart AC lo thermostat 24/7 full speed tho pani cheyadu. Adi sleep mode lo padi untundi. Room temperature perigindi ani sensor nunchi 'interrupt' (signal) vachinappudu matrame AC on avtundi.
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <h3 class="text-xl font-bold text-gray-800 mt-4">Step 3: Calling the Procedure (Anonymous Block)</h3>
-        <div class="code-block">
-<span class="sql-comment">-- Enable DBMS_OUTPUT to see the result</span>
-<span class="sql-keyword">SET SERVEROUTPUT ON</span>;
-
-<span class="sql-comment">-- Anonymous block to call the procedure</span>
-<span class="sql-keyword">DECLARE</span>
-    enqno2 <span class="sql-keyword">number</span>(5);
-    fname2 <span class="sql-keyword">varchar2</span>(30); 
-<span class="sql-keyword">BEGIN</span>
-    enqno2 := 111; <span class="sql-comment">-- Sample enqno</span>
-    
-    <span class="sql-comment">-- Call the procedure</span>
-    sriganesh(enqno2, fname2); 
-    
-    <span class="sql-comment">-- Output the result to the console</span>
-    dbms_output.put_line(<span class="sql-string">'The name is: '</span> || fname2); 
-<span class="sql-keyword">EXCEPTION</span>
-    <span class="sql-keyword">WHEN OTHERS THEN</span>
-        <span class="sql-comment">-- Handle any unexpected exceptions and display them</span>
-        dbms_output.put_line(<span class="sql-string">'Error: '</span> || <span class="sql-keyword">SQLERRM</span>);
-<span class="sql-keyword">END</span>;
-/
-        </div>
-        <div class="tanglish-explanation mb-6">
-            <strong>Line-by-Line Tanglish Explanation:</strong> <br><br>
-            <code>SET SERVEROUTPUT ON;</code> : PL/SQL lo emaina print chesedi screen meeda kanipinchali ante idi pakka ON cheyali. Leka pothe "PL/SQL procedure successfully completed" ani vasthundi kani result kanapadadu.<br><br>
-            <code>DECLARE enqno2 number(5); fname2 varchar2(30);</code> : Procedure ki values pass cheyadaniki, akkada nunchi vache value ni theeskodaniki ikkada kotha variables declare chesam.<br><br>
-            <code>enqno2 := 111;</code> : Manam search cheyalani anukuntunna enquiry number (Input).<br><br>
-            <code>sriganesh(enqno2, fname2);</code> : <strong>Idhe main Procedure Call!</strong> Manam procedure ki <code>enqno2</code> (111) ni pampisthunnam. Procedure run ayyaka, akkada assign ayina OUT parameter direct ga vachi ikkada unde <code>fname2</code> lo kurchuntundi.<br><br>
-            <code>dbms_output.put_line(...)</code> : Vachina result ni console lo print chesthunnam. So output "The name is: sai" ani print avthundi.<br><br>
-            <code>EXCEPTION WHEN OTHERS THEN</code> : Oka vela procedure call lo emaina error vasthe (example manam 113 ani pass cheste, procedure lo data ledu ani exception vasthundi kada), adi ikkada catch ayyi error message (SQLERRM) ni print chesthundi program crash avvakunda.
+        <!-- Part 6: Point 4 -->
+        <div class="concept-card">
+            <div class="english-text">
+                "4. Handling Critical Errors<br>
+                Interrupts provide a way to handle unpredictable system emergencies, such as power failures or memory errors, without having to write "check for error" code into every single line of a program.<br>
+                Example: If a power failure is detected, a high-priority interrupt can trigger a routine that saves the current system state to disk in the milliseconds before the capacitors run dry."
+            </div>
+            <div class="tenglish-explanation">
+                <div class="tenglish-title">🚨 4. Emergency Situations ni Handle Cheyadam</div>
+                <p class="text-gray-300 mb-3">
+                    System lo emaina pedda problem (power povadam lanti vi) vasthe prathi code line lo error unda ani check chese badulu, direct ga oka "high-priority" interrupt vastundi. Idhi anukokunda oche errors ni takkuna handle chestundi.
+                </p>
+                <div class="bg-gray-800/50 p-4 rounded-lg border-l-4 border-fuchsia-500">
+                    <p class="text-gray-300 text-sm md:text-base">
+                        <span class="mass-example">💡 Deep Example:</span> Sudden ga current poyindi anuko. Power cut ayyindi ani detect avvagane, capacitors lo current purthiga aripoye aa chinna milliseconds gap lo.. oka emergency interrupt vachi nuvvu chestunna work state ni ventane hard disk lo save chestundi. Deeni valla nee data miss avvadu!
+                    </p>
+                </div>
+            </div>
         </div>
 
     </div>
+
 </body>
 </html>
