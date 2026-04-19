@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interrupts - English + Tenglish Deep Explanation</title>
+    <title>Accessing I/O Devices - English + Tenglish</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Outfit', sans-serif; 
-            background-color: #0b1120;
-            background-image: radial-gradient(circle at top center, #1e1b4b, #0b1120);
+            background-color: #050b14;
+            background-image: radial-gradient(circle at top left, #064e3b, #050b14);
             color: #e2e8f0;
             margin: 0;
             padding: 0;
         }
         .concept-card {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(16, 185, 129, 0.2);
             border-radius: 1rem;
             box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
             overflow: hidden;
@@ -25,24 +25,24 @@
             transition: transform 0.2s, border-color 0.2s;
         }
         .concept-card:hover {
-            border-color: rgba(56, 189, 248, 0.5);
+            border-color: rgba(16, 185, 129, 0.6);
         }
         .english-text {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             padding: 1.5rem;
             border-bottom: 2px dashed rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
+            color: #94a3b8;
             font-style: italic;
             font-size: 1.05rem;
             line-height: 1.6;
         }
         .tenglish-explanation {
             padding: 1.5rem;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(2, 6, 23, 0.5);
             line-height: 1.7;
         }
         .tenglish-title {
-            color: #38bdf8;
+            color: #10b981;
             font-weight: 700;
             font-size: 1.25rem;
             margin-bottom: 0.75rem;
@@ -51,122 +51,138 @@
             gap: 0.5rem;
         }
         .highlight { color: #facc15; font-weight: 600; }
-        .mass-example { color: #f472b6; font-weight: 600; }
+        .mass-example { color: #38bdf8; font-weight: 600; }
     </style>
 </head>
 <body class="p-4 md:p-8">
 
     <div class="max-w-4xl mx-auto pt-4 pb-12">
         
-        <h1 class="text-3xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-2">
-            ⚡ Interrupts: Deep Explanation
+        <h1 class="text-3xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500 mb-2">
+            🔌 Accessing I/O Devices
         </h1>
         <p class="text-center text-gray-400 mb-10 text-lg">English Text + Tenglish Mass Explanation (Part by Part)</p>
 
-        <!-- Part 1: Intro -->
+        <!-- Part 1: Intro & Bus System -->
         <div class="concept-card">
             <div class="english-text">
-                "Interrupts are a game-changer for system efficiency because they eliminate the need for the CPU to sit around waiting for other components to finish their jobs."
+                "Accessing I/O Devices<br>
+                The I/O devices are connected by using a single bus which enables data transaction between each device as shown in Fig 5.1.<br>
+                • Bus consists of 3 sets of lines used to carry address, data and control signals.<br>
+                • Each I/O device is assigned a unique set of address. When the processor places a particular address on the address lines, the device that recognizes this address responds to the commands issued on the control lines.<br>
+                • The processor requests either a read or a write operation which is transferred over the data lines. When I/O devices and the memory share the same address space, the arrangement is called memory-mapped I/O. There are two ways to deal with I/O devices."
             </div>
             <div class="tenglish-explanation">
-                <div class="tenglish-title">🧠 Asalu Matter Enti? (Introduction)</div>
+                <div class="tenglish-title">🚌 Asalu Devices CPU tho ela matladathayi? (Bus Concept)</div>
+                <p class="text-gray-300 mb-3">
+                    Mana computer lo keyboard, mouse lanti I/O devices anni CPU ki oka <span class="highlight">"Bus"</span> dwara connect ayyi untayi. (Bus ante mana RTC bus kaadu, idoka group of wires). Deentlo 3 lines untayi: <br>
+                    1. <b>Address Lines:</b> Inti address laaga. Prathi device ki oka pin code (address) untundi.<br>
+                    2. <b>Data Lines:</b> Data veladaniki, ravadaniki.<br>
+                    3. <b>Control Lines:</b> Command ivvadaniki (Read/Write ani).
+                </p>
                 <p class="text-gray-300">
-                    System speed ga (efficient ga) pani cheyadaniki <span class="highlight">Interrupts</span> anevi nijamgane oka game-changer. Endukante, vere components (disk, keyboard lanti vi) vaati pani complete cheskune daka, mana CPU kurchuni waste ga wait cheyalsina avasaram lekunda chestayi. Simple ga cheppalante, oka manager (CPU) tana pani tanu cheskuntu, worker (component) pani aypoyaka pilavagane velladam lanti di.
+                    CPU evaritho matladalo valla address ni address lines meeda pedutundi. Aa address evaridaithe vaalle pallukuntaru. Appudu data lines dwara CPU "Chaduvu" (Read) leda "Raaayi" (Write) ani order istundi. Okavela ee I/O devices, manam vaade main Memory (RAM) iddari address lu oke area lo unte danni <b>Memory-Mapped I/O</b> antaru.
                 </p>
             </div>
         </div>
 
-        <!-- Part 2: Polling -->
+        <!-- Part 2: Memory mapped I/O -->
         <div class="concept-card">
             <div class="english-text">
-                "To understand why they are efficient, you have to look at the alternative: Polling. In a polling system, the CPU repeatedly asks a device (like a keyboard or a disk drive), 'Are you done yet? How about now?' This wastes millions of clock cycles that could be used for actual processing. Here is how interrupts improve efficiency, along with some real-world examples."
+                "5.1.1 Memory mapped I/O<br>
+                • The Memory and I/O devices are sharing information by a common address-space. Any data transfer instruction (like Move, Load) can be used to exchange information. For example,<br>
+                Move DATAIN, R0<br>
+                • This instruction reads data from DATAIN (address of input-buffer associated with Keyboard) & stores them into processor-register R0.<br>
+                Move R0, DATAOUT<br>
+                • This instruction sends the contents of register R0 to location DATAOUT, which may be the output data buffer of a display unit or a printer."
             </div>
             <div class="tenglish-explanation">
-                <div class="tenglish-title">🔄 Polling vs Interrupts (The Alternative)</div>
+                <div class="tenglish-title">🧠 5.1.1 Memory Mapped I/O (Oke illu, Oke rules)</div>
+                <p class="text-gray-300 mb-3">
+                    Indulo Memory ki, I/O devices ki <span class="highlight">Common Address Space</span> (oke pin code area) untundi. Deeni valla pedda advantage enti ante, memory nunchi data thevadaniki manam vaade normal instructions (Move, Load lanti vi) vaadukuni I/O tho kuda muchatlochu. I/O ki antu special commands akkarledu.
+                </p>
+                <div class="bg-emerald-900/30 p-4 rounded-lg border-l-4 border-teal-500 space-y-2">
+                    <p class="text-gray-300 text-sm md:text-base">
+                        <span class="mass-example">💡 Instruction 1: `Move DATAIN, R0`</span><br>
+                        DATAIN ante Keyboard (Input). Keyboard nunchi data thechi CPU lopala unna R0 ane register lo pettu ani cheppadam.
+                    </p>
+                    <p class="text-gray-300 text-sm md:text-base">
+                        <span class="mass-example">💡 Instruction 2: `Move R0, DATAOUT`</span><br>
+                        R0 lo unna data ni theeskelli DATAOUT (ante Display leda Printer) ki pampu ani cheppadam. Normal ga ram lo elaa rasthamo, ikkada anthe!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 3: I/O mapped I/O -->
+        <div class="concept-card">
+            <div class="english-text">
+                "5.1.2 I/O mapped I/O<br>
+                • In I/O mapped I/O, the memory and I/0 address-spaces are different. Special instructions are used for data transfer such as IN and OUT.<br>
+                • The I/O devices use special I/O address space or memory address space.<br>
+                • The I/O devices examine the low order bits of the address bus to determine whether they should respond.<br>
+                • Advantage of separate I/O space: I/O devices deal with fewer address-lines."
+            </div>
+            <div class="tenglish-explanation">
+                <div class="tenglish-title">🚪 5.1.2 I/O Mapped I/O (Separate illu, Special rules)</div>
+                <p class="text-gray-300 mb-3">
+                    Indulo Memory address lu veru, I/O address lu veru. Iddari address areas completely different. Anduke normal ga vaade Move/Load kakunda, <span class="highlight">IN, OUT</span> lanti <b>Special Instructions</b> vaadali.
+                </p>
                 <p class="text-gray-300">
-                    Idi ardham kavali ante manam mundu "Polling" gurinchi telskukovali. Polling ante CPU prathi chinna daniki <span class="text-pink-400 italic">"Pani aypoyinda? Ippudu aypoyinda?"</span> ani repeatedly adagadam. Chinna pillalu journey lo "Ochesama? Ochesama?" ani virikinchi nattu. 
-                    <br><br>Deeni valla CPU actual ga cheyalsina panulaki time dorakaka (millions of clock cycles) waste aypotayi. Interrupts vasthe ee thalanొప్పి undadu.
+                    Ee I/O devices aa address bus loni chivari bits (low order bits) ni check cheskuni, "Idhi naa address eh na? nenu respond avvala?" ani decide avthayi. <br>
+                    <span class="mass-example">✨ Advantage:</span> I/O space separate ga undadam valla address chinnadi ga untundi, so ee I/O devices takkuva address lines thone deal cheyochu (tensions takkuva).
                 </p>
             </div>
         </div>
 
-        <!-- Part 3: Point 1 -->
+        <!-- Part 4: Hardware Interfaces -->
         <div class="concept-card">
             <div class="english-text">
-                "1. Maximizing CPU Utilization<br>
-                In an interrupt-driven system, the CPU starts an I/O operation and then immediately switches to a different task. When the external device is ready, it sends a hardware signal (the interrupt) to the CPU. The CPU pauses its current work, handles the device, and then goes back to what it was doing.<br>
-                Example: Imagine you are downloading a large file. Without interrupts, your computer might freeze because the CPU is stuck "watching" the network card. With interrupts, you can keep editing a document or browsing the web while the network card handles the data in the background."
+                "• The hardware required to connect an I/O device to the bus as shown in the Fig 5.2<br>
+                • The address decoder enables the device to recognize its address when this address appears on the address lines.<br>
+                • The data register holds the data being transferred to or from the processor.<br>
+                • The status register contains information relevant to the operation of the I/O device.<br>
+                • Both the data and status registers are connected to the data bus and assigned unique addresses. The address decoder, the data and status registers, and the control circuitry required to coordinate I/O transfers constitute the device's interface circuit."
             </div>
             <div class="tenglish-explanation">
-                <div class="tenglish-title">🚀 1. CPU Time ni 100% Vaadukovadam</div>
+                <div class="tenglish-title">🛠️ Device ni Bus ki ela kaluputaru? (Interface Circuit)</div>
                 <p class="text-gray-300 mb-3">
-                    CPU oka pani start chesi ventane vere paniloki vellipotundi. Aa first pani aypoyaka device nunchi oka hardware signal (interrupt) vastundi. Appudu CPU current pani aapi, aa vachina signal ni chuskuni, malli patadi akkadi nunche continue chestundi. Asalu CPU okka second kuda khaaliga kurchodu.
+                    Oka device ni system bus ki direct ga tagilinchaleru. Daaniki konni hardware parts kavali. Avventante:
                 </p>
-                <div class="bg-gray-800/50 p-4 rounded-lg border-l-4 border-fuchsia-500">
-                    <p class="text-gray-300 text-sm md:text-base">
-                        <span class="mass-example">💡 Deep Example:</span> Nuvvu 10GB movie download pedithe, adi avvadaniki 1 hour paditundi. Interrupts lekapote aa 1 hour CPU adhe chustu undi system freeze aypotundi. Kani interrupts valla download background lo avtuntundi, nuvvu prasantham ga vere tabs open chesi web browsing cheskovachu.
-                    </p>
-                </div>
+                <ul class="list-disc pl-5 space-y-2 text-gray-300 mb-3 marker:text-teal-400">
+                    <li><b>Address Decoder:</b> Idoka watchman lanti di. Address lines meeda vachina address tana owner da kado gurtupattadaniki idi help chestundi.</li>
+                    <li><b>Data Register:</b> Idi oka dabba lanti di. Velle data ni leda vache data ni hold cheskuni unchutundi.</li>
+                    <li><b>Status Register:</b> Idi I/O device paristhiti ento (ready ga unda? bise ga unda?) cheppe register.</li>
+                </ul>
+                <p class="text-gray-300">
+                    Ee <span class="highlight">Address decoder + Registers + Control circuitry</span> annitini kalipi okati ga set cheste daanne <b class="text-teal-400">"Device's Interface Circuit"</b> antaru.
+                </p>
             </div>
         </div>
 
-        <!-- Part 4: Point 2 -->
+        <!-- Part 5: Program Controlled vs Interrupt -->
         <div class="concept-card">
             <div class="english-text">
-                "2. Reducing Latency (Responsiveness)<br>
-                Interrupts allow the system to react to "urgent" events immediately rather than waiting for the next time the CPU decides to check on a device.<br>
-                Example: When you move your mouse or press a key, an interrupt is triggered. The CPU stops its background tasks for a fraction of a millisecond to update the cursor position or register the character. If the system used polling, there might be a noticeable lag between your movement and the screen's reaction if the CPU was busy with a heavy calculation."
+                "Program Controlled I/O<br>
+                • Processor repeatedly checks a status flag to achieve required synchronization between processor & input/output device. (We say that the processor polls the device).<br>
+                Drawback: The processor wastes its time in checking the status of the device before actual data transfer takes place.<br><br>
+                5.1.4 Mechanisms Used For Interfacing I/O Operations:<br>
+                Interrupt I/O<br>
+                Synchronization is achieved by having I/O device send a special signal over bus whenever it is ready for a data transfer operation."
             </div>
             <div class="tenglish-explanation">
-                <div class="tenglish-title">⚡ 2. Ventane React Avvadam (Zero Lag)</div>
+                <div class="tenglish-title">⏱️ Program Controlled I/O vs ⚡ Interrupt I/O</div>
+                
                 <p class="text-gray-300 mb-3">
-                    "Urgent" panulu (clicks, button presses) vachinappudu CPU ventaane respond avthundi. CPU eppudo vachi check chestundi le ani wait cheyalsina avasaram ledu.
+                    <span class="mass-example">1. Program Controlled I/O (Polling):</span><br>
+                    Indulo CPU urike vachi device ready ga unda leda ani aa "status flag" ni repeated ga check chestune untundi. Deenine "Polling" antaru.<br>
+                    <b class="text-red-400">Drawback (Bokka):</b> Asalu data transfer jarige kante mundu, ee status checks kosame CPU tana time antha waste cheskuntundi.
                 </p>
-                <div class="bg-gray-800/50 p-4 rounded-lg border-l-4 border-fuchsia-500">
-                    <p class="text-gray-300 text-sm md:text-base">
-                        <span class="mass-example">💡 Deep Example:</span> Nuvvu gaming aadetappudu fast ga mouse move cheyagane leda key press cheyagane oka interrupt trigger avtundi. Ventane CPU background panulu anni aapi (fraction of a millisecond lo) cursor ni update chestundi. Ade Polling ayunte, lag (gap) ochi game lo chiki poyedivivi.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Part 5: Point 3 -->
-        <div class="concept-card">
-            <div class="english-text">
-                "3. Power Efficiency<br>
-                Interrupts allow a processor to go into a "sleep" or low-power state. Instead of staying awake just to poll sensors, the CPU can shut down almost entirely until an external event (like a timer or a sensor trigger) "wakes" it up via an interrupt.<br>
-                Example: A smart thermostat doesn't need its processor running at full speed 24/7. It stays in sleep mode and only "wakes up" when the temperature sensor sends an interrupt indicating the room has reached a certain threshold."
-            </div>
-            <div class="tenglish-explanation">
-                <div class="tenglish-title">🔋 3. Power ni Save Cheyadam</div>
-                <p class="text-gray-300 mb-3">
-                    CPU eppudu melukuni prathi chinna sensor ni adigi check chese badulu prasantham ga "sleep" (low-power) mode loki vellipotundi. Edo okati jariginappudu oka external event vachi CPU ni "wakes up" (nidra leputundi). Deeni valla battery chalavaraku save avtundi.
+                
+                <p class="text-gray-300">
+                    <span class="mass-example">2. Interrupt I/O:</span><br>
+                    Aa polling problems ni theeseyadanike idi vachindi. Indulo CPU urike vachi check cheyadu. Data theeskovadaniki I/O device ready avvagane.. ade direct ga bus lopalnunchi CPU ki oka <span class="highlight">"Special Signal"</span> (missed call laaga) pamputundi. Deenivalla synchronization perfect ga, CPU time waste avvakunda jarugutundi!
                 </p>
-                <div class="bg-gray-800/50 p-4 rounded-lg border-l-4 border-fuchsia-500">
-                    <p class="text-gray-300 text-sm md:text-base">
-                        <span class="mass-example">💡 Deep Example:</span> Oka smart AC lo thermostat 24/7 full speed tho pani cheyadu. Adi sleep mode lo padi untundi. Room temperature perigindi ani sensor nunchi 'interrupt' (signal) vachinappudu matrame AC on avtundi.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Part 6: Point 4 -->
-        <div class="concept-card">
-            <div class="english-text">
-                "4. Handling Critical Errors<br>
-                Interrupts provide a way to handle unpredictable system emergencies, such as power failures or memory errors, without having to write "check for error" code into every single line of a program.<br>
-                Example: If a power failure is detected, a high-priority interrupt can trigger a routine that saves the current system state to disk in the milliseconds before the capacitors run dry."
-            </div>
-            <div class="tenglish-explanation">
-                <div class="tenglish-title">🚨 4. Emergency Situations ni Handle Cheyadam</div>
-                <p class="text-gray-300 mb-3">
-                    System lo emaina pedda problem (power povadam lanti vi) vasthe prathi code line lo error unda ani check chese badulu, direct ga oka "high-priority" interrupt vastundi. Idhi anukokunda oche errors ni takkuna handle chestundi.
-                </p>
-                <div class="bg-gray-800/50 p-4 rounded-lg border-l-4 border-fuchsia-500">
-                    <p class="text-gray-300 text-sm md:text-base">
-                        <span class="mass-example">💡 Deep Example:</span> Sudden ga current poyindi anuko. Power cut ayyindi ani detect avvagane, capacitors lo current purthiga aripoye aa chinna milliseconds gap lo.. oka emergency interrupt vachi nuvvu chestunna work state ni ventane hard disk lo save chestundi. Deeni valla nee data miss avvadu!
-                    </p>
-                </div>
             </div>
         </div>
 
