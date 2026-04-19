@@ -3,52 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I/O Devices - Complete Zen Method</title>
+    <title>Interrupts - Complete Zen Method</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Outfit', sans-serif; 
-            background-color: #0a0a0a;
-            color: #e5e5e5;
-            background-image: linear-gradient(to right, #111 1px, transparent 1px), linear-gradient(to bottom, #111 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-color: #050b14; /* Deep Tech Blue/Black */
+            color: #e2e8f0;
+            background-image: radial-gradient(circle at top left, #1e3a8a 0%, #050b14 50%);
+            background-attachment: fixed;
         }
         .bento-box {
-            background: #171717;
-            border: 1px solid #333;
-            border-left: 5px solid #e11d48; /* Red accent */
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 5px solid #38bdf8; /* Sky Blue accent */
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            margin-bottom: 2.5rem;
             position: relative;
         }
         .step-label {
             position: absolute;
-            top: -14px;
-            right: 20px;
-            background: #e11d48;
-            color: white;
-            font-weight: 700;
+            top: -15px;
+            left: 20px;
+            background: #38bdf8;
+            color: #0f172a;
+            font-weight: 800;
             font-size: 0.85rem;
-            padding: 4px 16px;
+            padding: 6px 18px;
             border-radius: 20px;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(225, 29, 72, 0.4);
+            letter-spacing: 1.5px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            text-transform: uppercase;
         }
         .english-full {
-            padding: 1.5rem;
-            background: #111;
-            border-bottom: 2px dashed #262626;
-            color: #a3a3a3;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 2px dashed rgba(56, 189, 248, 0.15);
+            color: #94a3b8;
             font-size: 0.95rem;
             line-height: 1.6;
             border-radius: 12px 12px 0 0;
+            font-style: italic;
         }
         .english-full ul {
             list-style-type: none;
             padding-left: 0;
             margin-top: 0.5rem;
+            margin-bottom: 0;
         }
         .english-full li {
             position: relative;
@@ -59,7 +63,7 @@
             content: "•";
             position: absolute;
             left: 0;
-            color: #e11d48;
+            color: #38bdf8;
             font-weight: bold;
         }
         .tenglish-explanation {
@@ -67,196 +71,148 @@
             line-height: 1.7;
         }
         .tenglish-explanation h3 {
-            color: #fb7185;
+            color: #7dd3fc;
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .highlight { color: #facc15; font-weight: 600; }
         .tag-box {
-            background: rgba(255,255,255,0.05);
-            padding: 10px;
+            background: rgba(56, 189, 248, 0.05);
+            padding: 12px;
             border-radius: 8px;
-            border-left: 3px solid #fb7185;
-            margin-top: 10px;
+            border-left: 3px solid #7dd3fc;
+            margin-top: 12px;
         }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-4 md:p-10 pt-16">
 
     <div class="max-w-4xl mx-auto">
         
-        <div class="text-center mb-12">
-            <h1 class="text-3xl md:text-5xl font-bold text-white mb-2">
-                <span class="text-rose-600">I/O</span> DEVICES
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-3">
+                ⚡ <span class="text-sky-400">INTERRUPTS</span>
             </h1>
-            <p class="text-gray-400 font-semibold tracking-widest text-sm uppercase">Full Text + Step-by-Step Tenglish Explanation</p>
+            <p class="text-sky-200 font-medium tracking-widest text-sm uppercase bg-sky-900/30 inline-block px-4 py-1 rounded-full border border-sky-500/30">Complete Text Breakdown</p>
         </div>
 
         <!-- STEP 1 -->
         <div class="bento-box">
-            <div class="step-label">STEP 1</div>
+            <div class="step-label">Part 01: The Alert Signal</div>
             <div class="english-full">
-                <strong>Accessing I/O Devices</strong><br>
-                The I/O devices are connected by using a single bus which enables data transaction between each device as shown in Fig 5.1
+                <strong>Interrupts</strong>
                 <ul>
-                    <li>Bus consists of 3 sets of lines used to carry address, data and control signals.</li>
+                    <li>There are many situations where other tasks can be performed while waiting for an I/O device to become ready. A hardware signal called an Interrupt will alert the processor when an I/O device becomes ready. It can do so by sending a hardware signal called an interrupt to the processor.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Asalu Devices ni Ela Connect Chestaru? (The Bus)</h3>
+                <h3>🏮 Interrupt ante Asalu Enti?</h3>
                 <p class="text-gray-300">
-                    Mana I/O devices (Keyboard, mouse, printer lantivi) anni CPU tho matladadaniki oka <span class="highlight">"Single Bus"</span> (kone wires group) dwara connect ayyi untayi. Deeni dwara data theeskovadam, ivvadam jarugutundi.<br>
-                    Ee Bus lo main ga 3 lines untayi:<br>
-                    1. <span class="text-sky-400 font-semibold">Address Lines:</span> Device address theeskelladaniki.<br>
-                    2. <span class="text-sky-400 font-semibold">Data Lines:</span> Asalu data ni theeskelladaniki.<br>
-                    3. <span class="text-sky-400 font-semibold">Control Lines:</span> Commands (Read/Write) theeskelladaniki.
+                    Oka I/O device (like printer/keyboard) tana pani purthi cheskuni ready ayye lopu, CPU khaaliga kurchokunda vere panulu cheskune situations chala untayi. <br><br>
+                    Ala CPU vere pani lo unnappudu, I/O device ready avvagane... CPU ki <span class="highlight">"Nenu ready ayya!"</span> ani oka alert pampistundi. Aa alert pampinche Hardware Signal ne manam <b>"Interrupt"</b> antamu. (Idhi thupukku mani vache missed call lantidi).
                 </p>
             </div>
         </div>
 
         <!-- STEP 2 -->
         <div class="bento-box">
-            <div class="step-label">STEP 2</div>
+            <div class="step-label">Part 02: ISR & Acknowledge</div>
             <div class="english-full">
+                For example, consider, COMPUTE and PRINT routines. The routine executed in response to an interrupt request is called interrupt-service routine.
                 <ul>
-                    <li>Each I/O device is assigned a unique set of address. When the processor places a particular address on the address lines, the device that recognizes this address responds to the commands issued on the control lines.</li>
-                    <li>The processor requests either a read or a write operation which is transferred over the data lines. When I/O devices and the memory share the same address space, the arrangement is called memory-mapped I/O. There are two ways to deal with I/O devices.</li>
+                    <li>Transfer of control through the use of interrupts happens. The processor must inform the device that its request has been recognized by sending interrupt-acknowledge signal.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 CPU Device tho Ela Matladutundi?</h3>
+                <h3>🏮 Interrupt Service Routine (ISR) & Acknowledge</h3>
                 <p class="text-gray-300">
-                    Prathi I/O device ki oka <span class="highlight">Unique Address (Pin-code)</span> untundi. CPU aah address lines meeda oka address pettagane, evari address aythe match avtundo aah device palukutundi. Appudu CPU control lines dwara command isthundi (Data theesko leda Data ivvu ani). 
+                    <b>Example:</b> CPU edo calculation (COMPUTE) chestundi, ade time lo Printer nunchi PRINT aypoyindi ani interrupt vachindi anuko. Aa vachina interrupt ki respond avthu, CPU ventane oka kottha program (code) ni run chestundi. Aa program ni manam <span class="highlight">"Interrupt-Service Routine (ISR)"</span> antamu.<br><br>
+                    Ila jarigina ventane, CPU tana control ni aa ISR ki ichestundi. Alage I/O device tho.. "Babu nee request nenu chusanu/receive cheskunnanu" ani cheppadaniki CPU oka <b class="text-sky-300">"Interrupt-Acknowledge"</b> signal ni device ki thirigi pampistundi. (Message seen petti reply isthadi anamata).
                 </p>
-                <div class="tag-box mt-3">
-                    <p class="text-gray-300 text-sm">
-                        Oka vela mana I/O devices, mariyu main Memory (RAM) iddari address lu oke space (Area) lo kalisipoyi unte, daanni <b>"Memory-Mapped I/O"</b> antaru. Ee I/O devices tho deal cheyadaniki 2 ways unnayi. Avi kinda chuddam.
-                    </p>
-                </div>
             </div>
         </div>
 
         <!-- STEP 3 -->
         <div class="bento-box">
-            <div class="step-label">STEP 3</div>
+            <div class="step-label">Part 03: Subroutine & Latency</div>
             <div class="english-full">
-                <strong>5.1.1 Memory mapped I/O</strong>
-                <ul>
-                    <li>The Memory and I/O devices are sharing information by a common address-space. Any data transfer instruction (like Move, Load) can be used to exchange information. For example,<br>Move DATAIN, R0</li>
-                    <li>This instruction reads data from DATAIN (address of input-buffer associated with Keyboard) & stores them into processor-register R0.<br>Move R0, DATAOUT</li>
-                    <li>This instruction sends the contents of register R0 to location DATAOUT, which may be the output data buffer of a display unit or a printer.</li>
-                </ul>
+                One must therefore know the difference between Interrupt Vs Subroutine. Interrupt latency is concerned with saving information in registers will increase the delay between the time an interrupt request is received and the start of execution of the interrupt-service routine.
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Memory Mapped I/O (Oke Area - Normal Commands)</h3>
+                <h3>🏮 Delay Enduku Vastundi? (Latency)</h3>
                 <p class="text-gray-300">
-                    Indulo Memory (RAM) mariyu I/O devices iddariki okate <span class="highlight">Common Address Space</span> (oke intlo unnattu) untundi. Deeni valla manam I/O tho matladataniki special commands akkarledu. RAM nunchi data theadaniki vaade normal commands (Move, Load) vaadithe chalu.
+                    Manam ekkada padithe akkada code raase 'Subroutine' ki, ee 'Interrupt' ki difference thelsukovali. <br><br>
+                    CPU ki interrupt vachina ventane adi velli ISR ni start cheyadu. Mundu CPU current chestunna pani details ni (registers lo unna information ni) safe ga ekkadaina <b>Save cheyali</b>. Ila information save cheyadaniki time padutundi ga? Aa time valla <span class="highlight">"Interrupt vachina time ki" mariyu "ISR start ayye time ki"</span> madyalo oka chinna delay (gap) vasthundi.
                 </p>
-                <div class="tag-box">
-                    <p class="text-gray-300 text-sm">
-                        <b class="text-white">Example 1: <code>Move DATAIN, R0</code></b> <br>Idi Keyboard (DATAIN) nunchi vachina data ni chadivi CPU loni R0 register lo pettu ani cheptundi.<br><br>
-                        <b class="text-white">Example 2: <code>Move R0, DATAOUT</code></b> <br>Idi R0 register lo unna data ni theeskelli Display leda Printer (DATAOUT) ki pampu ani cheptundi.
-                    </p>
-                </div>
             </div>
         </div>
 
         <!-- STEP 4 -->
         <div class="bento-box">
-            <div class="step-label">STEP 4</div>
+            <div class="step-label">Part 04: Saving State (PC)</div>
             <div class="english-full">
-                <strong>5.1.2 I/O mapped I/O</strong>
                 <ul>
-                    <li>In I/O mapped I/O, the memory and I/0 address-spaces are different. Special instructions are used for data transfer such as IN and OUT.</li>
-                    <li>The I/O devices use special I/O address space or memory address space.</li>
-                    <li>The I/O devices examine the low order bits of the address bus to determine whether they should respond.</li>
-                    <li>Advantage of separate I/O space: I/O devices deal with fewer address-lines.</li>
+                    <li>Processor is executing the instruction located at address i when an interrupt occurs</li>
+                </ul>
+                Routine executed in response to an interrupt request is called the interrupt-service routine.
+                <ul>
+                    <li>When an interrupt occurs, control must be transferred to the interrupt service routine.</li>
+                    <li>But before transferring control, the current contents of the PC (i+1), must be saved in a known location.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 I/O Mapped I/O (Separate Area - Special Commands)</h3>
+                <h3>🏮 Program Counter (PC) ni Enduku Save Cheyali?</h3>
                 <p class="text-gray-300">
-                    Indulo Memory address lu veru, I/O address lu veru (<span class="highlight">Different Address Space</span>). Separate illu anamata. Anduke Ikkada normal 'Move' panicheyadu, <span class="text-emerald-400 font-bold">IN</span> mariyu <span class="text-emerald-400 font-bold">OUT</span> lanti special commands matrame vaadali.
+                    Idi chala important. CPU <code>address 'i'</code> daggara unna code ni run chestunnappudu anukokunda Interrupt vachindi anuko.<br><br>
+                    Appudu CPU control ni Interrupt-Service Routine (ISR) ki ivvali. Kani ivvadaniki mundu, CPU chese next pani entante.. tana <span class="highlight">Program Counter (PC) loni value ni (ante i+1 ni)</span> oka safe place lo save cheyali. 
                 </p>
-                <p class="text-gray-300 mt-2">
-                    I/O devices address bus loni chivari (low order) bits ni check chesi adi vaalla address auna kada ani gurtupadatai.<br>
-                    <b class="text-white">Advantage:</b> Ee I/O address space separate ga undatam valla, idi chinna size lo untundi. So, I/O devices takkuva address-lines thone pani kaniccheyochu.
-                </p>
+                <div class="tag-box">
+                    <p class="text-gray-300 text-sm">
+                        <b>PC (Program Counter) ante enti?</b> CPU tarvata ea line of code (address) run cheyalo gurtupettukune book lanti di. So 'i' aypoyindi kabatti, next 'i+1' ki vellali ani CPU gurtupettukuni danni save chestundi.
+                    </p>
+                </div>
             </div>
         </div>
 
         <!-- STEP 5 -->
         <div class="bento-box">
-            <div class="step-label">STEP 5</div>
+            <div class="step-label">Part 05: Return & The Stack</div>
             <div class="english-full">
                 <ul>
-                    <li>The hardware required to connect an I/O device to the bus as shown in the Fig 5.2</li>
-                    <li>The address decoder enables the device to recognize its address when this address appears on the address lines.</li>
-                    <li>The data register holds the data being transferred to or from the processor.</li>
-                    <li>The status register contains information relevant to the operation of the I/O device.</li>
+                    <li>This will enable the return-from-interrupt instruction to resume execution at i+1.</li>
+                    <li>Return address, or the contents of the PC are usually stored on the processor stack.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Device ni Bus ki Kalupe Hardware Parts</h3>
-                <p class="text-gray-300 mb-2">Oka I/O device ni bus ki connect cheyadaniki konni hardware parts kavali. Avi entante:</p>
-                <ul class="list-none space-y-2 text-gray-300 text-sm">
-                    <li><span class="highlight">1. Address Decoder:</span> Address lines meeda vachina address tana owner dho kado (Idi naa address ea na?) ani gurtupattadaniki idi help chestundi. (Watchman laga)</li>
-                    <li><span class="highlight">2. Data Register:</span> CPU nunchi vache data ni leda CPU ki velle data ni temporary ga daachi unche box idi.</li>
-                    <li><span class="highlight">3. Status Register:</span> Device ready ga unda? leda busy ga unda? ani current condition (operation) gurinchi cheppe register idi.</li>
-                </ul>
+                <h3>🏮 Interrupt Aypoyaka Malli Ela Vastundi?</h3>
+                <p class="text-gray-300">
+                    Paina 'i+1' ni enduku save chesam? Endukante, ISR (interrupt code) motham ayipoyaka CPU malli venakki ochi patadi continue cheyali ga! Aa <b class="text-sky-300">"Return-from-interrupt"</b> command ranavvagane, CPU malli correct ga 'i+1' address nunche pani start chestundi.<br><br>
+                    Mari ee Return address (PC lo unna i+1 value) ekkada dachi pedataru? Usually CPU loni <span class="highlight">"Processor Stack"</span> meeda daachi pedutundi. (Oka dabba lo vesinatlu).
+                </p>
             </div>
         </div>
 
         <!-- STEP 6 -->
         <div class="bento-box">
-            <div class="step-label">STEP 6</div>
+            <div class="step-label">Part 06: Definition of Latency</div>
             <div class="english-full">
-                <ul>
-                    <li>Both the data and status registers are connected to the data bus and assigned unique addresses. The address decoder, the data and status registers, and the control circuitry required to coordinate I/O transfers constitute the device's interface circuit.</li>
-                </ul>
+                Interrupt latency: Delay between the time an interrupt request is received and the start of execution of the interrupt service routine.
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Interface Circuit ante enti?</h3>
+                <h3>🏮 Interrupt Latency (Direct Definition)</h3>
                 <p class="text-gray-300">
-                    Data register mariyu Status register ee rendu kooda Data bus ke connect ayyi untayi, vatiki kuda unique address untundi. <br><br>
-                    Paina cheppina <b>Address decoder + Data register + Status register + Control circuitry</b>... ee annitini kalipithe ayye total set ne <span class="highlight">"Device's Interface Circuit"</span> antaru.
+                    <span class="highlight">Interrupt Latency</span> ante simple ga: <br>
+                    "Device nunchi <b>Interrupt Request CPU ki reach ayina time ki</b>.. mariyu CPU aa problem solve cheyadaniki <b>Interrupt Service Routine (ISR) ni run cheyadam start chesina time ki</b> madyalo unde gappe (Delay)" ee Latency.
                 </p>
-            </div>
-        </div>
-
-        <!-- STEP 7 -->
-        <div class="bento-box">
-            <div class="step-label">STEP 7</div>
-            <div class="english-full">
-                <strong>Program Controlled I/O</strong>
-                <ul>
-                    <li>Processor repeatedly checks a status flag to achieve required synchronization between processor & input/output device. (We say that the processor polls the device).</li>
-                </ul>
-                Drawback: The processor wastes its time in checking the status of the device before actual data transfer takes place.
-            </div>
-            <div class="tenglish-explanation">
-                <h3>🏮 Program Controlled I/O (Polling) & Daani Problem</h3>
-                <p class="text-gray-300">
-                    Indulo CPU urike vachi I/O device daggara unna 'status flag' ni malli malli check chestune untundi (Nuvvu ready na? Nuvvu ready na? ani). Deenine <span class="highlight">"Polling"</span> antaru.<br><br>
-                    <b class="text-red-400">Drawback (Loss):</b> Asalu data theeskovadaniki kante mundu.. device ready ga unda leda ani check cheyadanike CPU tana amulyamaina time ni antha waste cheseskuntundi.
-                </p>
-            </div>
-        </div>
-
-        <!-- STEP 8 -->
-        <div class="bento-box">
-            <div class="step-label">STEP 8</div>
-            <div class="english-full">
-                <strong>5.1.4 Mechanisms Used For Interfacing I/O Operations:</strong><br>
-                <strong>Interrupt I/O</strong><br>
-                Synchronization is achieved by having I/O device send a special signal over bus whenever it is ready for a data transfer operation.
-            </div>
-            <div class="tenglish-explanation">
-                <h3>🏮 Interrupt I/O (The Smart Solution)</h3>
-                <p class="text-gray-300">
-                    Aa time waste problems ni theeseyadanike idi vachindi. Ikkada CPU eppudu padithe appudu vachi adagadu. <span class="highlight">Data transfer cheyadaniki I/O device eppudu ready avtundo, appudu ade direct ga CPU ki oka "Special Signal" (Interrupt) pampistundi</span>. Appudu CPU matrame vachi pani chuskuntundi. Idhi chala smart way!
-                </p>
+                <div class="tag-box border-rose-500">
+                    <p class="text-gray-300 text-sm">
+                        <b>Mass Example:</b> Phone ringing sound vachina time ki (Request), nuvvu phone theesi hello ani maatladadam start chesina time ki (Execution) madyalo unna gap eh ee 'Interrupt Latency'.
+                    </p>
+                </div>
             </div>
         </div>
 
