@@ -3,185 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accessing I/O Devices - English + Tenglish</title>
+    <title>I/O Devices - Complete Zen Method</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Outfit', sans-serif; 
-            background-color: #050b14;
-            background-image: radial-gradient(circle at top left, #064e3b, #050b14);
-            color: #e2e8f0;
-            margin: 0;
-            padding: 0;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+            background-image: linear-gradient(to right, #111 1px, transparent 1px), linear-gradient(to bottom, #111 1px, transparent 1px);
+            background-size: 20px 20px;
         }
-        .concept-card {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
+        .bento-box {
+            background: #171717;
+            border: 1px solid #333;
+            border-left: 5px solid #e11d48; /* Red accent */
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin-bottom: 2rem;
-            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
         }
-        .concept-card:hover {
-            border-color: rgba(16, 185, 129, 0.6);
+        .step-label {
+            position: absolute;
+            top: -14px;
+            right: 20px;
+            background: #e11d48;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 4px 16px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(225, 29, 72, 0.4);
         }
-        .english-text {
-            background: rgba(0, 0, 0, 0.4);
+        .english-full {
             padding: 1.5rem;
-            border-bottom: 2px dashed rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
-            font-style: italic;
-            font-size: 1.05rem;
+            background: #111;
+            border-bottom: 2px dashed #262626;
+            color: #a3a3a3;
+            font-size: 0.95rem;
             line-height: 1.6;
+            border-radius: 12px 12px 0 0;
+        }
+        .english-full ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 0.5rem;
+        }
+        .english-full li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .english-full li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #e11d48;
+            font-weight: bold;
         }
         .tenglish-explanation {
             padding: 1.5rem;
-            background: rgba(2, 6, 23, 0.5);
             line-height: 1.7;
         }
-        .tenglish-title {
-            color: #10b981;
-            font-weight: 700;
+        .tenglish-explanation h3 {
+            color: #fb7185;
             font-size: 1.25rem;
+            font-weight: 700;
             margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
         .highlight { color: #facc15; font-weight: 600; }
-        .mass-example { color: #38bdf8; font-weight: 600; }
+        .tag-box {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 3px solid #fb7185;
+            margin-top: 10px;
+        }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-4 md:p-10">
 
-    <div class="max-w-4xl mx-auto pt-4 pb-12">
+    <div class="max-w-4xl mx-auto">
         
-        <h1 class="text-3xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500 mb-2">
-            🔌 Accessing I/O Devices
-        </h1>
-        <p class="text-center text-gray-400 mb-10 text-lg">English Text + Tenglish Mass Explanation (Part by Part)</p>
+        <div class="text-center mb-12">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-2">
+                <span class="text-rose-600">I/O</span> DEVICES
+            </h1>
+            <p class="text-gray-400 font-semibold tracking-widest text-sm uppercase">Full Text + Step-by-Step Tenglish Explanation</p>
+        </div>
 
-        <!-- Part 1: Intro & Bus System -->
-        <div class="concept-card">
-            <div class="english-text">
-                "Accessing I/O Devices<br>
-                The I/O devices are connected by using a single bus which enables data transaction between each device as shown in Fig 5.1.<br>
-                • Bus consists of 3 sets of lines used to carry address, data and control signals.<br>
-                • Each I/O device is assigned a unique set of address. When the processor places a particular address on the address lines, the device that recognizes this address responds to the commands issued on the control lines.<br>
-                • The processor requests either a read or a write operation which is transferred over the data lines. When I/O devices and the memory share the same address space, the arrangement is called memory-mapped I/O. There are two ways to deal with I/O devices."
+        <!-- STEP 1 -->
+        <div class="bento-box">
+            <div class="step-label">STEP 1</div>
+            <div class="english-full">
+                <strong>Accessing I/O Devices</strong><br>
+                The I/O devices are connected by using a single bus which enables data transaction between each device as shown in Fig 5.1
+                <ul>
+                    <li>Bus consists of 3 sets of lines used to carry address, data and control signals.</li>
+                </ul>
             </div>
             <div class="tenglish-explanation">
-                <div class="tenglish-title">🚌 Asalu Devices CPU tho ela matladathayi? (Bus Concept)</div>
-                <p class="text-gray-300 mb-3">
-                    Mana computer lo keyboard, mouse lanti I/O devices anni CPU ki oka <span class="highlight">"Bus"</span> dwara connect ayyi untayi. (Bus ante mana RTC bus kaadu, idoka group of wires). Deentlo 3 lines untayi: <br>
-                    1. <b>Address Lines:</b> Inti address laaga. Prathi device ki oka pin code (address) untundi.<br>
-                    2. <b>Data Lines:</b> Data veladaniki, ravadaniki.<br>
-                    3. <b>Control Lines:</b> Command ivvadaniki (Read/Write ani).
-                </p>
+                <h3>🏮 Asalu Devices ni Ela Connect Chestaru? (The Bus)</h3>
                 <p class="text-gray-300">
-                    CPU evaritho matladalo valla address ni address lines meeda pedutundi. Aa address evaridaithe vaalle pallukuntaru. Appudu data lines dwara CPU "Chaduvu" (Read) leda "Raaayi" (Write) ani order istundi. Okavela ee I/O devices, manam vaade main Memory (RAM) iddari address lu oke area lo unte danni <b>Memory-Mapped I/O</b> antaru.
+                    Mana I/O devices (Keyboard, mouse, printer lantivi) anni CPU tho matladadaniki oka <span class="highlight">"Single Bus"</span> (kone wires group) dwara connect ayyi untayi. Deeni dwara data theeskovadam, ivvadam jarugutundi.<br>
+                    Ee Bus lo main ga 3 lines untayi:<br>
+                    1. <span class="text-sky-400 font-semibold">Address Lines:</span> Device address theeskelladaniki.<br>
+                    2. <span class="text-sky-400 font-semibold">Data Lines:</span> Asalu data ni theeskelladaniki.<br>
+                    3. <span class="text-sky-400 font-semibold">Control Lines:</span> Commands (Read/Write) theeskelladaniki.
                 </p>
             </div>
         </div>
 
-        <!-- Part 2: Memory mapped I/O -->
-        <div class="concept-card">
-            <div class="english-text">
-                "5.1.1 Memory mapped I/O<br>
-                • The Memory and I/O devices are sharing information by a common address-space. Any data transfer instruction (like Move, Load) can be used to exchange information. For example,<br>
-                Move DATAIN, R0<br>
-                • This instruction reads data from DATAIN (address of input-buffer associated with Keyboard) & stores them into processor-register R0.<br>
-                Move R0, DATAOUT<br>
-                • This instruction sends the contents of register R0 to location DATAOUT, which may be the output data buffer of a display unit or a printer."
+        <!-- STEP 2 -->
+        <div class="bento-box">
+            <div class="step-label">STEP 2</div>
+            <div class="english-full">
+                <ul>
+                    <li>Each I/O device is assigned a unique set of address. When the processor places a particular address on the address lines, the device that recognizes this address responds to the commands issued on the control lines.</li>
+                    <li>The processor requests either a read or a write operation which is transferred over the data lines. When I/O devices and the memory share the same address space, the arrangement is called memory-mapped I/O. There are two ways to deal with I/O devices.</li>
+                </ul>
             </div>
             <div class="tenglish-explanation">
-                <div class="tenglish-title">🧠 5.1.1 Memory Mapped I/O (Oke illu, Oke rules)</div>
-                <p class="text-gray-300 mb-3">
-                    Indulo Memory ki, I/O devices ki <span class="highlight">Common Address Space</span> (oke pin code area) untundi. Deeni valla pedda advantage enti ante, memory nunchi data thevadaniki manam vaade normal instructions (Move, Load lanti vi) vaadukuni I/O tho kuda muchatlochu. I/O ki antu special commands akkarledu.
+                <h3>🏮 CPU Device tho Ela Matladutundi?</h3>
+                <p class="text-gray-300">
+                    Prathi I/O device ki oka <span class="highlight">Unique Address (Pin-code)</span> untundi. CPU aah address lines meeda oka address pettagane, evari address aythe match avtundo aah device palukutundi. Appudu CPU control lines dwara command isthundi (Data theesko leda Data ivvu ani). 
                 </p>
-                <div class="bg-emerald-900/30 p-4 rounded-lg border-l-4 border-teal-500 space-y-2">
-                    <p class="text-gray-300 text-sm md:text-base">
-                        <span class="mass-example">💡 Instruction 1: `Move DATAIN, R0`</span><br>
-                        DATAIN ante Keyboard (Input). Keyboard nunchi data thechi CPU lopala unna R0 ane register lo pettu ani cheppadam.
-                    </p>
-                    <p class="text-gray-300 text-sm md:text-base">
-                        <span class="mass-example">💡 Instruction 2: `Move R0, DATAOUT`</span><br>
-                        R0 lo unna data ni theeskelli DATAOUT (ante Display leda Printer) ki pampu ani cheppadam. Normal ga ram lo elaa rasthamo, ikkada anthe!
+                <div class="tag-box mt-3">
+                    <p class="text-gray-300 text-sm">
+                        Oka vela mana I/O devices, mariyu main Memory (RAM) iddari address lu oke space (Area) lo kalisipoyi unte, daanni <b>"Memory-Mapped I/O"</b> antaru. Ee I/O devices tho deal cheyadaniki 2 ways unnayi. Avi kinda chuddam.
                     </p>
                 </div>
             </div>
         </div>
 
-        <!-- Part 3: I/O mapped I/O -->
-        <div class="concept-card">
-            <div class="english-text">
-                "5.1.2 I/O mapped I/O<br>
-                • In I/O mapped I/O, the memory and I/0 address-spaces are different. Special instructions are used for data transfer such as IN and OUT.<br>
-                • The I/O devices use special I/O address space or memory address space.<br>
-                • The I/O devices examine the low order bits of the address bus to determine whether they should respond.<br>
-                • Advantage of separate I/O space: I/O devices deal with fewer address-lines."
-            </div>
-            <div class="tenglish-explanation">
-                <div class="tenglish-title">🚪 5.1.2 I/O Mapped I/O (Separate illu, Special rules)</div>
-                <p class="text-gray-300 mb-3">
-                    Indulo Memory address lu veru, I/O address lu veru. Iddari address areas completely different. Anduke normal ga vaade Move/Load kakunda, <span class="highlight">IN, OUT</span> lanti <b>Special Instructions</b> vaadali.
-                </p>
-                <p class="text-gray-300">
-                    Ee I/O devices aa address bus loni chivari bits (low order bits) ni check cheskuni, "Idhi naa address eh na? nenu respond avvala?" ani decide avthayi. <br>
-                    <span class="mass-example">✨ Advantage:</span> I/O space separate ga undadam valla address chinnadi ga untundi, so ee I/O devices takkuva address lines thone deal cheyochu (tensions takkuva).
-                </p>
-            </div>
-        </div>
-
-        <!-- Part 4: Hardware Interfaces -->
-        <div class="concept-card">
-            <div class="english-text">
-                "• The hardware required to connect an I/O device to the bus as shown in the Fig 5.2<br>
-                • The address decoder enables the device to recognize its address when this address appears on the address lines.<br>
-                • The data register holds the data being transferred to or from the processor.<br>
-                • The status register contains information relevant to the operation of the I/O device.<br>
-                • Both the data and status registers are connected to the data bus and assigned unique addresses. The address decoder, the data and status registers, and the control circuitry required to coordinate I/O transfers constitute the device's interface circuit."
-            </div>
-            <div class="tenglish-explanation">
-                <div class="tenglish-title">🛠️ Device ni Bus ki ela kaluputaru? (Interface Circuit)</div>
-                <p class="text-gray-300 mb-3">
-                    Oka device ni system bus ki direct ga tagilinchaleru. Daaniki konni hardware parts kavali. Avventante:
-                </p>
-                <ul class="list-disc pl-5 space-y-2 text-gray-300 mb-3 marker:text-teal-400">
-                    <li><b>Address Decoder:</b> Idoka watchman lanti di. Address lines meeda vachina address tana owner da kado gurtupattadaniki idi help chestundi.</li>
-                    <li><b>Data Register:</b> Idi oka dabba lanti di. Velle data ni leda vache data ni hold cheskuni unchutundi.</li>
-                    <li><b>Status Register:</b> Idi I/O device paristhiti ento (ready ga unda? bise ga unda?) cheppe register.</li>
+        <!-- STEP 3 -->
+        <div class="bento-box">
+            <div class="step-label">STEP 3</div>
+            <div class="english-full">
+                <strong>5.1.1 Memory mapped I/O</strong>
+                <ul>
+                    <li>The Memory and I/O devices are sharing information by a common address-space. Any data transfer instruction (like Move, Load) can be used to exchange information. For example,<br>Move DATAIN, R0</li>
+                    <li>This instruction reads data from DATAIN (address of input-buffer associated with Keyboard) & stores them into processor-register R0.<br>Move R0, DATAOUT</li>
+                    <li>This instruction sends the contents of register R0 to location DATAOUT, which may be the output data buffer of a display unit or a printer.</li>
                 </ul>
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Memory Mapped I/O (Oke Area - Normal Commands)</h3>
                 <p class="text-gray-300">
-                    Ee <span class="highlight">Address decoder + Registers + Control circuitry</span> annitini kalipi okati ga set cheste daanne <b class="text-teal-400">"Device's Interface Circuit"</b> antaru.
+                    Indulo Memory (RAM) mariyu I/O devices iddariki okate <span class="highlight">Common Address Space</span> (oke intlo unnattu) untundi. Deeni valla manam I/O tho matladataniki special commands akkarledu. RAM nunchi data theadaniki vaade normal commands (Move, Load) vaadithe chalu.
+                </p>
+                <div class="tag-box">
+                    <p class="text-gray-300 text-sm">
+                        <b class="text-white">Example 1: <code>Move DATAIN, R0</code></b> <br>Idi Keyboard (DATAIN) nunchi vachina data ni chadivi CPU loni R0 register lo pettu ani cheptundi.<br><br>
+                        <b class="text-white">Example 2: <code>Move R0, DATAOUT</code></b> <br>Idi R0 register lo unna data ni theeskelli Display leda Printer (DATAOUT) ki pampu ani cheptundi.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="bento-box">
+            <div class="step-label">STEP 4</div>
+            <div class="english-full">
+                <strong>5.1.2 I/O mapped I/O</strong>
+                <ul>
+                    <li>In I/O mapped I/O, the memory and I/0 address-spaces are different. Special instructions are used for data transfer such as IN and OUT.</li>
+                    <li>The I/O devices use special I/O address space or memory address space.</li>
+                    <li>The I/O devices examine the low order bits of the address bus to determine whether they should respond.</li>
+                    <li>Advantage of separate I/O space: I/O devices deal with fewer address-lines.</li>
+                </ul>
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 I/O Mapped I/O (Separate Area - Special Commands)</h3>
+                <p class="text-gray-300">
+                    Indulo Memory address lu veru, I/O address lu veru (<span class="highlight">Different Address Space</span>). Separate illu anamata. Anduke Ikkada normal 'Move' panicheyadu, <span class="text-emerald-400 font-bold">IN</span> mariyu <span class="text-emerald-400 font-bold">OUT</span> lanti special commands matrame vaadali.
+                </p>
+                <p class="text-gray-300 mt-2">
+                    I/O devices address bus loni chivari (low order) bits ni check chesi adi vaalla address auna kada ani gurtupadatai.<br>
+                    <b class="text-white">Advantage:</b> Ee I/O address space separate ga undatam valla, idi chinna size lo untundi. So, I/O devices takkuva address-lines thone pani kaniccheyochu.
                 </p>
             </div>
         </div>
 
-        <!-- Part 5: Program Controlled vs Interrupt -->
-        <div class="concept-card">
-            <div class="english-text">
-                "Program Controlled I/O<br>
-                • Processor repeatedly checks a status flag to achieve required synchronization between processor & input/output device. (We say that the processor polls the device).<br>
-                Drawback: The processor wastes its time in checking the status of the device before actual data transfer takes place.<br><br>
-                5.1.4 Mechanisms Used For Interfacing I/O Operations:<br>
-                Interrupt I/O<br>
-                Synchronization is achieved by having I/O device send a special signal over bus whenever it is ready for a data transfer operation."
+        <!-- STEP 5 -->
+        <div class="bento-box">
+            <div class="step-label">STEP 5</div>
+            <div class="english-full">
+                <ul>
+                    <li>The hardware required to connect an I/O device to the bus as shown in the Fig 5.2</li>
+                    <li>The address decoder enables the device to recognize its address when this address appears on the address lines.</li>
+                    <li>The data register holds the data being transferred to or from the processor.</li>
+                    <li>The status register contains information relevant to the operation of the I/O device.</li>
+                </ul>
             </div>
             <div class="tenglish-explanation">
-                <div class="tenglish-title">⏱️ Program Controlled I/O vs ⚡ Interrupt I/O</div>
-                
-                <p class="text-gray-300 mb-3">
-                    <span class="mass-example">1. Program Controlled I/O (Polling):</span><br>
-                    Indulo CPU urike vachi device ready ga unda leda ani aa "status flag" ni repeated ga check chestune untundi. Deenine "Polling" antaru.<br>
-                    <b class="text-red-400">Drawback (Bokka):</b> Asalu data transfer jarige kante mundu, ee status checks kosame CPU tana time antha waste cheskuntundi.
-                </p>
-                
+                <h3>🏮 Device ni Bus ki Kalupe Hardware Parts</h3>
+                <p class="text-gray-300 mb-2">Oka I/O device ni bus ki connect cheyadaniki konni hardware parts kavali. Avi entante:</p>
+                <ul class="list-none space-y-2 text-gray-300 text-sm">
+                    <li><span class="highlight">1. Address Decoder:</span> Address lines meeda vachina address tana owner dho kado (Idi naa address ea na?) ani gurtupattadaniki idi help chestundi. (Watchman laga)</li>
+                    <li><span class="highlight">2. Data Register:</span> CPU nunchi vache data ni leda CPU ki velle data ni temporary ga daachi unche box idi.</li>
+                    <li><span class="highlight">3. Status Register:</span> Device ready ga unda? leda busy ga unda? ani current condition (operation) gurinchi cheppe register idi.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="bento-box">
+            <div class="step-label">STEP 6</div>
+            <div class="english-full">
+                <ul>
+                    <li>Both the data and status registers are connected to the data bus and assigned unique addresses. The address decoder, the data and status registers, and the control circuitry required to coordinate I/O transfers constitute the device's interface circuit.</li>
+                </ul>
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Interface Circuit ante enti?</h3>
                 <p class="text-gray-300">
-                    <span class="mass-example">2. Interrupt I/O:</span><br>
-                    Aa polling problems ni theeseyadanike idi vachindi. Indulo CPU urike vachi check cheyadu. Data theeskovadaniki I/O device ready avvagane.. ade direct ga bus lopalnunchi CPU ki oka <span class="highlight">"Special Signal"</span> (missed call laaga) pamputundi. Deenivalla synchronization perfect ga, CPU time waste avvakunda jarugutundi!
+                    Data register mariyu Status register ee rendu kooda Data bus ke connect ayyi untayi, vatiki kuda unique address untundi. <br><br>
+                    Paina cheppina <b>Address decoder + Data register + Status register + Control circuitry</b>... ee annitini kalipithe ayye total set ne <span class="highlight">"Device's Interface Circuit"</span> antaru.
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="bento-box">
+            <div class="step-label">STEP 7</div>
+            <div class="english-full">
+                <strong>Program Controlled I/O</strong>
+                <ul>
+                    <li>Processor repeatedly checks a status flag to achieve required synchronization between processor & input/output device. (We say that the processor polls the device).</li>
+                </ul>
+                Drawback: The processor wastes its time in checking the status of the device before actual data transfer takes place.
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Program Controlled I/O (Polling) & Daani Problem</h3>
+                <p class="text-gray-300">
+                    Indulo CPU urike vachi I/O device daggara unna 'status flag' ni malli malli check chestune untundi (Nuvvu ready na? Nuvvu ready na? ani). Deenine <span class="highlight">"Polling"</span> antaru.<br><br>
+                    <b class="text-red-400">Drawback (Loss):</b> Asalu data theeskovadaniki kante mundu.. device ready ga unda leda ani check cheyadanike CPU tana amulyamaina time ni antha waste cheseskuntundi.
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 8 -->
+        <div class="bento-box">
+            <div class="step-label">STEP 8</div>
+            <div class="english-full">
+                <strong>5.1.4 Mechanisms Used For Interfacing I/O Operations:</strong><br>
+                <strong>Interrupt I/O</strong><br>
+                Synchronization is achieved by having I/O device send a special signal over bus whenever it is ready for a data transfer operation.
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Interrupt I/O (The Smart Solution)</h3>
+                <p class="text-gray-300">
+                    Aa time waste problems ni theeseyadanike idi vachindi. Ikkada CPU eppudu padithe appudu vachi adagadu. <span class="highlight">Data transfer cheyadaniki I/O device eppudu ready avtundo, appudu ade direct ga CPU ki oka "Special Signal" (Interrupt) pampistundi</span>. Appudu CPU matrame vachi pani chuskuntundi. Idhi chala smart way!
                 </p>
             </div>
         </div>
