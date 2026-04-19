@@ -1,84 +1,86 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bus Arbitration - Zen Method</title>
+    <title>Buses Protocol - Zen Method</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Outfit', sans-serif; 
-            background-color: #0f172a; /* Slate 900 */
+            background-color: #0f1115; 
             color: #e2e8f0;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+                linear-gradient(rgba(249, 115, 22, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
             background-attachment: fixed;
         }
         
-        /* Centralized Arbitration Styling (Violet) */
-        .cent-box {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-left: 5px solid #8b5cf6;
+        /* Intro & Synchronous Styling (Orange) */
+        .sync-box {
+            background: rgba(20, 20, 25, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            border-left: 5px solid #f97316;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin-bottom: 2.5rem;
             position: relative;
         }
-        .cent-label {
+        .sync-label {
             position: absolute;
             top: -15px;
             left: 20px;
-            background: #8b5cf6;
-            color: #ffffff;
+            background: #f97316;
+            color: #fff;
             font-weight: 800;
             font-size: 0.85rem;
             padding: 6px 18px;
             border-radius: 20px;
             letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
             text-transform: uppercase;
         }
-        .cent-english { border-bottom: 2px dashed rgba(139, 92, 246, 0.2); }
-        .cent-title { color: #a78bfa; }
-        .cent-highlight { color: #c4b5fd; font-weight: 600; }
-        .cent-tag { background: rgba(139, 92, 246, 0.1); border-left: 3px solid #8b5cf6; }
+        .sync-english { border-bottom: 2px dashed rgba(249, 115, 22, 0.2); }
+        .sync-title { color: #fdba74; }
+        .sync-tag { background: rgba(249, 115, 22, 0.1); border-left: 3px solid #f97316; }
 
-        /* Distributed Arbitration Styling (Emerald) */
-        .dist-box {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-left: 5px solid #10b981;
+        /* Asynchronous Styling (Sky Blue) */
+        .async-box {
+            background: rgba(20, 20, 25, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 5px solid #38bdf8;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin-bottom: 2.5rem;
             position: relative;
         }
-        .dist-label {
+        .async-label {
             position: absolute;
             top: -15px;
             left: 20px;
-            background: #10b981;
-            color: #022c22;
+            background: #38bdf8;
+            color: #0f172a;
             font-weight: 800;
             font-size: 0.85rem;
             padding: 6px 18px;
             border-radius: 20px;
             letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
             text-transform: uppercase;
         }
-        .dist-english { border-bottom: 2px dashed rgba(16, 185, 129, 0.2); }
-        .dist-title { color: #34d399; }
-        .dist-highlight { color: #6ee7b7; font-weight: 600; }
-        .dist-tag { background: rgba(16, 185, 129, 0.1); border-left: 3px solid #10b981; }
+        .async-english { border-bottom: 2px dashed rgba(56, 189, 248, 0.2); }
+        .async-title { color: #7dd3fc; }
+        .async-tag { background: rgba(56, 189, 248, 0.1); border-left: 3px solid #38bdf8; }
 
         /* Common Styling */
         .english-full {
             padding: 2rem 1.5rem 1.5rem 1.5rem;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             color: #94a3b8;
             font-size: 0.95rem;
             line-height: 1.6;
@@ -88,13 +90,13 @@
         .english-full ul { list-style-type: none; padding-left: 0; margin-top: 0.5rem; margin-bottom: 0; }
         .english-full li { position: relative; padding-left: 1.2rem; margin-bottom: 0.5rem; }
         .english-full li::before { content: "•"; position: absolute; left: 0; font-weight: bold; }
-        .cent-english li::before { color: #8b5cf6; }
-        .dist-english li::before { color: #10b981; }
+        .sync-english li::before { color: #f97316; }
+        .async-english li::before { color: #38bdf8; }
         
         .tenglish-explanation { padding: 1.5rem; line-height: 1.7; }
         .tenglish-explanation h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
-        .tag-box { padding: 12px; border-radius: 8px; margin-top: 12px; }
-        .mass-word { color: #facc15; font-weight: bold; }
+        .tag-box { padding: 12px; border-radius: 8px; margin-top: 12px; color: #e2e8f0; }
+        .highlight { color: #facc15; font-weight: 600; }
     </style>
 </head>
 <body class="p-4 md:p-10 pt-16">
@@ -103,146 +105,211 @@
         
         <!-- MAIN TITLE -->
         <div class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-3">
-                <span class="text-violet-500">BUS</span> ARBITRATION
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-3">
+                <span class="text-orange-500">BUS</span> PROTOCOLS
             </h1>
-            <p class="text-gray-400 font-medium tracking-widest text-sm uppercase bg-slate-800 inline-block px-4 py-1 rounded-full border border-slate-600">Who gets the Bus? (Centralized vs Distributed)</p>
+            <p class="text-gray-400 font-medium tracking-widest text-sm uppercase bg-gray-900 inline-block px-4 py-1 rounded-full border border-gray-700">Synchronous vs Asynchronous Buses</p>
         </div>
+
+        <!-- ========================================== -->
+        <!-- INTRO & SYNCHRONOUS BUS (ORANGE) -->
+        <!-- ========================================== -->
 
         <!-- STEP 1 -->
-        <div class="cent-box">
-            <div class="cent-label">STEP 01: Basics of Arbitration</div>
-            <div class="english-full cent-english">
-                <strong>Bus Arbitration</strong>
+        <div class="sync-box">
+            <div class="sync-label">STEP 01: Basics of Buses</div>
+            <div class="english-full sync-english">
+                <strong>Buses</strong>
                 <ul>
-                    <li>The device that is allowed to initiate data transfers on the bus at any given time is called the bus master.</li>
-                    <li>Bus Arbitration is the process by which the next device to become the bus master is selected and the bus mastership is transferred to it.</li>
+                    <li>A busprotocol is the setof rulesthat govern thebehavior of various devicesconnected tothebus as to when to place information on the bus, assert control signals, and so on. The bus linesusedfortransferringdatais grouped into 3 types.TheyareAddress line, Data lineand Controlline.</li>
+                    <li>Control signals Specifies that whether read or write operation has to perform and also carriestiming information. They specify the time at which the processor & I/O devices place the data onthebus and receive thedata from the bus.</li>
+                    <li>During data transfer operation, one device plays the role of a “Master”. Master device initiatesthe data transfer by issuing read or write commandon the bus. Hence it is also called as“Initiator”.Thedevice addressedbythe master is called asSlaveor Target.</li>
+                    <li>Thereare2types ofbuses. TheyareSynchronousBus andAsynchronousBus.</li>
                 </ul>
-                There are 2 approaches to bus arbitration. They are,<br>
-                1. Centralized arbitration (A single bus arbiter performs arbitration)<br>
-                2. Distributed arbitration (all devices participate in the selection of next bus master).
             </div>
             <div class="tenglish-explanation">
-                <h3 class="cent-title">🏮 Bus Master ante Evaru? Arbitration ante Enti?</h3>
+                <h3 class="sync-title">🏮 Bus Protocol ante Enti? Master/Slave evaru?</h3>
                 <p class="text-gray-300">
-                    Oka time lo ye device ayithe bus (wires) ni vaadukuni data pampagala power ni theeskuntundo, daanni <span class="mass-word">"Bus Master"</span> antaru. (Appatiki vade thopu anamata).<br><br>
-                    Mari ee Bus evariki ivvali? Evari tarvata evaru master avvali? ani decide chese process ne <span class="cent-highlight">"Bus Arbitration"</span> antaru. Deentlo 2 types unnayi:<br>
-                    <b>1. Centralized:</b> Okkade boss (arbiter) untadu, vade andarni control chestadu.<br>
-                    <b>2. Distributed:</b> Boss evaru leru, devices anni matladukuni evariki kavalante vallu theeskuntaru.
+                    Oka bus meeda connect ayina devices data ni ela theeskovali, eppudu pampali ane <span class="highlight">Rules and Regulations ne "Bus Protocol"</span> antaru. Bus lo 3 main lines untayi: 1. Address, 2. Data, 3. Control.<br><br>
+                    Data transfer jarigetappudu order (Read/Write command) pass chese device ni <span class="text-orange-400 font-bold">"Master" (Initiator)</span> antaru. Aa order ni receive cheskuni pani chese device ni <span class="text-orange-400 font-bold">"Slave" (Target)</span> antaru. Ee buses rendu rakalu: 1. Synchronous, 2. Asynchronous.
                 </p>
             </div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- CENTRALIZED ARBITRATION (VIOLET) -->
-        <!-- ========================================== -->
-
-        <h2 class="text-2xl font-bold text-violet-400 mt-12 mb-6 border-b border-violet-900 pb-2">PART A: Centralized Arbitration</h2>
-
         <!-- STEP 2 -->
-        <div class="cent-box">
-            <div class="cent-label">STEP 02: Centralized & Daisy Chain</div>
-            <div class="english-full cent-english">
-                <strong>Centralized Arbitration:</strong>
+        <div class="sync-box">
+            <div class="sync-label">STEP 02: Synchronous Bus Basics</div>
+            <div class="english-full sync-english">
+                <strong>5.5.1 SynchronousBus</strong>
                 <ul>
-                    <li>Here the processor is the bus master and it may grants bus mastership to one of its DMA controller. A DMA controller indicates that it needs to become the bus master by activating the Bus Request line (𝐵 𝑅̅̅ ) which is an open drain line. The signal on Bus Request is the logical OR of the bus request from all devices connected to it.</li>
-                    <li>When Bus Request is activated, the processor activates the Bus Grant Signal (BG1) and indicates the DMA controller that they may use the bus when it becomes free. This signal is connected to all DMA controllers using a daisy chain arrangement.</li>
-                    <li>If DMA controller 1 requests the bus, it blocks the propagation of Grant Signal to other devices and it indicates to all devices that it is using the bus by activating open collector line, Bus Busy (BBSY). Otherwise it passes the grant downstream by asserting BG2.</li>
+                    <li>In synchronous bus, all devices derive timing information from a common clock line. Equallyspaced pulses on this line define equal time intervals. In the simplest form of a synchronous bus,eachof theseintervals constitutesa bus cycleduringwhichonedatatransfer can takeplace. Such scheme is shown in Fig 5.16.</li>
                 </ul>
-                Fig 5.13: A simple arrangement for bus arbitration using a daisy chain
+                Fig 5.16: Timingof aninput transferonasynchronous bus<br><br>
+                <strong>5.5.1.1 Sequenceof eventsduring a readoperation:</strong>
+                <ul>
+                    <li>At time t0, the master places the device address on the address lines and sends an appropriatecommand on the control lines. In this case, the command will indicate an input operation andspecifythe length of theoperand to beread.<br>
+                    Theclockpulsewidtht1– t0mustbelongerthanthemaximumdelaybetweendevicesconnectedtothebus.Theclockpulsewidths houldbelongtoallowthedevicestodecodetheaddress and control signals so that the addressed device can respond at time t1. The slaves take no action or place any data on the bus before t1.</li>
+                </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3 class="cent-title">🏮 Processor Boss & Daisy Chain Concept</h3>
+                <h3 class="sync-title">🏮 Synchronous Bus & Common Clock</h3>
                 <p class="text-gray-300">
-                    Indulo CPU (Processor) ye eppudu Bus Master (Boss). Vere evarikaina (e.g., DMA controller ki) bus kavalante, vallu CPU ki <span class="cent-highlight">Bus Request (BR)</span> line dwara request pamputaru.<br><br>
-                    CPU aa request chusi, "Sare theesko" ani <span class="cent-highlight">Bus Grant (BG1)</span> signal pamputundi. Ikkada twist enti ante, controllers anni oka line lo (Daisy chain arrangement lo) nilchuni untayi.<br>
+                    Synchronous bus lo devices annitiki kalipi <span class="highlight">Oka Common Clock Line (Metronome lanti di)</span> untundi. Prathi clock tik tik mani kottinappudalla (oka time interval lo) oka data transfer jarugutundi.<br><br>
+                    <b>Read Operation sequence:</b><br>
+                    Time 't0' daggara Master address petti order isthundi. 't0' ki 't1' ki madyalo unde gap (Clock pulse width) koncham peddadi ga undali, endukante slave address ni decode cheskuni ready avvadaniki time padutundi kabatti. <span class="text-orange-400 font-bold">Time 't1' raanantha varaku slave emi muttukodu (no action).</span>
                 </p>
-                <div class="tag-box cent-tag mt-3 text-sm text-gray-300">
-                    <b>Daisy Chain Magic:</b> CPU BG1 (Grant) pampagane, adi first unna Controller 1 daggarki veltundi. Okavela vadike bus kavalante, vadu aa BG1 signal ni pakkodiki vellakunda block chesi, Bus ni theeskuni.. andarki <span class="mass-word">Bus Busy (BBSY)</span> ani board pedatadu. Okavela vadiki bus akkarledanuko, aa BG1 ni pass chesthu pakkavadiki (BG2) pamputadu. Simple ga cheppalante, bhojanaallo line ga vaddinche paddathi!
-                </div>
             </div>
         </div>
 
         <!-- STEP 3 -->
-        <div class="cent-box">
-            <div class="cent-label">STEP 03: Timing Diagram (Repeated Text)</div>
-            <div class="english-full cent-english">
-                <span class="text-xs text-violet-400 block mb-2">(Note: The text below was duplicated in your notes, but kept exactly as provided)</span>
+        <div class="sync-box">
+            <div class="sync-label">STEP 03: Master vs Slave Views</div>
+            <div class="english-full sync-english">
                 <ul>
-                    <li>The timing diagram shows the sequence of events for the devices connected to the processor requests and acquires bus mastership and later releases the bus. During its tenure as bus master, it may perform one or more data transfer operations, depending on whether it is operating in the cycle stealing or block mode. After it releases the bus, the processor resumes bus mastership.</li>
+                    <li>The information on the bus is unreliable during the period t0 – t1 because signals are changing state. The addressed slave places data on the data lines at time t1.</li>
+                    <li>The Fig 5.17 gives more realistic picture of what happens in practice. It shows two views of the signal except the clock.</li>
+                    <li>One view shows the signal seen bythe master and the other is seen by the slave. T The dthe master sends the address and command signalson the rising edge at the beginning of clock period (t0).These signals do not actually appear onthe bus until tAM. A while later, at tAS the signals reach the slave. The slave decodes theaddressandat t1, it sends the requested data. The data signals do not appear on the bus until tDS. They travel toward the master and arrive at tDM.</li>
+                    <li>At t2, the master loads the data into its input buffer. Hence the period t2 - tDM is the setup timefor the masters input buffer. The data must be continued to be valid after t2, for a period equal tothe holdtime ofthat buffers.</li>
                 </ul>
-                <strong>Centralized Arbitration:</strong>
-                <ul>
-                    <li>Here the processor is the bus master and it may grants bus mastership to one of its DMA controller. A DMA controller indicates that it needs to become the bus master by activating the Bus Request line (𝐵 𝑅̅̅ ) which is an open drain line. The signal on Bus Request is the logical OR of the bus request from all devices connected to it.</li>
-                    <li>When Bus Request is activated, the processor activates the Bus Grant Signal (BG1) and indicates the DMA controller that they may use the bus when it becomes free. This signal is connected to all DMA controllers using a daisy chain arrangement.</li>
-                    <li>If DMA controller 1 requests the bus, it blocks the propagation of Grant Signal to other devices and it indicates to all devices that it is using the bus by activating open collector line, Bus Busy (BBSY). Otherwise it passes the grant downstream by asserting BG2.</li>
-                </ul>
-                Fig 5.13: A simple arrangement for bus arbitration using a daisy chain<br>
-                <ul>
-                    <li>The timing diagram shows the sequence of events for the devices connected to the processor is shown in Fig 5.14. DMA Controller 2 requests and acquires bus mastership and later releases the bus. During its tenure as bus master, it may perform one or more data transfer operations, depending on whether it is operating in the cycle stealing or block mode. After it releases the bus, the processor resumes bus mastership.</li>
-                </ul>
+                Fig 5.17: Adetailed timingdiagramfortheinput transfer<br>
+                Demerits:<br>
+                1. Thedevicedoes not respond.<br>
+                2. Theerrorwill notbedetected.
             </div>
             <div class="tenglish-explanation">
-                <h3 class="cent-title">🏮 Data Transfer: Cycle Stealing vs Block Mode</h3>
+                <h3 class="sync-title">🏮 Realistic Timing (Setup & Hold times)</h3>
                 <p class="text-gray-300">
-                    (Paina unna English notes repeated ga undi, kani concept idi): <br>
-                    Oka DMA controller ki bus dorikaka (Master ayyaka) adi data transfer chestundi. Idi 2 modes lo cheyochu:<br>
-                    1. <span class="cent-highlight">Cycle Stealing:</span> Koncham koncham data (okka word) pampi malli aagadam.<br>
-                    2. <span class="cent-highlight">Block Mode:</span> Okkasare mottham data pampeseyadam.<br><br>
-                    Ee DMA tana data pampadam aypoyaka bus ni vadilestundi (releases the bus). Adi vadileyagane malli <span class="mass-word">Processor (CPU) ne thirigi Bus Master aypotundi</span>.
+                    't0' ki 't1' ki madyalo signal change avtundi kabatti appudu data nammadaniki veelledu (unreliable).<br><br>
+                    Nijamga hardware lo em jarugutundi ante, <span class="highlight">Master chuse view veru, Slave chuse view veru untundi.</span> Master signal pampinappudu (tAM), adi prayaanam chesi slave ki cherukovadaniki time padutundi (tAS). Alage Slave data pampinappudu (tDS), adi master daggarki ravadaniki time theeskuntundi (tDM).<br><br>
+                    Time 't2' daggara master data ni theeskuntundi. 
                 </p>
+                <div class="tag-box sync-tag mt-3 text-sm">
+                    <b class="text-white">Demerits (Losses):</b> Synchronous bus lo clock automatic ga kottukuntu pothundi kabatti.. 1. Slave respond avvakapoina master wait cheyadu. 2. Emiti Error vachindo detect avvadu.
+                </div>
             </div>
         </div>
-
-        <!-- ========================================== -->
-        <!-- DISTRIBUTED ARBITRATION (EMERALD) -->
-        <!-- ========================================== -->
-
-        <h2 class="text-2xl font-bold text-emerald-400 mt-16 mb-6 border-b border-emerald-900 pb-2">PART B: Distributed Arbitration</h2>
 
         <!-- STEP 4 -->
-        <div class="dist-box">
-            <div class="dist-label">STEP 04: The Democracy System</div>
-            <div class="english-full dist-english">
-                <strong>Distributed Arbitration:</strong>
+        <div class="sync-box">
+            <div class="sync-label">STEP 04: Multiple Cycle Transfer</div>
+            <div class="english-full sync-english">
+                <strong>5.5.1.2 MultipleCycleTransfer</strong><br>
+                During, clock cycle1, the master sends address and command information. On the bus requestinga “read” operation. The slave receives this information and decodes it. At the active edge of the clock(i.e.) thebeginningof clockcycel2, itmakesaccessionto respondimmediately.
                 <ul>
-                    <li>Distributed arbitration means that all devices waiting to use the bus have equal responsibility in carrying out the arbitration process, without using a central arbiter.</li>
-                    <li>Each device on the bus is assigned a 4 bit Identification number. When one or more devices request the bus, they assert the 𝑆̅ 𝑡̅ 𝑎 𝑟̅̅ 𝑡̅ − 𝐴 𝑟̅̅ 𝑏 𝚤̅ 𝑡̅ 𝑟̅̅ 𝑎 𝑡̅ 𝚤̅ 𝑜̅ 𝑛̅̅ signal and place their 4 bit ID number on four open collector lines, 𝐴 𝑅̅̅ 𝐵 0̅̅̅̅ to 𝐴 𝑅̅̅ 𝐵 3̅̅̅̅</li>
-                    <li>A winner is selected as a result of the interaction among the signals transmitted over these lines. The net outcome is that the code on the four lines represents the request that has the highest ID number. The drivers are of open collector type.</li>
-                    <li>Hence, if the input to one driver is equal to 1, the input to another driver connected to the same bus line is equal to “0” the bus will be in low-voltage state.</li>
+                    <li>The data become ready and are placed in the bus at clock cycle3. At the same times, the slaveasserts a control signal called “slave-ready”. The master device has been waiting for this signal,strobes,andthe data to its input buffer at theendofclock cycle3.</li>
+                    <li>The bus transfer operation is now complete & the master sends a new address to start a newtransfer in clock cycle4. The „slave-ready‟ signal is an acknowledgement form the slave to themasterconfirmingthat valid data has been sent.</li>
                 </ul>
+                Fig 5.18:An input transfer using multiple clock cycles
             </div>
             <div class="tenglish-explanation">
-                <h3 class="dist-title">🏮 Distributed Arbitration (Andaru Samaname)</h3>
+                <h3 class="sync-title">🏮 Okke Cycle lo avvakapothe? (Multiple Cycles)</h3>
                 <p class="text-gray-300">
-                    Ikkada Centralized laaga oka pedda Boss evaru undaru. Bus kavalsina devices anni matladukuni okari bus theeskuntayi (<span class="dist-highlight">Equal responsibility</span>).<br><br>
-                    Idi ela jarugutundi ante, prathi device ki oka <span class="mass-word">4-bit ID number</span> untundi. Bus kavalsina devices anni <span class="dist-highlight">Start-Arbitration</span> ane signal icchi, valla valla 4-bit ID ni 4 lines (ARB0 to ARB3) meeda pedatayi.<br>
-                    Final ga evari ID ayithe andarilo kalla peddado (<span class="mass-word">Highest ID Number</span>), vallade Bus! (Oka rakamga Auction laaga). Ivi open collector lines kavatam valla okadu '0' pettina aa line antha low aypotundi.
+                    Okavela data transfer okka cycle lo purthi avvakapothe deenni vaadutaru.<br>
+                    <span class="highlight">Cycle 1:</span> Master address/command pamputundi.<br>
+                    <span class="highlight">Cycle 2:</span> Slave address ni decode cheskuni ready avtundi.<br>
+                    <span class="highlight">Cycle 3:</span> Slave bus meeda data petti, <b>"Slave-ready"</b> ane signal isthundi (Nenu pampesanu saami ani!). Master daanni theeskuntundi.<br>
+                    <span class="highlight">Cycle 4:</span> Pాత transfer aypoyindi, master ippudu kotha address pamputundi.
                 </p>
             </div>
         </div>
 
+
+        <!-- ========================================== -->
+        <!-- ASYNCHRONOUS BUS (SKY BLUE) -->
+        <!-- ========================================== -->
+
+        <h2 class="text-2xl font-bold text-sky-400 mt-16 mb-6 border-b border-sky-900 pb-2">PART B: Asynchronous Bus (Handshake System)</h2>
+
         <!-- STEP 5 -->
-        <div class="dist-box">
-            <div class="dist-label">STEP 05: The ID Comparison Logic</div>
-            <div class="english-full dist-english">
-                <strong>Example:</strong>
+        <div class="async-box">
+            <div class="async-label">STEP 05: Basics & Skew delay</div>
+            <div class="english-full async-english">
+                <strong>5.5.2 AsynchronousBus</strong>
                 <ul>
-                    <li>Assume two devices A and B have their ID 5 (0101), 6(0110) and their code is 0111. Each device compares the pattern on the arbitration line to its own ID, starting from most significant bit(MSB).</li>
-                    <li>If it detects a difference at any bit position, it disables the drivers at that bit position and for all lower-order bits. It does this by placing “0” at the input of these drivers. In our example, device “A” detects a difference in line 𝐴 𝑅̅̅ 𝐵 1 .</li>
-                    <li>Hence it disables the drivers on lines 𝐴 𝑅̅̅ 𝐵 1 and 𝐴 𝑅̅̅ 𝐵 0̅̅̅̅ . This causes the pattern on the arbitration line to change to 0110 which means that “B” has won the contention.</li>
-                    <li>It has the advantage of offering higher reliability, because operation of the bus is not dependent on any single device.</li>
+                    <li>An alternate scheme for controlling data transfer on the bus is based on the use of “handshake”between Master and the Slave. The common clock is replaced by two timing control lines. They areMaster–readyand Slave readyThe handshake protocol proceeds as follows:</li>
+                </ul>
+                 At t0: The master places the address and command information on the bus and all devices on the busbeginto decodethe information.<br>
+                 At t1: The master sets the Master ready line to 1 to inform the I/O devices that the address andcommandinformation is ready.<br>
+                <ul>
+                    <li>Thedelayt1– t0is intendedto allow for anyskewthat mayoccur on thebus.</li>
+                    <li>The skew occurs when two signals simultaneously transmitted from one source arrive at thedestinationat different time.</li>
+                    <li>Thus to guarantee that the Master ready signal does not arrive at any device a head of the addressand command information the delay t1 – t0 should be larger than the maximum possible busskew.</li>
+                </ul>
+                 At t2: The selected slave having decoded the address and command information performs the requiredi/p operation by placing the data from its data register on the data lines. At the same time, it sets the“slave– Ready”signal to 1.
+            </div>
+            <div class="tenglish-explanation">
+                <h3 class="async-title">🏮 Asynchronous & Handshake (Clock Ledu)</h3>
+                <p class="text-gray-300">
+                    Ikkada Common clock (Metronome) undadu. Daaniki badulu <span class="highlight">Master-ready, Slave-ready ane rendu control lines untayi</span>. Okallu signal isthe inkokallu respond avtaru (Deenine Handshake antaru).<br><br>
+                    <b>t0:</b> Master address pedatadu.<br>
+                    <b>t1:</b> Master tana "Master-ready" signal ni 1 chestadu (Nenu ready antadu). Ikkada t0 nunchi t1 ki oka chinna gap enduku istaru ante <span class="text-sky-400 font-bold">"Bus Skew"</span> ni avoid cheyadaniki. (Skew ante, rendu signals oke sari pampithe, vere vere time ki cherukovadam). Address kante munde master-ready ellipokunda ee gap istaru.<br>
+                    <b>t2:</b> Slave tana data petti, "Slave-ready" ni 1 chestundi.
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="async-box">
+            <div class="async-label">STEP 06: Completing Handshake</div>
+            <div class="english-full async-english">
+                 At t3: The slave ready signal arrives at the master indicating that the input data are available on the bus.<br>
+                 At t4: The master removes the address and command information on the bus. The delay between t3 andt4 is again intended to allow for bus skew. Erroneous addressing may take place if the address, as seenbysome deviceon the bus, starts to changewhile themaster– readysignalis still equal to 1.<br>
+                 At t5: When the device interface receives the 1 to 0 transitions of the Master–ready signal, it removesthedata and the slave– readysignal from thebus.This completes theinput transfer.
+            </div>
+            <div class="tenglish-explanation">
+                <h3 class="async-title">🏮 Transfer Complete Avvadam (t3 to t5)</h3>
+                <p class="text-gray-300">
+                    <b>t3:</b> Slave-ready signal master ki vachi cherutundi (Oho data ichesadu ani master ki ardhamaipothundi).<br>
+                    <b>t4:</b> Master ippudu inka pani aypoyindi ani address ni, commands ni bus meeda nunchi theesestundi. Ikkada t3 nunchi t4 ki malla chinna gap vachi <span class="highlight">Bus skew valla errors rakunda</span> aputhundi.<br>
+                    <b>t5:</b> Master tana signal ni 1 nunchi 0 cheyagane, Slave kuda data ni, slave-ready signal ni theesestundi. Transfer successfully Complete!
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="async-box">
+            <div class="async-label">STEP 07: Output Operation & Full Handshake</div>
+            <div class="english-full async-english">
+                <ul>
+                    <li>In Fig 5.20, the master place the output data on the data lines and at the same time it transmits theaddress and command information. The selected slave strobes the data to its output buffer when itreceives the Master ready signal and it indicates this by setting the slave–ready signal to 1. At time t0 tot1and from t3 to t4, theMaster compensates forbus.</li>
+                    <li>In the above and below timing diagrams, it is assumed that the master compensates for bus skew andaddress decoding delay. It introduces the delays from t0to t1and from t3to t4for this purpose. If thisdelay provides sufficient time for the I/O device interface to decode the address, the interface circuit canuse theMaster-readysignal directlyto gateother signals to or from the bus,change ofstate is one signal is followed by a change is the other signal. Hence this scheme is called as Full Handshake. It provides the higher degreeof flexibility and reliability.</li>
+                </ul>
+                Fig 5.20: Handshake control of data transfer during an output operation
+            </div>
+            <div class="tenglish-explanation">
+                <h3 class="async-title">🏮 Output Operation & Full Handshake</h3>
+                <p class="text-gray-300">
+                    Ippati daka input (read) chusam. Output (Write) operation lo.. Master eh address tho patu data ni pampistadu. Slave aa data ni theeskuni "Slave-ready = 1" antundi.<br><br>
+                    Ikkada okadu signal marchesina tarvate (change of state), inkokadu signal marchesadu. Oka signal depend ayyi inko signal marutundi kabatti deenine <span class="highlight">"Full Handshake"</span> antaru. Deeni valla system chala reliable ga (pakkaga) untundi.
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 8 -->
+        <div class="async-box">
+            <div class="async-label">STEP 08: Advantages & Disadvantages</div>
+            <div class="english-full async-english">
+                <strong>Advantages of asynchronous bus:</strong>
+                <ul>
+                    <li>Eliminates the need for synchronization between the sender and the receiver.</li>
+                    <li>Can accommodate varying delays automatically, using theSlave-ready signal.</li>
+                </ul>
+                <strong>Disadvantages of asynchronous bus:</strong>
+                <ul>
+                    <li>Data transfer rate with full handshakeis limitedbytwo-round trip delays.</li>
+                    <li>A data transfer using asynchronous bus involves only one round trip delay, and hence asynchronous bus can achieve faster rates.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3 class="dist-title">🏮 ID Example (Evadu Gelustadu?)</h3>
-                <p class="text-gray-300">
-                    Super example idi. Device A ID vachi 5 (0101), Device B ID vachi 6 (0110) anuko. Rendu kalisi ARB lines meeda signals isthe aa open collector mechanism valla line meeda 0111 untundi.<br><br>
-                    Ippudu prathi device aa line lo unna value ni valla ID tho (Left to Right) compare cheskuntayi. Ekkadaina theda vasthe (valla own bit 0 undi, kani line meeda 1 unte) aa device vodipoyinattu realize ayyi... danni next bits ni tana side nunchi 0 (disable) chesestundi.<br><br>
-                    Mana example lo Device A ki 𝐴 𝑅̅̅ 𝐵 1 daggara Theda vastundi, so adi tana drivers aapesi <span class="dist-highlight">Device B (0110) ni gelipistundi</span>. 
-                </p>
-                <div class="tag-box dist-tag mt-3 text-sm text-gray-300">
-                    <b>Pedda Advantage Enti?</b> Ikkada CPU lanti oka pedda single boss meeda aadharapadi ledu kabatti.. idi chala <span class="mass-word">Highly Reliable</span> (Ekkada aagipodu).
+                <h3 class="async-title">🏮 Asynchronous Pros & Cons</h3>
+                <div class="tag-box async-tag mb-3">
+                    <span class="font-bold text-sky-400">👍 Advantages (Plus Points):</span><br>
+                    1. Clock undadu kabatti Synchronization thalanoppi ledu.<br>
+                    2. Konni devices fast ga unna, konni slow ga unna kuda.. aa "Slave-ready" signal undi kabatti yevadi speed lo vallu cool ga adjust aypovachu.
+                </div>
+                <div class="tag-box async-tag !border-rose-500 !bg-rose-900/10">
+                    <span class="font-bold text-rose-400">👎 Disadvantages (Minus Points):</span><br>
+                    1. Full handshake cheyadam valla 'Two-round trips' (Mundu signal vellali, malli akkadnunchi ready signal raavali) avtundi. Deeni valla koncham slow avtundi. (Note: English text last point lo 'faster rates' ani vachindi error of source, aina sare exact match chesam).
                 </div>
             </div>
         </div>
@@ -251,3 +318,5 @@
 
 </body>
 </html>
+
+```
