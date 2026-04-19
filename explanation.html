@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardware Interrupts - Zen Method</title>
+    <title>Enabling & Disabling Interrupts - Zen Method</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Outfit', sans-serif; 
-            background-color: #050b14; /* Deep Tech Black */
+            background-color: #0f0a1c; /* Deep Violet Black */
             color: #e2e8f0;
-            background-image: linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-image: radial-gradient(circle at right center, #3b0764 0%, #0f0a1c 60%);
+            background-attachment: fixed;
         }
         .bento-box {
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(20, 15, 35, 0.85);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-left: 5px solid #10b981; /* Emerald Green accent for hardware */
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-left: 5px solid #a855f7; /* Purple accent */
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             margin-bottom: 2.5rem;
@@ -27,31 +27,31 @@
         }
         .bento-box:hover {
             transform: translateY(-2px);
-            border-color: rgba(16, 185, 129, 0.5);
+            border-color: rgba(168, 85, 247, 0.5);
         }
         .step-label {
             position: absolute;
             top: -15px;
             left: 20px;
-            background: #10b981;
-            color: #022c22;
+            background: #a855f7;
+            color: #ffffff;
             font-weight: 800;
             font-size: 0.85rem;
             padding: 6px 18px;
             border-radius: 20px;
             letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
             text-transform: uppercase;
         }
         .english-full {
             padding: 2rem 1.5rem 1.5rem 1.5rem;
-            background: rgba(0, 0, 0, 0.5);
-            border-bottom: 2px dashed rgba(16, 185, 129, 0.2);
-            color: #94a3b8;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 2px dashed rgba(168, 85, 247, 0.2);
+            color: #cbd5e1;
             font-size: 0.95rem;
             line-height: 1.6;
             border-radius: 12px 12px 0 0;
-            font-family: monospace; /* Monospace to give a hardware code feel */
+            font-style: italic;
         }
         .english-full ul {
             list-style-type: none;
@@ -68,7 +68,7 @@
             content: "•";
             position: absolute;
             left: 0;
-            color: #10b981;
+            color: #a855f7;
             font-weight: bold;
         }
         .tenglish-explanation {
@@ -76,7 +76,7 @@
             line-height: 1.7;
         }
         .tenglish-explanation h3 {
-            color: #34d399;
+            color: #d8b4fe;
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
@@ -85,13 +85,13 @@
             gap: 8px;
         }
         .highlight { color: #facc15; font-weight: 600; }
-        .hardware-tag {
-            background: rgba(16, 185, 129, 0.1);
-            color: #6ee7b7;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            font-family: monospace;
+        .tag-box {
+            background: rgba(168, 85, 247, 0.1);
+            color: #e9d5ff;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid #c084fc;
+            margin-top: 12px;
         }
     </style>
 </head>
@@ -101,99 +101,134 @@
         
         <div class="text-center mb-16">
             <h1 class="text-3xl md:text-5xl font-bold text-white mb-3">
-                🔌 <span class="text-emerald-400">HARDWARE</span> INTERRUPTS
+                🎛️ <span class="text-purple-400">ENABLING & DISABLING</span> INTERRUPTS
             </h1>
-            <p class="text-emerald-200 font-medium tracking-widest text-sm uppercase bg-emerald-900/30 inline-block px-4 py-1 rounded-full border border-emerald-500/30">Step-by-Step Circuit Breakdown</p>
+            <p class="text-purple-200 font-medium tracking-widest text-sm uppercase bg-purple-900/30 inline-block px-4 py-1 rounded-full border border-purple-500/30">Concept + Tenglish Masterclass</p>
         </div>
 
         <!-- STEP 1 -->
         <div class="bento-box">
-            <div class="step-label">STEP 01: The IR Line & Switches</div>
+            <div class="step-label">Part 01: The Need for Control</div>
             <div class="english-full">
-                An I/O device requests an interrupt by activating a bus-line called interrupt-request (IR).
+                <strong>Enabling and Disabling Interrupts</strong>
                 <ul>
-                    <li>A single interrupt request line may be used to serve n devices as depicted. All devices are connected to the line via switches to ground.</li>
+                    <li>The facilities provided in a computer must give the programmer complete control over the events that take place during program execution. The arrival of an interrupt request from an external device causes the processor to suspend the execution of one program and start the execution of another.</li>
+                    <li>Because interrupts can arrive at any time, they may alter the sequence of events from the envisaged by the programmer. Hence, the interruption of program execution must be carefully controlled.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Interrupt Request (IR) Line Ante Enti?</h3>
+                <h3>🏮 Interrupts ni enduku Control Cheyali?</h3>
                 <p class="text-gray-300">
-                    Edaina I/O device CPU ki Interrupt pampalante, idi <span class="hardware-tag">Interrupt-Request (IR)</span> ane oka special bus-line (wire) ni on chestundi.<br><br>
-                    Oka motherboard lo <span class="highlight">Oka single IR line ki enni devices ayina (n devices) connect avvachu</span>. Ee devices anni ela connect ayyi untayi ante... prathi device nunchi oka switch vachi ground ki (earth ki) connect ayyi untundi.
+                    Oka computer lo programmer chethilo full control undali. Bayata nunchi oka "Interrupt" vachinappudu CPU tana current program ni aapi, kothadi (Interrupt Service Routine) start chestundi. <br><br>
+                    Ee interrupts ki timing undadu, <span class="highlight">eppudu padithe appudu vastayi</span>. Deeni valla programmer anukunna 'Sequence' debba tintundi. Anduke, ee interruptions ni pichi pichi ga ranivvakunda chala careful ga control cheyali.
                 </p>
             </div>
         </div>
 
         <!-- STEP 2 -->
         <div class="bento-box">
-            <div class="step-label">STEP 02: Inactive State (Vdd)</div>
+            <div class="step-label">Part 02: The Infinite Loop Problem</div>
             <div class="english-full">
-                To request an interrupt, a device closes its associated switch. Thus, if all interrupt-request signals INTR1 to INTRn are inactive, that is, if all switches are open, the voltage on the interrupt-request line will be equal to Vdd.
                 <ul>
-                    <li>This is the inactive state of the line.</li>
+                    <li>Let us consider in detail the specific case of a single interrupt request from one device. When a device activates the interrupt-request signal, it keeps this signal activated until it learns that the processor has accepted its request.</li>
+                    <li>This means that the interrupt-request signal will be active during execution of the interrupt-service routine, perhaps until an instruction is reached that accesses the device.</li>
+                    <li>This activated signal, if not deactivated, may lead to successive interruptions, causing the system to enter into an infinite loop.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Evaru Distrub Cheyanappudu em avtundi? (Inactive State)</h3>
+                <h3>🏮 Asalu Problem Enti? (The Infinite Loop)</h3>
                 <p class="text-gray-300">
-                    Oka device ki interrupt kavalante adi tana switch ni 'Close' chestundi. Kani, okavela ye device CPU ni disturb cheyali anukovatledu anuko (ante INTR1 nunchi INTRn daka anni off lo unte), appudu <span class="highlight">anni switches 'Open' ga untayi</span>.<br><br>
-                    Switches anni open ga unnappudu, aa interrupt-request line meeda Voltage <span class="hardware-tag">Vdd (High voltage)</span> untundi. Deenine <b>Inactive State</b> antaru. (Ante evaru CPU ni pilavatledu ani ardham).
+                    Oka device CPU ki interrupt signal pampagane vadileyadu... CPU "Nenu chusanu le" ani cheppe daka aa signal ni <span class="highlight">ON (Activated)</span> lone unchutundi.<br><br>
+                    Deeni ardham enti? CPU aa problem solve cheyadaniki ISR (Code) run chestunnappudu kuda aa interrupt signal ON lone untundi. Okavela aa signal ni deactivate cheyakapote, <span class="text-rose-400 font-bold">CPU malli malli kotha interrupt vachindi anukuni pichekki potundi</span>. Okate pani malli malli chesthu 'Infinite Loop' (Eppatiki aagani loop) lo irukkupotundi.
                 </p>
             </div>
         </div>
 
         <!-- STEP 3 -->
-        <div class="bento-box">
-            <div class="step-label">STEP 03: Active State (Voltage Drops)</div>
+        <div class="bento-box border-l-[5px] border-emerald-500">
+            <div class="step-label !bg-emerald-500 !shadow-[0_4px_15px_rgba(16,185,129,0.4)]">Solution 01: Programmer's Code</div>
             <div class="english-full">
+                To prevent the system from entering into an infinite-loop because of interrupt, there are 3 possibilities.<br><br>
+                <strong>First Option</strong>
                 <ul>
-                    <li>Since the closing of one or more switches will cause the line voltage to drop to 0, causing the interrupt request signal, INTR received by the processor to go to 1.</li>
+                    <li>The first possibility is to have the processor hardware ignore the interrupt-request line until the execution of the first instruction of the interrupt-service routine has been completed.</li>
+                    <li>Then, by using an Interrupt-disable instruction as the first instruction in the interrupt-service routine, the programmer can ensure that no further interruptions will occur until an Interrupt-enable instruction is executed.</li>
+                    <li>Typically, the Interrupt-enable instruction will be the last instruction in the interrupt-service routine before the Return-from interrupt instruction. The processor must guarantee that execution of the Return-from-interrupt instruction is completed before further interruption can occur.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Signal Ela Veltundi? (Active State)</h3>
+                <h3>🏮 Option 1: Interrupt Disable (Programmer's Way)</h3>
                 <p class="text-gray-300">
-                    Okavela edo oka device leda ekkuva devices vallaki pani padi tana switch ni close chesayi anuko. Switch close avvagane, aa line voltage <span class="hardware-tag">Vdd nunchi 0 ki drop aypotundi (Ground aypotundi)</span>.<br><br>
-                    Ila voltage 0 ki padipoyina ventane, CPU ki velthunna INTR signal <span class="highlight">'1' ga maripotundi (Active aypotundi)</span>. Appudu CPU ki alert vastundi "Oho, evaro nannu pilustunnaru" ani!
+                    Aa infinite loop nunchi thapinchukovadaniki 3 options unnayi. <br><br>
+                    <b class="text-emerald-400">1st Option (Code dwara):</b> CPU aa ISR (Service routine) loni first line run chese daka vere interrupts ni ignore chestundi. Appudu programmer em chestadu ante.. <span class="highlight">ISR code loni 1st line ga "Interrupt-disable"</span> ani rasi, CPU evadi mata vinakunda chestadu.<br><br>
+                    Pani antha aypoyaka, ekkadaite "Return" (venakki vellipo) ani command untundo daani kante mundu line lo <span class="highlight">"Interrupt-enable"</span> ani rasi malli interrupts ni ON chestadu. So madyalo disturbance undadu!
                 </p>
             </div>
         </div>
 
         <!-- STEP 4 -->
-        <div class="bento-box">
-            <div class="step-label">STEP 04: The Logical OR</div>
+        <div class="bento-box border-l-[5px] border-emerald-500">
+            <div class="step-label !bg-emerald-500 !shadow-[0_4px_15px_rgba(16,185,129,0.4)]">Solution 02: Auto Disable</div>
             <div class="english-full">
+                <strong>Second Option</strong>
                 <ul>
-                    <li>The value of INTR is the logical OR of the requests from individual devices, that is,<br>
-                    INTR = INTR1 + ………+INTRn<br>
-                    It is customary to use the complemented form, INTR, to name the interrupt request signal on the common line, because this signal is active when in the low-voltage state.</li>
+                    <li>The second option is to have the processor automatically disable interrupts before starting the execution of the ISR.</li>
+                    <li>After saving the contents of the PC and the processor status register (PS) on the stack, the processor performs the equivalent of executing an Interrupt-disable instruction. It is often the case that one bit in the PS register, called Interrupt-enable, indicates whether interrupts are enabled.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 The Logical OR (+) & Active Low</h3>
+                <h3>🏮 Option 2: Automatic ga CPU ne aapeyadam</h3>
                 <p class="text-gray-300">
-                    Motham INTR signal anedi.. andaru individual devices pampiche chinna chinna signals (INTR1, INTR2...) yokka <b>Logical OR (+)</b> tho samanam. Ante <span class="highlight">ye okkadu signal pampina (+), total INTR active aypotundi</span>.<br><br>
-                    General ga ee signal ni Complement form lo (<span class="hardware-tag">INTR-bar / INTR'</span> laga) rastharu. Endukante, voltage low (0) lo unte ne kada signal active avtundi (pilustunattu ardham). Anduke deenni 'Active Low' signal antaru.
+                    <b class="text-emerald-400">2nd Option (Auto-Disable):</b> Ikkada programmer kurchuni code rayalsina avasaram ledu. CPU ISR (service) start chese mundu tana antha taane automatic ga interrupts ni disable chestundi.<br><br>
+                    Adi ela chestundi ante, Processor Status (PS) register lo <span class="highlight">"Interrupt-enable"</span> ani oka special bit (0 or 1) untundi. CPU mundu aa PC ni PS ni safe ga save chesi, ventane aa bit ni OFF chestundi (disable chestundi). Pani aypoyaka malli ON chestundi.
                 </p>
             </div>
         </div>
 
         <!-- STEP 5 -->
-        <div class="bento-box">
-            <div class="step-label">STEP 05: Special Gates (Open-Drain)</div>
+        <div class="bento-box border-l-[5px] border-emerald-500">
+            <div class="step-label !bg-emerald-500 !shadow-[0_4px_15px_rgba(16,185,129,0.4)]">Solution 03: Edge-Triggered</div>
             <div class="english-full">
-                Fig 5.5: An equivalent circuit for an open-drain bus used to implement a common interrupt-request line
+                <strong>Third option</strong>
                 <ul>
-                    <li>The Fig 5.5 shows that special gates known as open-collector (for bipolar circuits) or open-drain (for MOS circuits) are used to drive the INTR line. The output of an open collector or an open-drain gate is equivalent to a switch to ground that is open when the</li>
+                    <li>In the third option, the processor has a special interrupt-request line for which the interrupt-handling circuit responds only to the leading edge of the signal. Such a line is said to be edge-triggered. Processor will receive only one request hence there will not be multiple interruption.</li>
                 </ul>
-                <span class="text-xs text-emerald-500 mt-2 block">(Note: Text ended here abruptly in the source)</span>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Circuit Gates (Open-collector / Open-drain)</h3>
+                <h3>🏮 Option 3: Edge-Triggered Signal</h3>
                 <p class="text-gray-300">
-                    Ee INTR line ni directly wire laaga kakunda, konni special gates dwara control chestaru. Bipolar circuits lo aythe vaatini <span class="hardware-tag">"Open-collector"</span> antaru, ade MOS circuits lo aythe <span class="hardware-tag">"Open-drain"</span> gates antaru.<br><br>
-                    Ee gates yokka output exactly <span class="highlight">oka Switch laga pani chestundi (ground ki)</span>. (Text madyalo cut ayyindi kani, daani ardham enti ante.. avasaram lekapote switch open ga untundi, interrupt ivalante ground ki close avtundi).
+                    <b class="text-emerald-400">3rd Option (Hardware Level):</b> CPU ki velle special line 'Edge-triggered' ayyi untundi. <br><br>
+                    <span class="highlight">Edge-triggered ante enti?</span> Signal ala ON lo continous ga undipodu. Just oka chitti spike (edge) vacchi aagipotundi (Current shock kottinattu). Deeni valla CPU ki signal "okkasare" register avtundi, pichi loop lo padipoye chance (multiple interruptions) undadu.
                 </p>
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="bento-box border-l-[5px] border-pink-500">
+            <div class="step-label !bg-pink-500 !shadow-[0_4px_15px_rgba(236,72,153,0.4)]">Summary: The 6 Steps</div>
+            <div class="english-full">
+                <strong>Sequence of events involved in handling an interrupt-request from a single device is as follows:</strong>
+                <ol class="list-decimal pl-5 mt-2 text-pink-200">
+                    <li>The device raises an interrupt request.</li>
+                    <li>The processor interrupts the program currently being executed.</li>
+                    <li>Interrupts are disabled by changing the control bits in the PS (except in the case of edge triggered interrupts).</li>
+                    <li>The device is informed that its request has been recognized, and in response, it deactivates the interrupt-request signal.</li>
+                    <li>The action requested by the interrupt is performed by the interrupt-service routine.</li>
+                    <li>Interrupts are enabled and execution of the interrupted program is resumed.</li>
+                </ol>
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Final Summary: Interrupt vaste asalu em jarugutundi? (6 Steps)</h3>
+                <div class="tag-box !border-pink-400 !bg-pink-900/10">
+                    <ol class="space-y-3 text-gray-300">
+                        <li><b class="text-pink-400">Step 1:</b> Device <span class="highlight">"Naku help kavali"</span> ani interrupt raise chestundi.</li>
+                        <li><b class="text-pink-400">Step 2:</b> CPU current chestunna program ni aapesthundi.</li>
+                        <li><b class="text-pink-400">Step 3:</b> Vere evaru disturb cheyakunda, CPU PS (Processor Status) lo bits marchi <span class="highlight">Interrupts ni Disable</span> chestundi.</li>
+                        <li><b class="text-pink-400">Step 4:</b> CPU aa device ki "Nen chusanu" ani (Acknowledge) cheptundi. Appudu device <span class="highlight">signal pampadam aaputhundi</span> (deactivates).</li>
+                        <li><b class="text-pink-400">Step 5:</b> Aa device ki kavalsina panini <span class="highlight">ISR (Interrupt-Service Routine) dwara</span> CPU chesi pedutundi.</li>
+                        <li><b class="text-pink-400">Step 6:</b> Pani aypoyindi kabatti, malli <span class="highlight">Interrupts ni Enable chesi</span>.. antha mundu aapeysina patha program ni katha malli modalu pedutundi (resumes).</li>
+                    </ol>
+                </div>
             </div>
         </div>
 
