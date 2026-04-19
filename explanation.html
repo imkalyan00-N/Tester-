@@ -3,85 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARM & 68000 Interrupt Structure - Zen Method</title>
+    <title>68000 Interrupt Structure - Zen Method</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Outfit', sans-serif; 
-            background-color: #09090b; /* Zinc 950 */
+            background-color: #082f49; /* Deep Cyan/Slate Black */
             color: #e4e4e7;
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.1) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0px, transparent 50%);
+            background-image: radial-gradient(circle at top right, #0e7490 0%, #082f49 60%);
             background-attachment: fixed;
         }
         
-        /* ARM Specific Styling */
-        .arm-box {
-            background: rgba(24, 24, 27, 0.8);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            border-left: 5px solid #f59e0b; /* Amber 500 */
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 2.5rem;
-            position: relative;
-        }
-        .arm-label {
-            position: absolute;
-            top: -15px;
-            left: 20px;
-            background: #f59e0b;
-            color: #451a03;
-            font-weight: 800;
-            font-size: 0.85rem;
-            padding: 6px 18px;
-            border-radius: 20px;
-            letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
-        }
-        .arm-english {
-            border-bottom: 2px dashed rgba(245, 158, 11, 0.2);
-        }
-        .arm-title { color: #fbbf24; }
-        .arm-highlight { color: #fcd34d; font-weight: 600; }
-        .arm-tag { background: rgba(245, 158, 11, 0.1); border-left: 3px solid #f59e0b; }
-
         /* Motorola 68000 Specific Styling */
         .moto-box {
-            background: rgba(24, 24, 27, 0.8);
-            border: 1px solid rgba(6, 182, 212, 0.2);
-            border-left: 5px solid #06b6d4; /* Cyan 500 */
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-left: 5px solid #22d3ee; /* Cyan 400 */
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             margin-bottom: 2.5rem;
             position: relative;
+            transition: transform 0.2s;
+        }
+        .moto-box:hover {
+            transform: translateY(-2px);
+            border-color: rgba(34, 211, 238, 0.5);
         }
         .moto-label {
             position: absolute;
             top: -15px;
             left: 20px;
-            background: #06b6d4;
+            background: #22d3ee;
             color: #083344;
             font-weight: 800;
             font-size: 0.85rem;
             padding: 6px 18px;
             border-radius: 20px;
             letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.4);
+            text-transform: uppercase;
         }
-        .moto-english {
-            border-bottom: 2px dashed rgba(6, 182, 212, 0.2);
-        }
-        .moto-title { color: #67e8f9; }
-        .moto-highlight { color: #a5f3fc; font-weight: 600; }
-        .moto-tag { background: rgba(6, 182, 212, 0.1); border-left: 3px solid #06b6d4; }
-
-        /* Common Styling */
         .english-full {
             padding: 2rem 1.5rem 1.5rem 1.5rem;
-            background: rgba(0, 0, 0, 0.4);
-            color: #a1a1aa;
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 2px dashed rgba(34, 211, 238, 0.2);
+            color: #cbd5e1;
             font-size: 0.95rem;
             line-height: 1.6;
             border-radius: 12px 12px 0 0;
@@ -89,13 +57,19 @@
         }
         .english-full ul { list-style-type: none; padding-left: 0; margin-top: 0.5rem; margin-bottom: 0; }
         .english-full li { position: relative; padding-left: 1.2rem; margin-bottom: 0.5rem; }
-        .english-full li::before { content: "•"; position: absolute; left: 0; font-weight: bold; }
-        .arm-english li::before { color: #f59e0b; }
-        .moto-english li::before { color: #06b6d4; }
+        .english-full li::before { content: "•"; position: absolute; left: 0; color: #22d3ee; font-weight: bold; }
         
         .tenglish-explanation { padding: 1.5rem; line-height: 1.7; }
-        .tenglish-explanation h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
-        .tag-box { padding: 12px; border-radius: 8px; margin-top: 12px; }
+        .tenglish-explanation h3 { color: #67e8f9; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+        .highlight { color: #facc15; font-weight: 600; }
+        .tag-box { 
+            background: rgba(34, 211, 238, 0.1); 
+            border-left: 3px solid #22d3ee; 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin-top: 12px; 
+            color: #cffafe;
+        }
     </style>
 </head>
 <body class="p-4 md:p-10 pt-16">
@@ -105,239 +79,101 @@
         <!-- MAIN TITLE -->
         <div class="text-center mb-16">
             <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3">
-                <span class="text-amber-500">ARM</span> & <span class="text-cyan-400">68000</span> PROCESSORS
+                <span class="text-cyan-400">MOTOROLA 68000</span>
             </h1>
-            <p class="text-gray-400 font-medium tracking-widest text-sm uppercase bg-zinc-900/50 inline-block px-4 py-1 rounded-full border border-zinc-700">Interrupt Structures Masterclass</p>
+            <p class="text-cyan-200 font-medium tracking-widest text-sm uppercase bg-cyan-900/40 inline-block px-4 py-1 rounded-full border border-cyan-500/30">Interrupt Priority & Vectors</p>
         </div>
 
-        <!-- ========================================== -->
-        <!-- SECTION 1: ARM PROCESSOR (AMBER COLOR) -->
-        <!-- ========================================== -->
-
-        <h2 class="text-2xl font-bold text-amber-500 mb-6 border-b border-amber-900 pb-2">PART A: ARM Processor Structure</h2>
-
         <!-- STEP 1 -->
-        <div class="arm-box">
-            <div class="arm-label">STEP 01: ARM Intro</div>
-            <div class="english-full arm-english">
-                <strong>ARM Interrupt Structure<br>5.3.1.1 Introduction to ARM</strong>
+        <div class="moto-box">
+            <div class="moto-label">Part 01: Priority Levels (0 to 7)</div>
+            <div class="english-full">
+                <strong>Interrupt structure</strong>
                 <ul>
-                    <li>A collection of Reduced Instruction Set Computer (RISC) instruction set architectures for computer processors that are tailored for different contexts is known as ARM (stylized in lowercase as an arm; originally an abbreviation for Advanced RISC Machines.</li>
-                    <li>For light, portable, battery-powered devices like smartphones, laptops, and tablet computers, as well as other embedded systems, ARM processors are preferred because they are less expensive, consume less power, and generate less heat than their competitors.</li>
+                    <li>The 68000 has eight interrupt priority levels. The priority at which the processor is running at any given time is encoded in three bits of the processor status word (I2, I1, I0) With level 0 being the lowest priority.</li>
+                    <li>Levels 1 through 6 are the mask-enabled levels.</li>
+                    <li>For example, if you set the mask to 100 then only levels 5, 6 and 7 will be enabled; interrupt ‘levels 1 through 4 are disabled.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3 class="arm-title">🏮 Asalu ARM ante enti? (Smartphones raju)</h3>
+                <h3>🏮 8 Priority Levels & Masking (Evariki Preference?)</h3>
                 <p class="text-gray-300">
-                    <span class="arm-highlight">ARM (Advanced RISC Machines)</span> anedi oka RISC (Reduced Instruction Set Computer) architecture. Ante simple and fast instructions vaade processor idi.<br><br>
-                    Idi main ga mana Smartphones, Tablets, chinna laptops lo vaadutaru. Enduku? Endukante ARM processors <span class="arm-highlight">Rate takkuva (less expensive), Battery takkuva tagutayi (consume less power), mariyu Heat asalu avvavu (generate less heat)</span>. Intel lanti pedda processors tho compare cheste idhe deeni super power.
+                    68000 processor lo mottham <span class="highlight">8 Interrupt Priority Levels (0 nunchi 7 daka)</span> untayi. (Level 0 ki lowest priority). CPU prastutam ea level priority lo undo telupadaniki Processor Status (PS) word lo unna 3 bits (I2, I1, I0) vaadutaru.<br><br>
+                    Indulo Levels 1 nunchi 6 daka unnavi "Mask-enabled" levels (Ante manam kavalante off cheskovachu). 
                 </p>
+                <div class="tag-box mt-3 text-sm">
+                    <b class="text-white">Masking Example:</b> Okavela nuvvu mask bit ni '100' (ante decimal lo 4) ki set chesav anuko. Appudu aa 4 kante ekkuva unna priority levels (ante 5, 6, mariyu 7) matrame ON ayyi untayi. Aa 4 kante thakkuva unna 1, 2, 3, 4 disable (ignore) aypotayi.
+                </div>
             </div>
         </div>
 
         <!-- STEP 2 -->
-        <div class="arm-box">
-            <div class="arm-label">STEP 02: ARM Modes</div>
-            <div class="english-full arm-english">
+        <div class="moto-box">
+            <div class="moto-label">Part 02: Level 7 The Boss</div>
+            <div class="english-full">
                 <ul>
-                    <li>Modes of operation<br>ARM processor has 7 modes of operation.<br>
-                     Switching between modes can be done manually through modifying the mode bits in the CPSR register.<br>
-                     Most application programs execute in user mode<br>
-                     Non user modes (called privileged modes) are entered to serve interrupts or exceptions<br>
-                     The system mode is special mode for accessing protected resources. It don‘t use registers used by exception handlers, so it can‘t be corrupted by any exception handler error.</li>
+                    <li>An interrupt request is accepted only if its priority is higher than that of the processor, with one exception: An interrupt request at level 7 is always accepted. This is an edge triggered non maskable interrupt.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3 class="arm-title">🏮 7 Modes of Operation (7 avataralu)</h3>
+                <h3>🏮 Level-7: The Ultimate Boss (Non-maskable)</h3>
                 <p class="text-gray-300">
-                    ARM processor ki mottham <span class="arm-highlight">7 Modes</span> untayi. Aa modes madyalo switch avvalante CPSR ane register loni bits ni marchali.
+                    Sadarana ga oka kotha interrupt vachindante.. Processor prastutam run chestunna priority kante aa kotha interrupt priority 'Higher' (ekkuva) unte ne CPU danni accept chestundi.<br><br>
+                    Kani deeniki oka Exception undi: <span class="highlight">Level 7 Interrupt!</span> Idhi vasthe CPU em pani lo unna pakkana petti thappakunda accept chesi theerali. Endukante idi oka <b class="text-cyan-300">"Edge Triggered Non-Maskable Interrupt"</b> (NMI - deenni manam code rasi off leda mask cheyaleru).
                 </p>
-                <div class="tag-box arm-tag mt-3 text-sm text-gray-300 space-y-2">
-                    <p><b>1. User Mode:</b> Normal apps anni deentlone run avtayi.</p>
-                    <p><b>2. Privileged Modes:</b> Interrupts / Exceptions vachinappudu CPU ee mode loki veltundi.</p>
-                    <p><b>3. System Mode:</b> Idi chala special. Protected files/resources ni access cheyadaniki vaadtaru. Idi exception handlers vaade registers ni muttukodu, kabatti secure ga untundi.</p>
-                </div>
             </div>
         </div>
 
         <!-- STEP 3 -->
-        <div class="arm-box">
-            <div class="arm-label">STEP 03: ARM Registers</div>
-            <div class="english-full arm-english">
+        <div class="moto-box">
+            <div class="moto-label">Part 03: Auto-Raise Priority</div>
+            <div class="english-full">
                 <ul>
-                    <li>ARM register set<br>
-                     ARM processor has 37 32-bit registers.<br>
-                     31 registers are general purpose registers.<br>
-                     6 registers are control registers<br>
-                     Registers are named from R0 to R16 with some registers banked in different modes<br>
-                     R13 is the stack pointer SP (Banked)<br>
-                     R14 is subroutine link register LR (Banked)<br>
-                     R15 is progrm counter PC<br>
-                     R16 is current program status register CPSR (Banked)</li>
+                    <li>When the processor accepts an interrupt request, the priority level indicated in the Processor Status (PS) register is automatically raised to that of the request before interrupt request routine is executed. This requests of equal or lower priority are disabled, except for level-7 interrupts, which are always enabled.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3 class="arm-title">🏮 37 Registers & Vati Perlú</h3>
-                <p class="text-gray-300 mb-2">ARM lo mottham <span class="arm-highlight">37 (32-bit) registers</span> unnayi. Andulo 31 General purpose, 6 Control registers. Veetiki R0 nunchi R16 ani perlu pettaru.</p>
-                <ul class="list-none space-y-1 text-gray-300 text-sm">
-                    <li><span class="arm-highlight">R13 = SP</span> (Stack Pointer - Stack memory ni point chestundi)</li>
-                    <li><span class="arm-highlight">R14 = LR</span> (Link Register - Subroutines nunchi return address save chestundi)</li>
-                    <li><span class="arm-highlight">R15 = PC</span> (Program Counter - Next run ayye instruction address)</li>
-                    <li><span class="arm-highlight">R16 = CPSR</span> (Current Program Status Register - Processor mode ni status ni save chestundi)</li>
-                </ul>
+                <h3>🏮 Level up avvadam (Auto Priority Raise)</h3>
+                <p class="text-gray-300">
+                    Oka kotha interrupt CPU accept cheyagane (ISR run chese kante mundu), CPU tana status register (PS) loni priority level ni.. <span class="highlight">aa vachina kotha interrupt level entha undo antha (Level up) chestundi.</span><br><br>
+                    Deeni valla emavtundi ante, current run ayye interrupt kante thakkuva leda equal priority unnavi anni aypotayi (disable avtayi). Evvadu madyalo disturb cheyadu. (Of course, Level-7 vasthe eppudu open eh).
+                </p>
             </div>
         </div>
 
         <!-- STEP 4 -->
-        <div class="arm-box">
-            <div class="arm-label">STEP 04: Exceptions Source</div>
-            <div class="english-full arm-english">
-                <strong>Sources for Exceptions in ARM</strong>
+        <div class="moto-box">
+            <div class="moto-label">Part 04: Saving to Stack (A7)</div>
+            <div class="english-full">
                 <ul>
-                    <li>The term exception is used to refer to any event that causes an interruption</li>
-                    <li>ARM processor has five sources for exceptions, only two of which are external interrupt request lines, IRQ(Interrupt ReQuest) and FIQ (Fast Interrupt reQuest).</li>
-                    <li>There is one software interrupt instruction, SWI and two exceptions that may be caused by abnormal conditions encountered during program execution. These exceptions are an external abort following a bus error and an attempt to execute an undefined instruction.</li>
+                    <li>The processor automatically saves the contents of the program counter and the processor status word at the time of interruption. The PC is pushed on to the processor stack followed by the PS, using register A7 as the stack pointer.</li>
+                    <li>A Return from interrupt instruction, called Return-from-exception(RTE), pops the top element of the stack into the PS and pops the next element into the PC.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3 class="arm-title">🏮 5 Sources of Exceptions (CPU ki Disturbance ekkadi nunchi vastundi?)</h3>
+                <h3>🏮 State Save Cheyadam & RTE dwara Tirigi Ravadam</h3>
                 <p class="text-gray-300">
-                    'Exception' ante simple ga CPU pani ni aape (interrupt chese) oka event. ARM lo ila <span class="arm-highlight">5 sources</span> nunchi interrupts vastayi:
+                    Interrupt vachina ventane CPU tana Program Counter (PC) mariyu Processor Status (PS) ni automatic ga daachi pedutundi. Vetini <span class="highlight">Processor Stack</span> lopaliki tosthundi (Push chestundi). Ee stack ekkada undo point cheyadaniki <b class="text-cyan-300">Register A7 (Stack Pointer)</b> ni vaadutundi.<br><br>
+                    Interrupt pani antha aypoyaka venakki ravadaniki <span class="highlight">RTE (Return-from-exception)</span> ane command vaadutaru. Idi stack nunchi PS ni, aa tarvata PC ni pop (bayataki theesi) chesi.. CPU patadi ekkada aagipoyindo akkadi nunche malli start ayyela chestundi.
                 </p>
-                <ol class="list-decimal pl-5 mt-2 text-gray-300 text-sm space-y-1">
-                    <li><b>IRQ:</b> Normal Hardware Interrupt</li>
-                    <li><b>FIQ:</b> Fast Hardware Interrupt (Chala speed ga respond avvali)</li>
-                    <li><b>SWI:</b> Software Interrupt (Code dwara vache interrupt)</li>
-                    <li><b>Data/Bus Abort:</b> Data chaduvutunapudu error vasthe</li>
-                    <li><b>Undefined Instruction:</b> CPU ki ardham kani code vaste</li>
-                </ol>
             </div>
         </div>
 
         <!-- STEP 5 -->
-        <div class="arm-box">
-            <div class="arm-label">STEP 05: Reset & Abort</div>
-            <div class="english-full arm-english">
+        <div class="moto-box border-l-[5px] border-emerald-500">
+            <div class="moto-label !bg-emerald-500 !shadow-[0_4px_15px_rgba(16,185,129,0.4)] text-emerald-900">Part 05: Vectored Interrupts</div>
+            <div class="english-full !border-emerald-500/20">
                 <ul>
-                    <li>The Reset condition is included in this structure because it must override all other conditions to bring the processor to a known starting condition.</li>
-                    <li>There are two abort conditions. Data Abort arises from an error in reading or writing data, and Prefetch abort arises from an error when prefetching instructions from the memory</li>
+                    <li>The 68000 processor uses vectored interrupts. When it accepts an interrupt request, it obtains the starting address of the interrupt-service routine from an interrupt vector stored in main memory.</li>
+                    <li>There are 256 interrupt vectors, numbered o through 255. Each vector consists of 32 bits that constitute the required starting address.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3 class="arm-title">🏮 Reset mariyu Abort ante enti?</h3>
+                <h3 class="!text-emerald-400">🏮 Vectored Interrupts ante enti? (Address list)</h3>
                 <p class="text-gray-300">
-                    <span class="arm-highlight">Reset:</span> Reset anedi list lo boss lanti di. Idi vachindante migathavanni cancel aypoyi, processor antha fresh ga first nunchi start avtundi.<br><br>
-                    <span class="arm-highlight">Abort conditions:</span> Ivi rendu rakalu. <b>Data Abort</b> (Data read/write chesetappudu error vaste idhi vastundi). <b>Prefetch Abort</b> (Memory nunchi next code thecchukune tappudu error vaste idi vastundi).
+                    Motorola 68000 anedi <span class="highlight">Vectored Interrupts</span> ni vaadutundi. Ante, CPU oka interrupt accept cheyagane, ISR (Service code) ni start cheyadaniki address kavaliga? Aa starting address ni main memory lo unna <b class="text-emerald-300">"Interrupt Vector"</b> (oka address list lanti di) nunchi theeskuntundi.<br><br>
+                    Main memory lo mottham <span class="highlight">256 interrupt vectors</span> (0 nunchi 255 daka) untayi. Prathi vector lo oka 32-bit address (starting address) store ayyi untundi. Ye interrupt vasthe aa vector lo unna address ki CPU jump avtundi.
                 </p>
-            </div>
-        </div>
-
-        <!-- STEP 6 -->
-        <div class="arm-box">
-            <div class="arm-label">STEP 06: Initialization & CPSR</div>
-            <div class="english-full arm-english">
-                All interrupts are disabled on startup for the ARM CPU until the initialization code turns them on.
-                <ul>
-                    <li>The Processor Status Registers’ bit can be changed to enable or disable the interrupts (PSR or CPSR where C stands for current).</li>
-                    <li>The CPSR also determines whether the processor is decoding Thumb instructions and the processor mode (SVC, System, User, etc.).</li>
-                    <li>The application can read and write to the CPSR in its entirety when operating in privileged mode, but it can only read the CPSR when operating in non-privileged mode.</li>
-                    <li>The processor enters the appropriate interrupt or exception mode in response to an interrupt or exception, which causes a portion of the main registers to be banked, swapped out, or replaced with set mode registers.</li>
-                    <li>The interrupt masks’ ability to be enabled and disabled is controlled by bits. The two interrupt inputs on the ARM processor can both be regarded as general-purpose interrupts. Interrupt Request (IRQ) and Fast Interrupt Request are the names of the first and second, respectively (FIQ)</li>
-                </ul>
-            </div>
-            <div class="tenglish-explanation">
-                <h3 class="arm-title">🏮 Startup & CPSR Power (Enabling Interrupts)</h3>
-                <p class="text-gray-300">
-                    System on avvagane (startup lo) anni interrupts disable ayye untayi. Initialization code (boot ayyaka) matrame vaatini ON chestundi.<br><br>
-                    Interrupts ON/OFF cheyali anna, processor ey mode lo (User/System) undalo decide cheyali anna <span class="arm-highlight">CPSR (Current Program Status Register)</span> ye main! 
-                </p>
-                <div class="tag-box arm-tag mt-3 text-sm text-gray-300">
-                    <b>Rule:</b> Nuvvu Privileged mode lo unte CPSR ni chadavochu, marchochu (Read/Write). Ade Non-privileged mode lo unte just chadavagalam anthe (Read-only). Interrupt vachinappudu konni registers "Banked" (swapped/replaced) aypotayi. IRQ, FIQ anevi general purpose hardware interrupts.
-                </div>
-            </div>
-        </div>
-
-        <!-- STEP 7 -->
-        <div class="arm-box">
-            <div class="arm-label">STEP 07: Priority Structure</div>
-            <div class="english-full arm-english">
-                The regular sequential execution of instructions can be stopped by one of seven events on the ARM processor. Since not all events are created equal, the processor must adopt a priority strategy because these events may occur simultaneously.
-                <ul>
-                    <li>Exceptions are handled according to the following priority structure<br>
-                    1. Reset (Highest Priority)<br>
-                    2. Data Abort<br>
-                    3. FIQ<br>
-                    4. IRQ<br>
-                    5. Prefetch Abort<br>
-                    6. Undefined Instruction (Lowest Priority)</li>
-                </ul>
-            </div>
-            <div class="tenglish-explanation">
-                <h3 class="arm-title">🏮 Priority List (Evariki First Preference?)</h3>
-                <p class="text-gray-300 mb-2">
-                    Oke sari rendu moodu interrupts vaste evaridi mundu solve cheyali? Daanike ee Priority List. (Idi exam lo chala important).
-                </p>
-                <div class="bg-amber-900/20 p-3 rounded text-amber-200 font-mono text-sm">
-                    1. Reset <span class="text-white">(VVIP - Highest Priority)</span><br>
-                    2. Data Abort<br>
-                    3. FIQ (Fast Interrupt)<br>
-                    4. IRQ (Normal Interrupt)<br>
-                    5. Prefetch Abort<br>
-                    6. Undefined Instruction <span class="text-white">(Lowest Priority)</span>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- ========================================== -->
-        <!-- SECTION 2: MOTOROLA 68000 (CYAN COLOR) -->
-        <!-- ========================================== -->
-
-        <h2 class="text-2xl font-bold text-cyan-400 mt-16 mb-6 border-b border-cyan-900 pb-2">PART B: Motorola 68000 Structure</h2>
-
-        <!-- STEP 8 -->
-        <div class="moto-box">
-            <div class="moto-label">STEP 08: 68000 Intro</div>
-            <div class="english-full moto-english">
-                <strong>268000 Interrupt Structure<br>5.3.2.1 Introduction</strong>
-                <ul>
-                    <li>Motorola 68000 is a 16/32-bit complex instruction set computer (CISC) Microprocessor.</li>
-                    <li>It has 32-bit data and address registers. Externally the processor has 16-bit data bus and 24-bit address bus, which limits the size of addressable memory to 16 MB.</li>
-                    <li>It uses a 16-bit data arithmetic logic unit (ALU). The Register architecture of 68000 is shown in Fig 5.9.</li>
-                    <li>The data registers can be used to handle (8-bit) bytes, (16-bit) words, or 32-bit long words.</li>
-                    <li>There are seven general purpose Address registers (A0-A6). These registers can handle either 16-bit word or 32-bit long word operands.</li>
-                </ul>
-            </div>
-            <div class="tenglish-explanation">
-                <h3 class="moto-title">🏮 Motorola 68000 Basics (CISC Processor)</h3>
-                <p class="text-gray-300">
-                    ARM RISC ayte, ee <span class="moto-highlight">Motorola 68000 anedi CISC (Complex Instruction Set) microprocessor</span>.<br><br>
-                    Deeni lopala (internal ga) 32-bit registers unna kuda... Bayataki (externally) matram 16-bit data bus, 24-bit address bus matrame untayi. Deeni valla <span class="moto-highlight">idi maximum 16 MB memory ni matrame access cheyagaladu</span>. Deeni ALU (Arithmetic Logic Unit) kuda 16-bit eh!<br><br>
-                    Indulo <b>Data Registers</b> 8-bit, 16-bit leda 32-bit data ni handle chestayi. <b>Address Registers (A0 to A6)</b> kuda 16/32-bit ni handle chestayi.
-                </p>
-            </div>
-        </div>
-
-        <!-- STEP 9 -->
-        <div class="moto-box">
-            <div class="moto-label">STEP 09: 68000 Status Register</div>
-            <div class="english-full moto-english">
-                <ul>
-                    <li>A 16-bit status register is divided into two 8-bit bytes : The system byte and the user byte. Fig. shows the bit assignments for the status register. The system byte of the status register contains status information that is system-related. The user byte, on the other hand, contains the condition code status bits (X, N, Z, V and C) which are instruction or program related. Bits in the system byte of the Status register can only be altered when the MC 68000 is in the supervisor mode.<br>
-                    Bit 13 of the status register is the S-bit, which specifies whether the MC68000 is in the supervisor or user mode of operation. When the bit is 1, the MC68000 is in the supervisor mode, and when it is 0 the microprocessor is in the user mode.</li>
-                    <li>The most significant bit of the status register is the Trace (T) flag. If this bit is 0 then the MC68000 operates normally. However, if the bit is 1, the microprocessor is in the trace mode of operation. After each instruction is executed in the trace mode, a trap is forced so that a debugging program can monitor the results of that instruction’s execution.</li>
-                </ul>
-            </div>
-            <div class="tenglish-explanation">
-                <h3 class="moto-title">🏮 16-bit Status Register (System vs User byte)</h3>
-                <p class="text-gray-300">
-                    Indulo oka 16-bit Status register untundi. Deenni rendu 8-bit mukkalu ga chesaru: <span class="moto-highlight">1. System Byte, 2. User Byte</span>. <br><br>
-                    User byte lo progams ki kavalsina flags (X, N, Z, V, C) untayi. System byte lo system info untundi (Danni marchalante compulasary 'Supervisor mode' lo undali).
-                </p>
-                <div class="tag-box moto-tag mt-3 text-sm text-gray-300 space-y-2">
-                    <p><b>S-Bit (13th Bit):</b> Idi 1 unte 'Supervisor Mode' (Full powers), 0 unte 'User Mode' (Normal powers) ani decide chestundi.</p>
-                    <p><b>T-Flag (Trace Flag - Highest Bit):</b> Idi 0 unte system normal ga run avtundi. Idi 1 unte 'Trace Mode' loki veltundi. Trace mode ante debugging kosam prathi chinna instruction ayyaka system ni trap (pause) chestundi, check cheskovadaniki.</p>
-                </div>
             </div>
         </div>
 
