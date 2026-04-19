@@ -3,50 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interrupts - Complete Zen Method</title>
+    <title>Hardware Interrupts - Zen Method</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Outfit', sans-serif; 
-            background-color: #050b14; /* Deep Tech Blue/Black */
+            background-color: #050b14; /* Deep Tech Black */
             color: #e2e8f0;
-            background-image: radial-gradient(circle at top left, #1e3a8a 0%, #050b14 50%);
-            background-attachment: fixed;
+            background-image: linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
         .bento-box {
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-left: 5px solid #38bdf8; /* Sky Blue accent */
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-left: 5px solid #10b981; /* Emerald Green accent for hardware */
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             margin-bottom: 2.5rem;
             position: relative;
+            transition: transform 0.2s;
+        }
+        .bento-box:hover {
+            transform: translateY(-2px);
+            border-color: rgba(16, 185, 129, 0.5);
         }
         .step-label {
             position: absolute;
             top: -15px;
             left: 20px;
-            background: #38bdf8;
-            color: #0f172a;
+            background: #10b981;
+            color: #022c22;
             font-weight: 800;
             font-size: 0.85rem;
             padding: 6px 18px;
             border-radius: 20px;
             letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
             text-transform: uppercase;
         }
         .english-full {
             padding: 2rem 1.5rem 1.5rem 1.5rem;
-            background: rgba(0, 0, 0, 0.4);
-            border-bottom: 2px dashed rgba(56, 189, 248, 0.15);
+            background: rgba(0, 0, 0, 0.5);
+            border-bottom: 2px dashed rgba(16, 185, 129, 0.2);
             color: #94a3b8;
             font-size: 0.95rem;
             line-height: 1.6;
             border-radius: 12px 12px 0 0;
-            font-style: italic;
+            font-family: monospace; /* Monospace to give a hardware code feel */
         }
         .english-full ul {
             list-style-type: none;
@@ -63,7 +68,7 @@
             content: "•";
             position: absolute;
             left: 0;
-            color: #38bdf8;
+            color: #10b981;
             font-weight: bold;
         }
         .tenglish-explanation {
@@ -71,7 +76,7 @@
             line-height: 1.7;
         }
         .tenglish-explanation h3 {
-            color: #7dd3fc;
+            color: #34d399;
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.75rem;
@@ -80,12 +85,13 @@
             gap: 8px;
         }
         .highlight { color: #facc15; font-weight: 600; }
-        .tag-box {
-            background: rgba(56, 189, 248, 0.05);
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 3px solid #7dd3fc;
-            margin-top: 12px;
+        .hardware-tag {
+            background: rgba(16, 185, 129, 0.1);
+            color: #6ee7b7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: monospace;
         }
     </style>
 </head>
@@ -94,125 +100,100 @@
     <div class="max-w-4xl mx-auto">
         
         <div class="text-center mb-16">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-3">
-                ⚡ <span class="text-sky-400">INTERRUPTS</span>
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-3">
+                🔌 <span class="text-emerald-400">HARDWARE</span> INTERRUPTS
             </h1>
-            <p class="text-sky-200 font-medium tracking-widest text-sm uppercase bg-sky-900/30 inline-block px-4 py-1 rounded-full border border-sky-500/30">Complete Text Breakdown</p>
+            <p class="text-emerald-200 font-medium tracking-widest text-sm uppercase bg-emerald-900/30 inline-block px-4 py-1 rounded-full border border-emerald-500/30">Step-by-Step Circuit Breakdown</p>
         </div>
 
         <!-- STEP 1 -->
         <div class="bento-box">
-            <div class="step-label">Part 01: The Alert Signal</div>
+            <div class="step-label">STEP 01: The IR Line & Switches</div>
             <div class="english-full">
-                <strong>Interrupts</strong>
+                An I/O device requests an interrupt by activating a bus-line called interrupt-request (IR).
                 <ul>
-                    <li>There are many situations where other tasks can be performed while waiting for an I/O device to become ready. A hardware signal called an Interrupt will alert the processor when an I/O device becomes ready. It can do so by sending a hardware signal called an interrupt to the processor.</li>
+                    <li>A single interrupt request line may be used to serve n devices as depicted. All devices are connected to the line via switches to ground.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Interrupt ante Asalu Enti?</h3>
+                <h3>🏮 Interrupt Request (IR) Line Ante Enti?</h3>
                 <p class="text-gray-300">
-                    Oka I/O device (like printer/keyboard) tana pani purthi cheskuni ready ayye lopu, CPU khaaliga kurchokunda vere panulu cheskune situations chala untayi. <br><br>
-                    Ala CPU vere pani lo unnappudu, I/O device ready avvagane... CPU ki <span class="highlight">"Nenu ready ayya!"</span> ani oka alert pampistundi. Aa alert pampinche Hardware Signal ne manam <b>"Interrupt"</b> antamu. (Idhi thupukku mani vache missed call lantidi).
+                    Edaina I/O device CPU ki Interrupt pampalante, idi <span class="hardware-tag">Interrupt-Request (IR)</span> ane oka special bus-line (wire) ni on chestundi.<br><br>
+                    Oka motherboard lo <span class="highlight">Oka single IR line ki enni devices ayina (n devices) connect avvachu</span>. Ee devices anni ela connect ayyi untayi ante... prathi device nunchi oka switch vachi ground ki (earth ki) connect ayyi untundi.
                 </p>
             </div>
         </div>
 
         <!-- STEP 2 -->
         <div class="bento-box">
-            <div class="step-label">Part 02: ISR & Acknowledge</div>
+            <div class="step-label">STEP 02: Inactive State (Vdd)</div>
             <div class="english-full">
-                For example, consider, COMPUTE and PRINT routines. The routine executed in response to an interrupt request is called interrupt-service routine.
+                To request an interrupt, a device closes its associated switch. Thus, if all interrupt-request signals INTR1 to INTRn are inactive, that is, if all switches are open, the voltage on the interrupt-request line will be equal to Vdd.
                 <ul>
-                    <li>Transfer of control through the use of interrupts happens. The processor must inform the device that its request has been recognized by sending interrupt-acknowledge signal.</li>
+                    <li>This is the inactive state of the line.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Interrupt Service Routine (ISR) & Acknowledge</h3>
+                <h3>🏮 Evaru Distrub Cheyanappudu em avtundi? (Inactive State)</h3>
                 <p class="text-gray-300">
-                    <b>Example:</b> CPU edo calculation (COMPUTE) chestundi, ade time lo Printer nunchi PRINT aypoyindi ani interrupt vachindi anuko. Aa vachina interrupt ki respond avthu, CPU ventane oka kottha program (code) ni run chestundi. Aa program ni manam <span class="highlight">"Interrupt-Service Routine (ISR)"</span> antamu.<br><br>
-                    Ila jarigina ventane, CPU tana control ni aa ISR ki ichestundi. Alage I/O device tho.. "Babu nee request nenu chusanu/receive cheskunnanu" ani cheppadaniki CPU oka <b class="text-sky-300">"Interrupt-Acknowledge"</b> signal ni device ki thirigi pampistundi. (Message seen petti reply isthadi anamata).
+                    Oka device ki interrupt kavalante adi tana switch ni 'Close' chestundi. Kani, okavela ye device CPU ni disturb cheyali anukovatledu anuko (ante INTR1 nunchi INTRn daka anni off lo unte), appudu <span class="highlight">anni switches 'Open' ga untayi</span>.<br><br>
+                    Switches anni open ga unnappudu, aa interrupt-request line meeda Voltage <span class="hardware-tag">Vdd (High voltage)</span> untundi. Deenine <b>Inactive State</b> antaru. (Ante evaru CPU ni pilavatledu ani ardham).
                 </p>
             </div>
         </div>
 
         <!-- STEP 3 -->
         <div class="bento-box">
-            <div class="step-label">Part 03: Subroutine & Latency</div>
+            <div class="step-label">STEP 03: Active State (Voltage Drops)</div>
             <div class="english-full">
-                One must therefore know the difference between Interrupt Vs Subroutine. Interrupt latency is concerned with saving information in registers will increase the delay between the time an interrupt request is received and the start of execution of the interrupt-service routine.
+                <ul>
+                    <li>Since the closing of one or more switches will cause the line voltage to drop to 0, causing the interrupt request signal, INTR received by the processor to go to 1.</li>
+                </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Delay Enduku Vastundi? (Latency)</h3>
+                <h3>🏮 Signal Ela Veltundi? (Active State)</h3>
                 <p class="text-gray-300">
-                    Manam ekkada padithe akkada code raase 'Subroutine' ki, ee 'Interrupt' ki difference thelsukovali. <br><br>
-                    CPU ki interrupt vachina ventane adi velli ISR ni start cheyadu. Mundu CPU current chestunna pani details ni (registers lo unna information ni) safe ga ekkadaina <b>Save cheyali</b>. Ila information save cheyadaniki time padutundi ga? Aa time valla <span class="highlight">"Interrupt vachina time ki" mariyu "ISR start ayye time ki"</span> madyalo oka chinna delay (gap) vasthundi.
+                    Okavela edo oka device leda ekkuva devices vallaki pani padi tana switch ni close chesayi anuko. Switch close avvagane, aa line voltage <span class="hardware-tag">Vdd nunchi 0 ki drop aypotundi (Ground aypotundi)</span>.<br><br>
+                    Ila voltage 0 ki padipoyina ventane, CPU ki velthunna INTR signal <span class="highlight">'1' ga maripotundi (Active aypotundi)</span>. Appudu CPU ki alert vastundi "Oho, evaro nannu pilustunnaru" ani!
                 </p>
             </div>
         </div>
 
         <!-- STEP 4 -->
         <div class="bento-box">
-            <div class="step-label">Part 04: Saving State (PC)</div>
+            <div class="step-label">STEP 04: The Logical OR</div>
             <div class="english-full">
                 <ul>
-                    <li>Processor is executing the instruction located at address i when an interrupt occurs</li>
-                </ul>
-                Routine executed in response to an interrupt request is called the interrupt-service routine.
-                <ul>
-                    <li>When an interrupt occurs, control must be transferred to the interrupt service routine.</li>
-                    <li>But before transferring control, the current contents of the PC (i+1), must be saved in a known location.</li>
+                    <li>The value of INTR is the logical OR of the requests from individual devices, that is,<br>
+                    INTR = INTR1 + ………+INTRn<br>
+                    It is customary to use the complemented form, INTR, to name the interrupt request signal on the common line, because this signal is active when in the low-voltage state.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Program Counter (PC) ni Enduku Save Cheyali?</h3>
+                <h3>🏮 The Logical OR (+) & Active Low</h3>
                 <p class="text-gray-300">
-                    Idi chala important. CPU <code>address 'i'</code> daggara unna code ni run chestunnappudu anukokunda Interrupt vachindi anuko.<br><br>
-                    Appudu CPU control ni Interrupt-Service Routine (ISR) ki ivvali. Kani ivvadaniki mundu, CPU chese next pani entante.. tana <span class="highlight">Program Counter (PC) loni value ni (ante i+1 ni)</span> oka safe place lo save cheyali. 
+                    Motham INTR signal anedi.. andaru individual devices pampiche chinna chinna signals (INTR1, INTR2...) yokka <b>Logical OR (+)</b> tho samanam. Ante <span class="highlight">ye okkadu signal pampina (+), total INTR active aypotundi</span>.<br><br>
+                    General ga ee signal ni Complement form lo (<span class="hardware-tag">INTR-bar / INTR'</span> laga) rastharu. Endukante, voltage low (0) lo unte ne kada signal active avtundi (pilustunattu ardham). Anduke deenni 'Active Low' signal antaru.
                 </p>
-                <div class="tag-box">
-                    <p class="text-gray-300 text-sm">
-                        <b>PC (Program Counter) ante enti?</b> CPU tarvata ea line of code (address) run cheyalo gurtupettukune book lanti di. So 'i' aypoyindi kabatti, next 'i+1' ki vellali ani CPU gurtupettukuni danni save chestundi.
-                    </p>
-                </div>
             </div>
         </div>
 
         <!-- STEP 5 -->
         <div class="bento-box">
-            <div class="step-label">Part 05: Return & The Stack</div>
+            <div class="step-label">STEP 05: Special Gates (Open-Drain)</div>
             <div class="english-full">
+                Fig 5.5: An equivalent circuit for an open-drain bus used to implement a common interrupt-request line
                 <ul>
-                    <li>This will enable the return-from-interrupt instruction to resume execution at i+1.</li>
-                    <li>Return address, or the contents of the PC are usually stored on the processor stack.</li>
+                    <li>The Fig 5.5 shows that special gates known as open-collector (for bipolar circuits) or open-drain (for MOS circuits) are used to drive the INTR line. The output of an open collector or an open-drain gate is equivalent to a switch to ground that is open when the</li>
                 </ul>
+                <span class="text-xs text-emerald-500 mt-2 block">(Note: Text ended here abruptly in the source)</span>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Interrupt Aypoyaka Malli Ela Vastundi?</h3>
+                <h3>🏮 Circuit Gates (Open-collector / Open-drain)</h3>
                 <p class="text-gray-300">
-                    Paina 'i+1' ni enduku save chesam? Endukante, ISR (interrupt code) motham ayipoyaka CPU malli venakki ochi patadi continue cheyali ga! Aa <b class="text-sky-300">"Return-from-interrupt"</b> command ranavvagane, CPU malli correct ga 'i+1' address nunche pani start chestundi.<br><br>
-                    Mari ee Return address (PC lo unna i+1 value) ekkada dachi pedataru? Usually CPU loni <span class="highlight">"Processor Stack"</span> meeda daachi pedutundi. (Oka dabba lo vesinatlu).
+                    Ee INTR line ni directly wire laaga kakunda, konni special gates dwara control chestaru. Bipolar circuits lo aythe vaatini <span class="hardware-tag">"Open-collector"</span> antaru, ade MOS circuits lo aythe <span class="hardware-tag">"Open-drain"</span> gates antaru.<br><br>
+                    Ee gates yokka output exactly <span class="highlight">oka Switch laga pani chestundi (ground ki)</span>. (Text madyalo cut ayyindi kani, daani ardham enti ante.. avasaram lekapote switch open ga untundi, interrupt ivalante ground ki close avtundi).
                 </p>
-            </div>
-        </div>
-
-        <!-- STEP 6 -->
-        <div class="bento-box">
-            <div class="step-label">Part 06: Definition of Latency</div>
-            <div class="english-full">
-                Interrupt latency: Delay between the time an interrupt request is received and the start of execution of the interrupt service routine.
-            </div>
-            <div class="tenglish-explanation">
-                <h3>🏮 Interrupt Latency (Direct Definition)</h3>
-                <p class="text-gray-300">
-                    <span class="highlight">Interrupt Latency</span> ante simple ga: <br>
-                    "Device nunchi <b>Interrupt Request CPU ki reach ayina time ki</b>.. mariyu CPU aa problem solve cheyadaniki <b>Interrupt Service Routine (ISR) ni run cheyadam start chesina time ki</b> madyalo unde gappe (Delay)" ee Latency.
-                </p>
-                <div class="tag-box border-rose-500">
-                    <p class="text-gray-300 text-sm">
-                        <b>Mass Example:</b> Phone ringing sound vachina time ki (Request), nuvvu phone theesi hello ani maatladadam start chesina time ki (Execution) madyalo unna gap eh ee 'Interrupt Latency'.
-                    </p>
-                </div>
             </div>
         </div>
 
