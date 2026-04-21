@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalyan's Ultimate Proof</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kalyan's Smooth Proof</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         :root {
             --cyan: #00f3ff;
             --pink: #ff00ea;
-            --dark: #020208;
+            --dark: #050510;
         }
 
         body {
@@ -23,20 +23,31 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            touch-action: none; /* Prevents mobile scrolling issues */
         }
 
-        /* Deep Space Background */
+        /* Optimized Background */
         #space-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #0a0a20 0%, #000000 100%);
+            background: radial-gradient(circle at center, #0a0a25 0%, #000000 100%);
             z-index: 0;
         }
 
-        /* Particle Canvas for Text Morphing */
+        /* Performance friendly stars using box-shadow instead of multiple DOM elements */
+        .stars {
+            width: 2px;
+            height: 2px;
+            background: transparent;
+            position: absolute;
+            z-index: 1;
+            /* Star positions will be injected via JS for better performance */
+        }
+
+        /* Particle Canvas */
         #particle-canvas {
             position: absolute;
             top: 0;
@@ -45,19 +56,22 @@
             height: 100%;
             z-index: 10;
             pointer-events: none;
+            /* Hardware acceleration for canvas container */
+            transform: translateZ(0); 
+            will-change: transform;
         }
 
-        /* Marvel JARVIS HUD Elements */
+        /* Optimized JARVIS HUD */
         .hud-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
+            width: 250px;
+            height: 250px;
             z-index: 5;
             opacity: 0;
-            transition: opacity 1s ease;
+            transition: opacity 0.5s ease;
             pointer-events: none;
         }
 
@@ -67,71 +81,39 @@
             left: 50%;
             transform: translate(-50%, -50%);
             border-radius: 50%;
-            border: 2px solid transparent;
+            will-change: transform; /* Boosts CSS animation performance */
         }
 
         .circle-1 {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             border-top: 2px solid var(--cyan);
             border-bottom: 2px solid var(--cyan);
-            animation: rotate 4s linear infinite;
-            box-shadow: 0 0 15px var(--cyan), inset 0 0 15px var(--cyan);
+            animation: rotate 3s linear infinite;
         }
 
         .circle-2 {
-            width: 80%;
-            height: 80%;
+            width: 80%; height: 80%;
             border-left: 2px dashed rgba(0, 243, 255, 0.5);
             border-right: 2px dashed rgba(0, 243, 255, 0.5);
-            animation: rotate-reverse 6s linear infinite;
+            animation: rotate-reverse 4s linear infinite;
         }
 
-        .circle-3 {
-            width: 60%;
-            height: 60%;
-            border: 1px dotted var(--pink);
-            animation: rotate 10s linear infinite;
-            box-shadow: 0 0 10px var(--pink);
-        }
-
-        /* The Moon */
+        /* The Moon - Simplified Glow for Performance */
         .moon {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle at 30% 30%, #fff, #ccc 50%, #555 100%);
+            width: 100px; height: 100px;
+            background: radial-gradient(circle at 30% 30%, #fff, #ccc 60%, #555 100%);
             border-radius: 50%;
-            box-shadow: 0 0 40px #fff, 0 0 80px rgba(255,255,255,0.4);
             z-index: 4;
             opacity: 0;
-            transition: all 1s ease;
+            transition: opacity 1s ease;
+            box-shadow: 0 0 20px rgba(255,255,255,0.8);
+            will-change: transform, opacity;
         }
 
-        .moon::before {
-            content: '';
-            position: absolute;
-            top: 20%; left: 20%;
-            width: 20px; height: 20px;
-            background: rgba(0,0,0,0.1);
-            border-radius: 50%;
-            box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .moon::after {
-            content: '';
-            position: absolute;
-            bottom: 30%; right: 30%;
-            width: 30px; height: 30px;
-            background: rgba(0,0,0,0.1);
-            border-radius: 50%;
-            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2);
-        }
-
-        /* UI Overlay */
+        /* UI Elements */
         .ui-overlay {
             position: absolute;
             z-index: 20;
@@ -139,71 +121,71 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(2px);
-            transition: opacity 0.5s;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(3px); /* Reduced blur for performance */
+            transition: opacity 0.4s;
         }
 
         .start-btn {
             background: rgba(0, 243, 255, 0.1);
             color: var(--cyan);
-            border: 1px solid var(--cyan);
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            border: 2px solid var(--cyan);
+            padding: 12px 25px;
+            font-size: 1.1rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             cursor: pointer;
-            border-radius: 4px;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4), inset 0 0 10px rgba(0, 243, 255, 0.2);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
+            border-radius: 8px;
+            font-weight: 900;
+            transition: all 0.2s;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .start-btn:hover {
+        .start-btn:active {
+            transform: scale(0.95);
             background: var(--cyan);
             color: #000;
-            box-shadow: 0 0 30px var(--cyan);
-            transform: scale(1.05);
         }
 
         .status-text {
             position: absolute;
-            bottom: 15%;
-            font-size: 1.2rem;
+            bottom: 20%;
+            font-size: 1rem;
             color: var(--cyan);
-            text-shadow: 0 0 10px var(--cyan);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-align: center;
             opacity: 0;
-            transition: opacity 0.5s;
+            transition: opacity 0.3s;
+            width: 90%;
+            left: 5%;
         }
 
         .final-message {
             position: absolute;
-            top: 65%;
+            top: 60%;
             font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: var(--pink);
-            text-shadow: 0 0 20px var(--pink), 0 0 40px #fff;
+            text-shadow: 0 0 10px var(--pink);
             opacity: 0;
-            transition: opacity 2s ease;
+            transition: opacity 1.5s ease;
             text-align: center;
             width: 100%;
+            pointer-events: none;
         }
 
         .kalyan-tag {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #fff;
-            letter-spacing: 2px;
-            margin-top: 10px;
-            text-shadow: 0 0 10px #fff;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            text-shadow: none;
         }
 
-        /* Animations */
+        /* Hardware Accelerated Animations */
         @keyframes rotate {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
@@ -214,217 +196,208 @@
             100% { transform: translate(-50%, -50%) rotate(-360deg); }
         }
 
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 40px #fff, 0 0 80px rgba(255,255,255,0.4); }
-            50% { box-shadow: 0 0 60px var(--cyan), 0 0 120px rgba(0,243,255,0.6); }
-            100% { box-shadow: 0 0 40px #fff, 0 0 80px rgba(255,255,255,0.4); }
+        .moon-scanning {
+            animation: pulse-glow 1.5s infinite alternate;
         }
 
-        .moon-scanning {
-            animation: pulse-glow 2s infinite;
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 20px rgba(255,255,255,0.8); transform: translate(-50%, -50%) scale(1); }
+            100% { box-shadow: 0 0 40px var(--cyan); transform: translate(-50%, -50%) scale(1.05); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Twinkling Space Background -->
-    <div id="space-bg"></div>
+    <div id="space-bg">
+        <div class="stars" id="stars-layer"></div>
+    </div>
 
-    <!-- Magical Particle Text Canvas -->
+    <!-- Canvas for Smooth Particles -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- JARVIS HUD Elements -->
     <div class="hud-container" id="hud">
         <div class="hud-circle circle-1"></div>
         <div class="hud-circle circle-2"></div>
-        <div class="hud-circle circle-3"></div>
     </div>
 
-    <!-- The Moon -->
     <div class="moon" id="moon"></div>
 
-    <!-- UI Overlay for Start -->
     <div class="ui-overlay" id="intro-ui">
-        <h1 class="text-2xl mb-8 text-cyan-400 glowing tracking-widest text-center px-4" style="text-shadow: 0 0 15px #00f3ff;">
+        <h1 class="text-xl md:text-2xl mb-6 text-cyan-400 font-black tracking-widest text-center px-4">
             COSMIC TRUTH PROTOCOL
         </h1>
-        <p class="text-gray-300 mb-8 text-center max-w-md px-4 leading-relaxed">
-            Keerthana, eppudaina aakasam vanka chusi alochinchava?<br>
-            Nijam theluskovalante kinda unna button nokku.
+        <p class="text-gray-300 mb-8 text-center max-w-sm px-6 text-sm leading-relaxed">
+            Keerthana, eppudaina aakasam vanka chusi alochinchava?<br><br>
+            Nijam theluskovalante kinda nokku.
         </p>
         <button class="start-btn" onclick="initiateSequence()">Nijam Chudu</button>
     </div>
 
-    <!-- Scanning Status Text -->
-    <div class="status-text" id="status">System Initialized...</div>
+    <div class="status-text" id="status">System Ready...</div>
 
-    <!-- Final Romantic Message -->
     <div class="final-message" id="final-msg">
         Nuvve na Chandamama! ❤️
         <div class="kalyan-tag">- Kalyan eppudu nijame chepthadu 😉</div>
     </div>
 
     <script>
-        // --- 1. Background Stars Setup ---
-        const spaceBg = document.getElementById('space-bg');
-        for (let i = 0; i < 150; i++) {
-            let star = document.createElement('div');
-            star.style.position = 'absolute';
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.top = Math.random() * 100 + 'vh';
-            star.style.width = Math.random() * 3 + 'px';
-            star.style.height = star.style.width;
-            star.style.backgroundColor = '#fff';
-            star.style.borderRadius = '50%';
-            star.style.opacity = Math.random();
-            star.style.animation = `pulse-glow ${2 + Math.random() * 3}s infinite alternate`;
-            spaceBg.appendChild(star);
+        // --- 1. Performance Optimized Stars ---
+        function generateStars() {
+            let boxShadows = [];
+            let w = window.innerWidth;
+            let h = window.innerHeight;
+            // Limit stars to 50 for performance on mobile
+            for(let i = 0; i < 50; i++) {
+                boxShadows.push(`${Math.floor(Math.random() * w)}px ${Math.floor(Math.random() * h)}px #ffffff`);
+            }
+            document.getElementById('stars-layer').style.boxShadow = boxShadows.join(', ');
         }
+        generateStars();
+        window.addEventListener('resize', generateStars);
 
-        // --- 2. Advanced Particle Text Morphing Engine ---
+        // --- 2. Highly Optimized Particle Engine ---
         const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        const ctx = canvas.getContext('2d', { alpha: false }); // alpha: false boosts performance
+        
         let w, h;
+        const PARTICLE_COUNT = 800; // Fixed number of particles = NO LAG!
         let particles = [];
-        let targetPositions = [];
         let isAnimating = false;
 
         function resizeCanvas() {
             w = canvas.width = window.innerWidth;
             h = canvas.height = window.innerHeight;
+            // Draw background once if alpha is false
+            ctx.fillStyle = '#050510';
+            ctx.fillRect(0, 0, w, h);
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        class Particle {
-            constructor(x, y, color) {
-                // Start from center or random
+        class FastParticle {
+            constructor() {
                 this.x = w / 2;
                 this.y = h / 2;
-                this.targetX = x;
-                this.targetY = y;
-                this.color = color;
-                this.size = Math.random() * 2 + 1;
-                this.vx = (Math.random() - 0.5) * 20;
-                this.vy = (Math.random() - 0.5) * 20;
-                this.friction = 0.85; // Marvel magic floating feel
-                this.spring = 0.05;
+                this.targetX = w / 2;
+                this.targetY = h / 2;
+                this.color = '#00f3ff';
+                this.size = w < 600 ? 1.5 : 2; // Slightly larger for visibility
+                this.vx = (Math.random() - 0.5) * 10;
+                this.vy = (Math.random() - 0.5) * 10;
+                // Pre-calculated physics constants
+                this.friction = 0.88;
+                this.spring = 0.08; 
             }
 
             update() {
-                let dx = this.targetX - this.x;
-                let dy = this.targetY - this.y;
-                
-                // Spring physics for smooth snap to text
-                this.vx += dx * this.spring;
-                this.vy += dy * this.spring;
-                
+                // Simplified physics for speed
+                this.vx += (this.targetX - this.x) * this.spring;
+                this.vy += (this.targetY - this.y) * this.spring;
                 this.vx *= this.friction;
                 this.vy *= this.friction;
-                
                 this.x += this.vx;
                 this.y += this.vy;
             }
 
             draw() {
                 ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            // Explode particles randomly before forming next word
-            explode() {
-                this.targetX = Math.random() * w;
-                this.targetY = Math.random() * h;
-                this.spring = 0.02; // slower floating
-                this.friction = 0.95;
+                ctx.fillRect(this.x, this.y, this.size, this.size); // fillRect is much faster than arc
             }
         }
 
-        // Extract pixel data from text to create particles
-        function getTextParticles(text, fontSize, fontFamily, color) {
-            // Use a temporary canvas to get pixel data
-            const tempCanvas = document.createElement('canvas');
-            const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
-            tempCanvas.width = w;
-            tempCanvas.height = h;
-
-            tempCtx.fillStyle = color;
-            // Adjust font size for mobile
-            let adjustedSize = fontSize;
-            if(w < 600) adjustedSize = fontSize * 0.5;
-
-            tempCtx.font = `900 ${adjustedSize}px ${fontFamily}`;
-            tempCtx.textAlign = 'center';
-            tempCtx.textBaseline = 'middle';
-            tempCtx.fillText(text, w / 2, h / 2 - 50); // Shifted slightly up
-
-            const data32 = new Uint32Array(tempCtx.getImageData(0, 0, w, h).data.buffer);
-            let positions = [];
-
-            // Density of particles (higher gap = less particles)
-            let gap = w < 600 ? 3 : 5;
-
-            for (let y = 0; y < h; y += gap) {
-                for (let x = 0; x < w; x += gap) {
-                    if (data32[y * w + x]) {
-                        positions.push({x, y});
-                    }
-                }
-            }
-            return positions;
+        // Initialize fixed pool of particles
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(new FastParticle());
         }
 
-        function createText(text, fontSize, fontFamily, color) {
-            targetPositions = getTextParticles(text, fontSize, fontFamily, color);
+        // Hidden canvas for text scanning (Smaller = Faster)
+        const textCanvas = document.createElement('canvas');
+        const textCtx = textCanvas.getContext('2d', { willReadFrequently: true });
+        
+        function getTargetsFromText(text, color) {
+            // Use a fixed small canvas size for scanning to prevent mobile lag
+            const tw = 600;
+            const th = 200;
+            textCanvas.width = tw;
+            textCanvas.height = th;
             
-            // If first time, create particles. Otherwise, update targets.
-            if (particles.length === 0) {
-                for (let i = 0; i < targetPositions.length; i++) {
-                    particles.push(new Particle(targetPositions[i].x, targetPositions[i].y, color));
-                }
-            } else {
-                // Adjust particle count to match new word
-                if(particles.length < targetPositions.length) {
-                    let diff = targetPositions.length - particles.length;
-                    for(let i=0; i<diff; i++) {
-                        // Start new particles from current random particles to make it organic
-                        let p = particles[Math.floor(Math.random() * particles.length)];
-                        let newP = new Particle(p.x, p.y, color);
-                        newP.x = p.x; newP.y = p.y; // force position
-                        particles.push(newP);
+            textCtx.clearRect(0, 0, tw, th);
+            textCtx.fillStyle = '#fff';
+            
+            // Adjust font size based on screen width
+            let fontSize = w < 400 ? 40 : (w < 600 ? 55 : 80);
+            
+            textCtx.font = `900 ${fontSize}px 'Orbitron'`;
+            textCtx.textAlign = 'center';
+            textCtx.textBaseline = 'middle';
+            textCtx.fillText(text, tw / 2, th / 2);
+
+            const imageData = textCtx.getImageData(0, 0, tw, th).data;
+            let targets = [];
+            
+            // Scan with a gap to collect target points
+            for (let y = 0; y < th; y += 3) {
+                for (let x = 0; x < tw; x += 3) {
+                    const index = (y * tw + x) * 4;
+                    if (imageData[index + 3] > 128) { // If pixel is not transparent
+                        // Map coordinates from small canvas to center of main screen
+                        targets.push({
+                            x: x - (tw / 2) + (w / 2),
+                            y: y - (th / 2) + (h / 2) - 40 // Shifted slightly up
+                        });
                     }
                 }
+            }
+
+            // Randomize target assignments so particles criss-cross beautifully
+            targets.sort(() => Math.random() - 0.5);
+
+            // Assign targets to our fixed particle pool
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                let p = particles[i];
+                p.color = color;
+                p.spring = 0.05 + Math.random() * 0.05; // Different speeds
                 
-                // Assign new targets
-                for (let i = 0; i < particles.length; i++) {
-                    if (i < targetPositions.length) {
-                        particles[i].targetX = targetPositions[i].x;
-                        particles[i].targetY = targetPositions[i].y;
-                        particles[i].color = color;
-                        particles[i].spring = 0.05 + Math.random() * 0.05; // Randomize snap speed
-                    } else {
-                        // Extra particles fly away
-                        particles[i].targetX = (Math.random() - 0.5) * w * 3;
-                        particles[i].targetY = (Math.random() - 0.5) * h * 3;
+                if (i < targets.length) {
+                    p.targetX = targets[i].x;
+                    p.targetY = targets[i].y;
+                } else {
+                    // If we have extra particles, assign them to random existing targets
+                    let randomTarget = targets[Math.floor(Math.random() * targets.length)];
+                    if(randomTarget) {
+                        // Add slight offset so they don't perfectly overlap
+                        p.targetX = randomTarget.x + (Math.random() - 0.5) * 4;
+                        p.targetY = randomTarget.y + (Math.random() - 0.5) * 4;
                     }
                 }
             }
         }
 
-        function animateParticles() {
+        // The animation loop
+        function animate() {
             if (!isAnimating) return;
-            ctx.clearRect(0, 0, w, h);
             
-            for (let i = 0; i < particles.length; i++) {
+            // Fast clear screen technique for alpha:false
+            ctx.fillStyle = 'rgba(5, 5, 16, 0.3)'; // Creates a trailing effect
+            ctx.fillRect(0, 0, w, h);
+            
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
                 particles[i].update();
                 particles[i].draw();
             }
-            requestAnimationFrame(animateParticles);
+            requestAnimationFrame(animate);
         }
 
-        // --- 3. The Cinematic Sequence ---
+        function scatterParticles() {
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                let p = particles[i];
+                p.targetX = p.x + (Math.random() - 0.5) * w;
+                p.targetY = p.y + (Math.random() - 0.5) * h;
+                p.spring = 0.02; // Float away slowly
+            }
+        }
+
+        // --- 3. Cinematic Sequence (Smooth Transitions) ---
         const introUi = document.getElementById('intro-ui');
         const moon = document.getElementById('moon');
         const hud = document.getElementById('hud');
@@ -436,59 +409,59 @@
             setTimeout(() => {
                 statusEl.innerText = text;
                 statusEl.style.color = color;
-                statusEl.style.textShadow = `0 0 10px ${color}`;
                 statusEl.style.opacity = 1;
-            }, 500);
+            }, 300); // Faster text transitions
         }
 
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
         async function initiateSequence() {
-            // 1. Hide Intro
+            // 1. Hide Intro smoothly
             introUi.style.opacity = 0;
-            await sleep(500);
+            await sleep(400);
             introUi.style.display = 'none';
 
             // 2. Show Moon & HUD
             moon.style.opacity = 1;
             hud.style.opacity = 1;
-            updateStatus("Prapancham lo athi andhamaina daani kosam vethukuthunnam...");
-            await sleep(3000);
+            updateStatus("Andhamaina daani kosam vethukuthunnam...");
+            await sleep(2000);
 
             // 3. Scan Moon
             moon.classList.add('moon-scanning');
             updateStatus("Target dorikindi... Scanning CHANDAMAMA...");
-            await sleep(3000);
+            await sleep(2000);
 
-            // 4. Hide Moon, Start Particle Magic
+            // 4. Transform to Text
             moon.style.opacity = 0;
             hud.style.opacity = 0;
-            isAnimating = true;
-            animateParticles();
             
-            // Form "CHANDAMAMA"
-            updateStatus("Chandamama gundello emundo decrpyt chesthunnam...", "var(--cyan)");
-            createText("CHANDAMAMA", 120, "Orbitron", "#00f3ff");
-            await sleep(4000);
-
-            // 5. The Morph! (Explode and reform)
-            updateStatus("Magic processing... Nijam bayatapadtundi!", "#ff00ea");
-            // Explode particles slightly for impact
-            particles.forEach(p => p.explode());
-            await sleep(1000);
-
-            // Form "KEERTHANA"
-            createText("KEERTHANA", 140, "Orbitron", "#ff00ea");
+            isAnimating = true;
+            animate();
+            
+            updateStatus("Decrpyt chesthunnam...", "var(--cyan)");
+            
+            // Set particles to start from center (where moon was)
+            particles.forEach(p => { p.x = w/2; p.y = h/2; });
+            getTargetsFromText("CHANDAMAMA", "#00f3ff");
+            
             await sleep(3000);
 
-            // 6. Final Romantic Polish
+            // 5. Explode and Morph to KEERTHANA
+            updateStatus("Magic processing... Nijam idhigo!", "#ff00ea");
+            scatterParticles(); // Blow them away slightly
+            await sleep(800);
+
+            getTargetsFromText("KEERTHANA", "#ff00ea");
+            await sleep(2500);
+
+            // 6. Final Message
             statusEl.style.opacity = 0;
             finalMsg.style.opacity = 1;
             
-            // Turn particles into floating hearts/stars effect
+            // Change particles to stars/hearts colors at the end
             particles.forEach(p => {
-                p.explode();
-                p.color = Math.random() > 0.5 ? '#ff00ea' : '#fff';
+                if(Math.random() > 0.7) p.color = '#fff';
             });
         }
     </script>
