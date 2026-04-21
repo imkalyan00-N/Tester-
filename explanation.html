@@ -3,75 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UHV Module 1 - Self & Body</title>
+    <title>UHV Module 2 - Needs of Self and Body</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Outfit', sans-serif; 
-            background-color: #080414; /* Deep Dark Indigo */
+            background-color: #061114; /* Deep Slate/Teal Black */
             color: #e2e8f0;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(244, 63, 94, 0.15) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(20, 184, 166, 0.15) 0px, transparent 50%);
             background-attachment: fixed;
         }
         
         .zen-box {
-            background: rgba(20, 15, 35, 0.85);
+            background: rgba(15, 25, 30, 0.85);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(99, 102, 241, 0.25);
-            border-left: 5px solid #6366f1; /* Indigo accent */
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-left: 5px solid #f59e0b; /* Amber/Gold accent for Self */
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             margin-bottom: 2.5rem;
             position: relative;
             transition: transform 0.2s;
         }
+        .zen-box.body-focus {
+            border-color: rgba(20, 184, 166, 0.25);
+            border-left: 5px solid #14b8a6; /* Teal accent for Body */
+        }
         .zen-box:hover {
             transform: translateY(-2px);
-            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.7);
         }
+        
         .zen-label {
             position: absolute;
             top: -15px;
             left: 20px;
-            background: linear-gradient(135deg, #6366f1, #ec4899);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
             color: #fff;
             font-weight: 800;
             font-size: 0.85rem;
             padding: 6px 18px;
             border-radius: 20px;
             letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
             text-transform: uppercase;
         }
+        .body-focus .zen-label {
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.4);
+        }
+
         .english-full {
-            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            padding: 2.5rem 1.5rem 1.5rem 1.5rem;
             background: rgba(0, 0, 0, 0.4);
-            border-bottom: 2px dashed rgba(99, 102, 241, 0.3);
+            border-bottom: 2px dashed rgba(245, 158, 11, 0.3);
             color: #cbd5e1;
             font-size: 0.95rem;
             line-height: 1.6;
             border-radius: 12px 12px 0 0;
             font-style: italic;
         }
+        .body-focus .english-full {
+            border-bottom-color: rgba(20, 184, 166, 0.3);
+        }
         .english-full ul { list-style-type: none; padding-left: 0; margin-top: 0.5rem; margin-bottom: 0; }
         .english-full li { position: relative; padding-left: 1.2rem; margin-bottom: 0.5rem; }
-        .english-full li::before { content: "•"; position: absolute; left: 0; color: #6366f1; font-weight: bold; }
+        .english-full li::before { content: "•"; position: absolute; left: 0; color: #f59e0b; font-weight: bold; }
+        .body-focus .english-full li::before { color: #14b8a6; }
         
         .tenglish-explanation { padding: 1.5rem; line-height: 1.7; }
-        .tenglish-explanation h3 { color: #a5b4fc; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+        .tenglish-explanation h3 { color: #fbbf24; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+        .body-focus .tenglish-explanation h3 { color: #5eead4; }
+        
         .tag-box { 
-            background: rgba(99, 102, 241, 0.1); 
-            border-left: 3px solid #818cf8; 
+            background: rgba(245, 158, 11, 0.1); 
+            border-left: 3px solid #fbbf24; 
             padding: 12px; 
             border-radius: 8px; 
             margin-top: 12px; 
-            color: #e0e7ff;
+            color: #fef3c7;
         }
-        .highlight-blue { color: #818cf8; font-weight: 600; }
-        .highlight-pink { color: #fb7185; font-weight: 600; }
+        .body-focus .tag-box {
+            background: rgba(20, 184, 166, 0.1);
+            border-color: #5eead4;
+            color: #ccfbf1;
+        }
+        .highlight-gold { color: #fbbf24; font-weight: 600; }
+        .highlight-teal { color: #2dd4bf; font-weight: 600; }
+        .cut-text-note { font-size: 0.8rem; color: #64748b; font-style: normal; margin-top: 5px; }
     </style>
 </head>
 <body class="p-4 md:p-10 pt-16">
@@ -81,116 +103,202 @@
         <!-- MAIN TITLE -->
         <div class="text-center mb-16">
             <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3">
-                <span class="text-indigo-400">SELF</span> & <span class="text-rose-400">BODY</span>
+                <span class="text-amber-500">SELF ('I')</span> vs <span class="text-teal-400">BODY</span>
             </h1>
-            <p class="text-indigo-200 font-medium tracking-widest text-sm uppercase bg-indigo-900/40 inline-block px-4 py-1 rounded-full border border-indigo-500/30">Module 1: The Ultimate Co-existence</p>
+            <p class="text-amber-200 font-medium tracking-widest text-sm uppercase bg-amber-900/40 inline-block px-4 py-1 rounded-full border border-amber-500/30">Module 2: Distinguishing Needs & Activities</p>
         </div>
 
         <!-- STEP 1 -->
         <div class="zen-box">
-            <div class="zen-label">STEP 01: The Levels of Human Being</div>
+            <div class="zen-label">STEP 01: The Co-existence</div>
             <div class="english-full">
-                <strong>MODULE 1: Understanding Human being as the co-existence of the self and the body <br><br>
-                2.1 Understand human being</strong>
-                <ul>
-                    <li>Human beings are complex creations of the elements of nature.</li>
-                    <li>Physically they are a composition of minerals andwater.</li>
-                    <li>At the second level human beings are capable of movement and the ability to respond tostimuli.</li>
-                    <li>At the third level human beings are thinking being who have intellect andemotions.</li>
-                    <li>At the highest-level human beings have a spiritual aspect.</li>
-                </ul>
+                <strong>MODULE 2: Distinguishing between The Needs of the self and the body <br>
+                Understanding myself as co-existence of self and body</strong><br>
+                The human being is the co-existence of ‘I’ and the ‘body’, and there is an exchange of information between the two. We can easily differentiate between them on the basis of needs, activities and types of these two entities, as shown in the table below: <br>
+                Table 3.1: Difference between Needs and Activities oftheselfandthebody<br>
+                <strong>3.1Understanding needs of the self and needs of thebody</strong><br>
+                In the process of identifying the distinct characteristics of the self and the body, we will first focus towards their distinct needs:
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Manishi ante Evaru? (4 Levels of Human)</h3>
+                <h3>🏮 Manishi = 'I' (Self) + Body</h3>
                 <p class="text-gray-300">
-                    Manishi anevadu nature srustinchina oka athi pedda complex creation. Manam basic ga 4 levels lo untam:<br><br>
-                    <span class="highlight-blue">1. Physical Level:</span> Manam just konni minerals mariyu neetitho (water) tayarayina oka roopam.<br>
-                    <span class="highlight-blue">2. Movement Level:</span> Kurchovekkada kurchokunda kadalagalam, evadaina gillithe ventane react avvagalige shakti (respond to stimuli) manakundi.<br>
-                    <span class="highlight-blue">3. Thinking Level:</span> Jantuvulaki lekunna.. manaki intellect (burra), emotions (felligs) unnayi.<br>
-                    <span class="highlight-blue">4. Highest Level:</span> Annitikante paina manaki aatmika shakti (Spiritual aspect) undi.
+                    Manishi anevadu lopalunna <span class="highlight-gold">'I' (Nenu)</span> mariyu bayata unna <span class="highlight-teal">'Body' (Shariram)</span> yokka kalayika (Co-existence). Ee renditiki madhya eppudu information exchange (messages pass avvadam) jarugutu untundi.<br><br>
+                    Aythe, ee renditiki unde Avasaralu (Needs), chese Panulu (Activities) chala veru. Vaati thedalu (Differences) ento kinda chuddam.
                 </p>
             </div>
         </div>
 
         <!-- STEP 2 -->
-        <div class="zen-box">
-            <div class="zen-label">STEP 02: Body + Jivan ('I')</div>
+        <div class="zen-box body-focus">
+            <div class="zen-label">STEP 02: Needs & Time Factor</div>
             <div class="english-full">
-                <ul>
-                    <li>They aspire towards the transcendental (spiritual). Thus, human being is co-existence of the body and the self ‘jivan’.</li>
-                </ul>
-                There is a familiar shape and structure of a human body that is immediately apparent to us and we imagine someone with similar human body like features. But in addition to the body, the entity that keeps the body ‘alive’ and make it operate in various wa<br>
-                called jivan or self. <br>
-                 Human being is co-existence of this body and self. This self is also called ‘I’ or consciousness. All the feelings that we feel or the decisions that we take are govern by the self only and not the body. Body only performs the activities decided by the self.
+                <strong> Needs are….</strong><br>
+                The needs of the body like food for nourishment clothes for protection, and instruments to ensure right utilization can be categorized as being ‘physical’ in nature, or also called ‘physical facilities’ (suvidha) whereas the need of I is essentially to live in a state of continuous happiness (sukh). The needs of the body are physical in nature, whereas the needs of the self (‘I’) are not physical in nature - like trust, respect, happiness etc. <br>
+                <strong> In time, needs are…</strong><br>
+                The needs of ‘I’ are continuous in time, unlike the need of the body, which is temporary in time. We want happiness continuously. We also want the feeling of respect continuously and so also acceptance in relationship. You do not want to be unhappy even for a single moment, or lose the feeling of respect for yourself for a single momentIf we talk about food, clothing, shelter, or instruments, amount of time, or we can say that the need for physical facilities of the body is temporary in time- it is not continuous.
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Body + Self (Jivan / 'I') = Manishi</h3>
-                <p class="text-gray-300">
-                    Sadaranga oka manishi anagane manaki eduruga unna <span class="highlight-pink">Shariram (Body)</span> kanipisthundi. Kani adi matrame kaadu.. aa body ni pranam tho unchi (alive), daanitho panulu cheyinche inko power lopalundi.. daanne <span class="highlight-blue">Self leda Jivan ('I' / Nenu)</span> antaru.<br><br>
-                    Evi rendu kaliste ne manishi (Co-existence). <br>
-                    Mana kopam, badha lantivi (Feelings) mariyu manam theeskune Decisions anni lopalunna <b>'I' (Self) nunchi matrame vastayi.</b> Body chesedi emi ledu, Self ichina orders ni body just follow avtundi anthe! (Like a driver driving a car).
-                </p>
-                <p class="text-sm text-gray-400 mt-2 italic">(Note: Nuvvu ichina english text lo 'wa called jivan' ani cut ayyindi, daani meaning 'ways, is called jivan' ani ardham. kani nenu text matram marchaledu).</p>
+                <h3>🏮 Avasaralu Enti? (Type & Time)</h3>
+                <div class="space-y-3 text-gray-300">
+                    <p><b>1. Em kavali? (Needs are...):</b><br>
+                    <span class="highlight-teal">Body ki:</span> Tindi, battalu lanti physical vasthuvulu kavali. Veetini 'Suvidha' antaru.<br>
+                    <span class="highlight-gold">Self ('I') ki:</span> Trust, respect, happiness kavali. Ivi physical vasthuvulu kavu, ivanni feelings ('Sukh').</p>
+                    
+                    <p><b>2. Entha sepu kavali? (In Time, needs are...):</b><br>
+                    <span class="highlight-gold">Self ('I') ki:</span> Continuous ga (Eppudu) kavali. Manaki respect, santhosham anevi okka kshanam lekapoina thattukolem.<br>
+                    <span class="highlight-teal">Body ki:</span> Temporary ga (Apputikappudu) kavali. Tindi, battalu anevi continuous ga 24 gantalu thinam ga.. aakali vesinappude thintam.</p>
+                </div>
             </div>
         </div>
 
         <!-- STEP 3 -->
-        <div class="zen-box border-l-[5px] border-rose-500">
-            <div class="zen-label !bg-rose-500 !shadow-[0_4px_15px_rgba(244,63,94,0.4)]">STEP 03: The Clash (Feelings vs Body)</div>
-            <div class="english-full !border-rose-500/30">
-                <strong>2.2 Human being as a combination of the sentiment ‘I’ and material body</strong><br>
-                Human beings are a complex combination of the sentiment ‘I’ which relates to all the feelings and the materi<br>
-                al ‘body’ which refers to all the physical facilities available to them. Often there is a clash between the needs of the body and the feelings. This may manifest itself in many ways. Ex. The state of depression or sadness. In this state the body needs food<br>
-                but the feelings over-ride the situation. Both these aspects of feelings and body needs and requirements form an essential part of ‘what we are’. This co
+        <div class="zen-box">
+            <div class="zen-label">STEP 03: The Rasgulla Rule (Quality vs Quantity)</div>
+            <div class="english-full">
+                <strong> In quality, needsare…...</strong><br>
+                Physical facilities are needed for the body in a limited quantity. exceed these limits, it becomes troublesome for us after some time. Let’s take the example of eating. As far as, physical facilities (say rasgulla) go, they are necessary in the beginning, but if we keep consuming, it becomes intolerable with the pa physical facility. We can only think of having unlimited physical facilities, but if we try and consume, or have too much of physical facilities, it only ends up becoming a problem for us. When we try to perpetuate phys successively changes from: Whereas the needs of ‘I’ are qualitative them continuously. Our feelings are qualitative. Either they are or they are not. Ex. Happiness is qualitative. Either we are feeling happy or we are not. acceptable; we do not want it even for a single moment. If
             </div>
             <div class="tenglish-explanation">
-                <h3 class="!text-rose-400">🏮 Lopalodni ('I') ki.. Bayatodiki (Body) ki Godava!</h3>
+                <h3>🏮 Quality vs Quantity (Rasgulla Example)</h3>
                 <p class="text-gray-300">
-                    Manishi anevadu sentiment tho nindina lopalunna <span class="highlight-blue">'I'</span> ki, physical vasthuvula meeda depend ayye bayata <span class="highlight-pink">material 'Body'</span> ki madhya unna combination.<br><br>
-                    Chala sarlu mana Body avasaralaki, mana lopalunna feelings ki theda (Clash) vastundi. Deeniki best example: <span class="text-rose-300 font-semibold">Nuvvu full Depression/Sadness lo unnav anuko... appudu body ki aakali vesthu tindi kavali ani adugutundi. Kani nee lopalunna feelings danikante strong aypoyi "naakemi oddu" ani tindi tinanivvavu (feelings over-ride).</span><br><br>
-                    Ila body ki tindi (needs) kavali, lopalunnodiki feelings kavali.. ee rende 'manam' ante.
+                    <span class="highlight-teal">Body Needs = Quantitative (Limit untundi):</span> Body ki vasthuvulu kavali kani.. oka Limit varake! Limit daatithe problem vastundi. 
+                    <br><b>Mass Example:</b> Neeku Rasgulla ante ishtam. Okati thintav super antav, rendu thintav bagundi antav. Ade 100 rasgullalu thinamante? Vomit avtundi (Intolerable aypotundi). So, physical facilities Unlimited ga theeskolemu.
                 </p>
-                <p class="text-sm text-gray-400 mt-2 italic">(Note: Nuvvu ichina english text lo 'materi al' ani cut ayyindi, alage last lo 'This co' ani text aagipoyindi. Meaning aythe ide).</p>
+                <p class="text-gray-300 mt-2">
+                    <span class="highlight-gold">Self Needs = Qualitative (Feeling mukhyam):</span> Self ki kavalasina Happiness, Respect lanti vatiki kg lu, liter lu undavu. Avi Qualitative. "Santhosham unnaada leda?" anthe! Okka kshanam respect thaggina manaki ishtam undadu (Unacceptable).
+                </p>
+                <p class="cut-text-note">(Note: English notes lo rasgulla daggara konni words cut aypoyayi, aina nenu meaning cover chesesa).</p>
             </div>
         </div>
 
         <!-- STEP 4 -->
-        <div class="zen-box">
-            <div class="zen-label">STEP 04: Suvidha (Physical Comforts)</div>
+        <div class="zen-box body-focus">
+            <div class="zen-label">STEP 04: How are they fulfilled?</div>
             <div class="english-full">
-                <strong>2.3 Human needs <br>
-                Suvidha:</strong><br>
-                It implies that it is looking for physical comforts and all the sources of comforts. When our body gets used to a certain level of comfort then we will only feel comfortable at that level. Ex. comfort in fan, cooler or air conditioner. Diffe<br>
-                different perception of Suvidha and will seek a corresponding level of perceptions.
+                <strong> Needs are fulfilled by….</strong><br>
+                The need of the self (‘I’), for happiness ( right feelings, while the need of the body, for physical facilities ( appropriate physico-chemical things.
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Suvidha (Vasaluthulu - Only for Body)</h3>
+                <h3>🏮 Ee Avasaralu ela theerthayi?</h3>
                 <p class="text-gray-300">
-                    <span class="highlight-pink">Suvidha</span> ante physical comforts (vasaluthulu) kosam chuskovadam. Idi purthiga <b class="text-rose-300">Body ki sambandhinchindi</b>.<br><br>
-                    Mana body ki eppudaina oka range comfort ki alavatu ayyindante, inka body aa range lone undali anukuntundi, thagganivvadu. <br>
-                    <b class="text-white">Example:</b> Nuvvu fan gaali ki alavatupaddav anuko, cooler kavalipistundi. Cooler unte, AC kavalipistundi. <br>
-                    Prathi manishiki 'Suvidha' ante okoka range untundi, vadi aasthathuki thaggattu vadu aa range ni ethukuntadu.
+                    <span class="highlight-gold">Self ('I'):</span> Deeni avasaralu <b class="text-amber-300">"Right Feelings & Right Understanding"</b> (Sarayina avagahana, manchi bhavalu) dwara theeruthayi.<br><br>
+                    <span class="highlight-teal">Body:</span> Deeni avasaralu <b class="text-teal-300">"Physico-chemical things"</b> (Food, water, gali lantivi) dwara theeruthayi.
                 </p>
-                <p class="text-sm text-gray-400 mt-2 italic">(Note: English text lo 'Diffe different' ani typo undi, but meaning adhe).</p>
             </div>
         </div>
 
         <!-- STEP 5 -->
-        <div class="zen-box border-l-[5px] border-indigo-400">
-            <div class="zen-label !bg-indigo-500 !shadow-[0_4px_15px_rgba(99,102,241,0.4)]">STEP 05: Sukh (Happiness)</div>
-            <div class="english-full !border-indigo-500/30">
-                <strong>Sukh:</strong><br>
-                The beauty of Sukh is that it is holistic and all encompassing state of the mind that creates inner harmony. <br>
-                By nature, man is fond off comfort and happiness so he goes on making desires and ambitions one after the other to enjoy more in life. To lead a comfortable accumulates many facilities, so that his life may become full of comfort and happiness. depends upon our thinking, so many times we are surrounded by materialistic possessions but we feel unsatisfied. People think that their happiness depends upon Suvidha (facilities) but is it not so; happiness depends upon our thinking or our mentalsatisfaction.
+        <div class="zen-box">
+            <div class="zen-label">STEP 05: The 3 Types of Activities</div>
+            <div class="english-full">
+                <strong>3.2 Understanding activities in the self and activities in thebody</strong><br>
+                If we look at the variety of activities that we are engaged in commonly can put them in three categories:<br>
+                 Activities that are going on in the<br>
+                 Activities that are going on in the<br>
+                 Activities involving both the self and the<br><br>
+                <strong>1. Activities in theself</strong><br>
+                Activities in self are: <br>
+                 Thinking  Believing  Speaking  Feeling  Understanding  Desiring  Dreaming  Imagining  Analyzing<br>
+                These activities are going on in us all the time, and we are usually unaware of them. If we start paying attention to them, we can become aware of them. We can also see that these activities take place irrespective of the state of the body.
             </div>
             <div class="tenglish-explanation">
-                <h3 class="!text-indigo-300">🏮 Sukh (Santhosham - Only for 'I')</h3>
+                <h3>🏮 Manam chese Panulu (Activities) - Part 1</h3>
+                <p class="text-gray-300">Manam daily chese panulni 3 categories ga vibhajinchochu (Paina cut ayina lines veeti gurinche): 1. Only Self chesevi, 2. Only Body chesevi, 3. Iddaru kalisi chesevi.</p>
+                <div class="tag-box mt-2">
+                    <span class="highlight-gold font-bold">1. ONLY Self ('I') lo jarige panulu:</span><br>
+                    Alochinchatam (Thinking), nammadam, feel avvadam, kalalu kanadam (Dreaming), uhinchukovadam (Imagining). Ee panulu 24 gantalu mana burralo jaruguthune untayi, kaani manam peddaga pattinchukom. Body tho panilekunda lopala ivi run avtune untayi.
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="zen-box body-focus">
+            <div class="zen-label">STEP 06: Both vs Only Body Activities</div>
+            <div class="english-full">
+                <strong>2. Activities involving both the self (I) and the body</strong><br>
+                There are some activities that we do, in which both ‘I’ and body are involved. The decisions and choices are made in ‘I’, and these are carried out via the body. These activities are: <br>
+                 Walking  Eating  Talking  Seeing  Listening<br>
+                Take the example of eating. Here, I first decide which food to eat, then make the choice to take the food inside the body, use my hands to carry the food to the mouth, use the mouth to chew the food and them swallow it. Thus, eating is an activity which involves both the self (‘I’), were the choice is been made, and the body, with which the activity is carriedout. <br><br>
+                <strong>3. Activities in the body – but only with the consent of ‘I’</strong><br>
+                The body is a set of ‘self-organized activities’ that are occurring with self (‘I’’s) consent but without my (‘I’’s) active participation. These are functions like: <br>
+                 Digesting  Blood flow  Heart beat  Breathing  Nourishment
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Manam chese Panulu (Activities) - Part 2</h3>
                 <p class="text-gray-300">
-                    <span class="highlight-blue">Sukh</span> ante lopala mind lo unde santhosham / prasanthatha (Inner harmony). Idi purthiga <b class="text-indigo-300">'I' (Self) ki sambandhinchindi</b>.<br><br>
-                    Nature param ga manishiki comforts, happiness kavali. Anduke vadu life enjoy cheyadaniki oka korika tarvata inko korika penchukuntu poyi.. AC lu, car lu anni thechhi petkuntadu. <br>
-                    Kani janalu bhramapadedi entante: 'Suvidha' (Vasthuvulu) unte 'Sukh' (Santhosham) vachestundi ani! Idi utter flop! Enni vasthuvulu (materialistic possessions) nee chuttu unna sare nuvvu lopala unsatisfied ga feel avvachu.<br><br>
-                    Endukante, <span class="highlight-blue text-lg">Santhosham anedi vasthuvula (Suvidha) meeda depend avvadu.. adi mana Alochana (Thinking) mariyu Mental satisfaction meeda matrame depend ayi untundi!</span>
+                    <span class="highlight-gold">2. Self + Body (Iddaru kalisi chesevi):</span><br>
+                    Nadavadam (Walking), Thinadam (Eating), Chudatam. Ikkada <b class="text-white">Decision theeskunedi (Choice) Self ayithe.. aa panini chesedi Body.</b> Example ki: Em thinalo lopala mind ('I') decide chestundi, chethitho theeskuni namiledi Body!<br><br>
+                    
+                    <span class="highlight-teal">3. ONLY Body chesevi (Self participation lekunda):</span><br>
+                    Digestion avvadam, blood flow, Heart beat kottukovadam, Oopiri peeldam. Ivi automatic ga body cheseskuntundi, prathisari mana ('I') permission theesko valasina avasaram ledu (no active participation).
                 </p>
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="zen-box">
+            <div class="zen-label">STEP 07: Recognizing & Fulfilling (Body vs Self)</div>
+            <div class="english-full">
+                <strong>Knowing, assuming, recognizing and fulfilling in ‘I’ and recognizing and fulfilling in body</strong><br><br>
+                <strong>1. Activities of recognizing and fulfilling in the body</strong><br>
+                We saw that Breathing, Heartbeat, Digestion etc. were activities in the body. The activities of the body can also be understood as recognition and fulfillment. In fact, the mutual interaction between any two material entities can be understood as recognition and fulfillment of their relationship. Any two material entities thus interact with each other in a definite way. <br><br>
+                <strong>2. Activities of knowing, assuming, recognizing and fulfilling in the self (‘I’)</strong><br>
+                When it comes to self (jivan or ‘I’), which is a sentient entity; a conscious entity; we will see that in addition to ‘recognizing and fulfilling’, there is also the activity of assuming and that of knowing. In fact, recognizing and fulfilling in case of human beings will depend upon knowing and/or assuming. Let us write down about the activities in ‘I’: <br>
+                a. We assume – We all make assumptions. We say “I assumed this was true, but I was wrong”. Ex. If I see a snake and assumed it to be a rope, I shall respond differently to it (recognition and fulfillment), then if I take it to be a snake itself. We call this activity ‘assuming ormannana’. <br>
+                b. We recognize – We all recognize things today; we recognize a variety of things. Like, we recognize water, our parents, friends, etc. We call this activity ‘recognizing or pahachaanana’. The recognizing in ‘I’ depends on assuming. <br>
+                c. We fulfill – Once we recognize water, we take it, when we recognize a friend, we greet him/her, when we see a wounded dog, we try and help it. This response that follows recognition is called the activity of ‘fulfilling or nirvahakarna’. The fulfillment depends on the recognition. <br>
+                Taken together we can write it as (in I): <br>
+                Assuming recognizing fulfilling 
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Body Process vs Self Process (The Snake Example)</h3>
+                <p class="text-gray-300">
+                    <span class="highlight-teal">Body Process:</span> Body eppudu rendite panulu chestundi -> <b>1. Recognizing (Gurtinchadam), 2. Fulfilling (Pani cheyadam).</b> Rendu physical vasthuvulu definite (fix) ga behave chestayi. (Ex: Neelu thagithe daaham theerthadi, anthe!)<br><br>
+                    <span class="highlight-gold">Self Process:</span> Kani mana lopalunna 'I' ki inko rendu powers unnayi: <b>Assuming (Oohinchadam / Mannana) mariyu Knowing (Thelusukovadam).</b><br>
+                </p>
+                <div class="tag-box text-sm">
+                    <b>The Snake Example:</b> Nuvvu cheekatlo oka తాడు (rope) ni chusi paamu (snake) anukuni bhayapaddav anuko. Ikkada nuvvu <span class="highlight-gold">"Assume (mannana)"</span> chesav. Aa assumption tho daanni paamu laaga <span class="highlight-gold">"Recognize"</span> chesi, ventane parigettadam <span class="highlight-gold">"Fulfill"</span> chesav. Ade adi thaadu ani theliste nee response vere la undedi. So, mana Fulfilling anedi mana Assuming meeda depend ayi untundi.
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 8 -->
+        <div class="zen-box body-focus">
+            <div class="zen-label">STEP 08: The Ultimate Activity: Knowing</div>
+            <div class="english-full">
+                There is another activity that exists in us (in ‘I’) that we are largely unaware of or have not explored properly. This activity is called ‘knowing’. Knowing means we have the right understanding – the understanding of harmony at all levels of our living. When we have the right understanding, when we have the knowledge of reality, it is definite, and then assuming becomes according to the knowing, and hence recognizing and fulfilling becomes definite, or according to knowing. Until then, it is subject to beliefs and assumptions, and this keeps changing<br>
+                When we list these down: <br>
+                Knowing leadsto Assuming leadsto Recognizing leadsto Fulfilling <br><br>
+                <strong>3.3 Understanding the self (‘I’) as the conscious entity, the body as the materialbody</strong><br>
+                Any entity that has the capacity of knowing, assuming, recognizing and fulfilling can be called as conscious entity, or consciousness, or ‘I’ or jeevan. On the other hand, any entity that does not have the activity of knowing and assuming is not a conscious entity. Similarly, any entity that has the activity of recognizing and fulfilling only can be called a material body. According to the activities of self and body we can say that while the self (‘I’) is the conscious entity, the body is a material entity or physico-chemical in nature. The conscious entity (jivan) desires, thinks, selects, studies. Thus, we can write: <br>
+                Co-existence <br>
+                HumanBeing = Self(‘I’) Body <br>
+                information <br>
+                The conscious entity the material entity that has <br>
+                That desires, thinks, physic-chemical activities <br>
+                imagines like heart-beats, digesting etc. <br>
+                Knowing, assuming, Recognizing and fulfilling <br>
+                recognizing and fulfilling
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Knowing (Nijanni Thelusukovadam) & Final Conclusion</h3>
+                <p class="text-gray-300">
+                    Oohinchukovadam (Assuming) tho paatu mana lopalunna inko goppa shakti <span class="highlight-gold">"Knowing (Nijanni thelusukovadam / Right understanding)".</span><br>
+                    Nuvvu Nijam ento thelusukunnappudu (Knowing), nee uhalu (Assuming) correct avthayi, appudu nuvvu correct ga gurtisthavu (Recognize), and final ga sarayina panulu chesthavu (Fulfilling). Ee chain ne <b class="text-white">Knowing ➔ Assuming ➔ Recognizing ➔ Fulfilling</b> antaru.<br><br>
+                </p>
+                <div class="p-4 border border-teal-500/30 rounded-lg mt-3 bg-teal-900/10 text-center">
+                    <p class="font-bold text-lg mb-2">🔥 FINAL SUMMARY (Human Being = Self + Body) 🔥</p>
+                    <div class="grid grid-cols-2 gap-4 text-sm text-left">
+                        <div>
+                            <span class="highlight-gold block mb-1">Self ('I') / Conscious Entity:</span>
+                            Idi desires, thoughts, imaginations chestundi. Idi <br><b>Knowing, Assuming, Recognizing, Fulfilling</b> chestundi.
+                        </div>
+                        <div>
+                            <span class="highlight-teal block mb-1">Body / Material Entity:</span>
+                            Idi physical chemical actions (digestion, heartbeat) chestundi. Idi <br><b>Only Recognizing, Fulfilling</b> matrame chestundi.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
