@@ -2,496 +2,237 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kalyan's Perfect Proof</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UHV Module 3 - Seer, Doer, Enjoyer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --cyan: #00e5ff;
-            --pink: #d500f9; /* Matching the screenshot's purple/pink glow */
-            --bg: #020205;
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: #0d040f; /* Deep Magenta Black */
+            color: #e2e8f0;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(217, 70, 239, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: #fff;
-            font-family: 'Orbitron', sans-serif;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            touch-action: none;
-            user-select: none;
-        }
-
-        /* Space Background */
-        #space {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #0a0b1a 0%, #010103 100%);
-            z-index: 0;
-        }
-
-        /* Stars */
-        .star {
-            position: absolute;
-            background: #fff;
-            border-radius: 50%;
-            animation: twinkle var(--duration) ease-in-out infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.2; transform: scale(0.8); }
-            100% { opacity: 0.9; transform: scale(1.2); }
-        }
-
-        /* The Exact Match Moon & HUD Container */
-        #moon-hud-container {
-            position: absolute;
-            top: 40%; /* Positioned slightly higher to make room for text */
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 320px;
-            height: 320px;
-            z-index: 5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0; /* Hidden initially */
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        /* 1. Outer Cyan Ring */
-        .ring-outer {
-            position: absolute;
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            border: 4px solid var(--cyan);
-            border-left-color: transparent;
-            border-right-color: transparent;
-            box-shadow: 0 0 15px var(--cyan), inset 0 0 10px var(--cyan);
-            animation: spin 6s linear infinite;
-        }
-
-        /* 2. Middle Dashed Ring */
-        .ring-middle {
-            position: absolute;
-            width: 82%; height: 82%;
-            border-radius: 50%;
-            border: 2px dashed rgba(0, 229, 255, 0.7);
-            animation: spin-reverse 8s linear infinite;
-        }
-
-        /* 3. Inner Pink/Purple Ring */
-        .ring-inner {
-            position: absolute;
-            width: 65%; height: 65%;
-            border-radius: 50%;
-            border: 3px solid var(--pink);
-            border-top-color: transparent;
-            border-bottom-color: transparent;
-            box-shadow: 0 0 20px var(--pink), inset 0 0 15px var(--pink);
-            animation: spin 4s linear infinite;
-        }
-
-        /* The Moon (Matching Screenshot EXACTLY) */
-        .moon {
-            position: absolute;
-            width: 140px; height: 140px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #f8f8f8 0%, #dcdcdc 50%, #a0a0a0 100%);
-            box-shadow: 
-                0 0 40px rgba(255, 255, 255, 0.2), /* Subtle outer glow */
-                inset -10px -10px 20px rgba(0,0,0,0.4); /* 3D volume shadow */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-        }
-
-        /* Moon Craters */
-        .crater-1 {
-            position: absolute;
-            width: 25px; height: 25px;
-            top: 25%; left: 30%;
-            border-radius: 50%;
-            background: #b0b0b0;
-            box-shadow: inset 3px 3px 6px rgba(0,0,0,0.3), 1px 1px 2px rgba(255,255,255,0.6);
-        }
-
-        .crater-2 {
-            position: absolute;
-            width: 35px; height: 35px;
-            bottom: 25%; right: 25%;
-            border-radius: 50%;
-            background: #b0b0b0;
-            box-shadow: inset 4px 4px 8px rgba(0,0,0,0.3), 1px 1px 2px rgba(255,255,255,0.6);
-        }
-
-        /* Screenshot Text Style */
-        .screenshot-text {
-            position: absolute;
-            top: 68%; /* Below the moon */
-            width: 90%;
-            text-align: center;
-            font-size: 1.2rem;
-            color: var(--cyan);
-            text-shadow: 0 0 12px var(--cyan);
-            letter-spacing: 2px;
-            line-height: 1.6;
-            opacity: 0; /* Hidden initially */
-            transition: opacity 0.5s ease;
-            z-index: 15;
-            font-weight: 500;
-        }
-
-        /* Particle Canvas for Morphing */
-        #particle-canvas {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 20;
-            pointer-events: none;
-            display: none; /* Hidden until magic starts */
-        }
-
-        /* UI Overlays */
-        #intro-ui {
-            position: absolute;
-            z-index: 30;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%; height: 100%;
-            background: rgba(2, 2, 5, 0.85);
-            backdrop-filter: blur(5px);
-            transition: opacity 0.5s ease;
-        }
-
-        .start-btn {
-            background: rgba(0, 229, 255, 0.1);
-            color: var(--cyan);
-            border: 2px solid var(--cyan);
-            padding: 12px 35px;
-            font-size: 1.3rem;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .start-btn:active {
-            background: var(--cyan);
-            color: #000;
-            transform: scale(0.95);
-        }
-
-        /* Final Romantic Text */
-        #final-message {
-            position: absolute;
-            top: 60%;
-            width: 100%;
-            text-align: center;
-            opacity: 0;
-            z-index: 25;
-            transition: opacity 2s ease;
-            pointer-events: none;
-        }
-
-        .romantic-font {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3rem;
-            color: var(--pink);
-            text-shadow: 0 0 15px var(--pink), 0 0 30px #fff;
-            margin-bottom: 10px;
-        }
-
-        .tag-font {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: #ccc;
-            letter-spacing: 2px;
-        }
-
-        /* Animations */
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
         
-        .pulse-effect {
-            animation: pulse-glow 1.5s infinite alternate;
+        .zen-box {
+            background: rgba(25, 10, 25, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(217, 70, 239, 0.25);
+            border-left: 5px solid #d946ef; /* Fuchsia accent */
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            margin-bottom: 2.5rem;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .zen-box:hover {
+            transform: translateY(-2px);
+            border-color: rgba(217, 70, 239, 0.5);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.7);
+        }
+        
+        .zen-label {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(135deg, #d946ef, #a855f7);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 6px 18px;
+            border-radius: 20px;
+            letter-spacing: 1.5px;
+            box-shadow: 0 4px 15px rgba(217, 70, 239, 0.4);
+            text-transform: uppercase;
         }
 
-        @keyframes pulse-glow {
-            0% { transform: translate(-50%, -50%) scale(1); filter: brightness(1); }
-            100% { transform: translate(-50%, -50%) scale(1.05); filter: brightness(1.2); }
+        .english-full {
+            padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 2px dashed rgba(217, 70, 239, 0.3);
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            border-radius: 12px 12px 0 0;
+            font-style: italic;
         }
-
+        .english-full ul { list-style-type: none; padding-left: 0; margin-top: 0.5rem; margin-bottom: 0; }
+        .english-full li { position: relative; padding-left: 1.2rem; margin-bottom: 0.5rem; }
+        .english-full li::before { content: "•"; position: absolute; left: 0; color: #d946ef; font-weight: bold; }
+        
+        .tenglish-explanation { padding: 1.5rem; line-height: 1.7; }
+        .tenglish-explanation h3 { color: #f0abfc; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+        
+        .tag-box { 
+            background: rgba(217, 70, 239, 0.1); 
+            border-left: 3px solid #e879f9; 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin-top: 12px; 
+            color: #fae8ff;
+        }
+        .highlight-pink { color: #f472b6; font-weight: 600; }
+        .highlight-fuchsia { color: #e879f9; font-weight: 600; }
+        .table-text { font-family: monospace; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; }
     </style>
 </head>
-<body>
+<body class="p-4 md:p-10 pt-16">
 
-    <!-- Stars Background -->
-    <div id="space"></div>
-
-    <!-- The Exact Moon & HUD from Screenshot -->
-    <div id="moon-hud-container">
-        <div class="ring-outer"></div>
-        <div class="ring-middle"></div>
-        <div class="ring-inner"></div>
-        <div class="moon">
-            <div class="crater-1"></div>
-            <div class="crater-2"></div>
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- MAIN TITLE -->
+        <div class="text-center mb-16">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3">
+                <span class="text-fuchsia-400">SEER, DOER & ENJOYER</span>
+            </h1>
+            <p class="text-fuchsia-200 font-medium tracking-widest text-sm uppercase bg-fuchsia-900/40 inline-block px-4 py-1 rounded-full border border-fuchsia-500/30">Module 3: Body as an Instrument</p>
         </div>
+
+        <!-- STEP 1 -->
+        <div class="zen-box">
+            <div class="zen-label">STEP 01: The Basic Relation & Table</div>
+            <div class="english-full">
+                <strong>MODULE 3: The body as an Instrument of the self (“I” Being the Seer, Doer and Enjoyer)</strong> <br><br>
+                There is a relation between the self and body that body act as an instrument of self. Whatever self thinks body performs it physically. Body does not decide itself. We can verify this by the following proposals. <br><br>
+                <strong>Table 4.1: Explore the following proposals</strong><br>
+                <div class="table-text mt-2 text-sm leading-relaxed">
+                S. No | I | Body <br>
+                1 | I am | My body is <br>
+                2 | I want to live | Body is used as an instrument (of ‘I’) <br>
+                3 | I want to live with continuous happiness | For nurture of body----food <br>
+                  | | For protection of body----clothing, shelter etc., <br>
+                  | | For right utilization of body--- instruments/equipment etc. <br>
+                  | | Are needed as physical facilities. <br>
+                4 | My (I) program for continuous happiness is to understand and to live in harmony at all four levels. | Production, protection and right utilization of physical facilities is part of my program <br>
+                5 | I am the seer, doer and enjoyer | Body is an instrument 
+                </div>
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Body is just an Instrument (Keelubomma)</h3>
+                <p class="text-gray-300">
+                    <span class="highlight-fuchsia">Self ('I')</span> ki mariyu <span class="highlight-pink">Body</span> ki unna relation enti ante.. Body anedi just oka Vahanam (Instrument) lanti di. Lopalunna 'I' em alochistundo, em decide chestundo.. Body daanni physical ga chestundi anthe!<br><br>
+                    Body ki swantham ga decide cheskune power ledu (steering driver chethilone untundi). Paina Table lo chupinchinattu.. "Nenu eppudu santhosham ga undali anukuntanu (I), danikosam naa body ki tindi, battalu pedatanu (Body)". Body anedi just nenu vaadukune oka tool matrame.
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="zen-box">
+            <div class="zen-label">STEP 02: I am vs Body is</div>
+            <div class="english-full">
+                <strong>1. ‘I’ am, the ‘Body’ is:</strong>
+                <ul>
+                    <li>‘I’ (self) knows I exist. I am a conscious/sentient entity.</li>
+                    <li>The ‘Body’ doesn’t know. It is a material entity.</li>
+                </ul>
+                <strong>2. ‘I’ want to live, the ‘Body’ is my instrument:</strong>
+                <ul>
+                    <li>‘I’ and my ‘Body’ co-exist with each other.</li>
+                    <li>‘I’ takes decisions and the ‘Body’ acts accordingly.</li>
+                </ul>
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Nenu unnanu (Conscious) vs Na Body undi (Material)</h3>
+                <p class="text-gray-300">
+                    <span class="highlight-fuchsia">1. Nenu & Naa Body:</span> 'I' (Self) ki nenu unnanu ane spruha (consciousness) untundi. Kani Body ki adi brathikunna ani theliyadu (It doesn't know), endukante adi just oka material (koyya bomma lanti di).<br><br>
+                    <span class="highlight-fuchsia">2. Nenu brathakalankuntunna:</span> Nenu ('I') brathakalani anukuntunnanu, daanikosam Body ni vaadukuntunnanu. Memiddaram (I & Body) kalisi untam. Decision theeskunedi nenu, panicheseedi naa body.
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="zen-box">
+            <div class="zen-label">STEP 03: Happiness vs Physical Facilities</div>
+            <div class="english-full">
+                <strong>3. ‘I’ want to live in continuous happiness. For any happiness, the body needs physical facilities:</strong>
+                <ul>
+                    <li>For the ‘I’ to enjoy the feelings of strength and health, my body needs food.</li>
+                    <li>To get the feeling of protection, my body needs clothing and shelter.</li>
+                    <li>For right utilization of the body, ‘I’ need various instruments and equipment. With the help of these, my body can make me feel happy.</li>
+                </ul>
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 'I' kosam Body ki Em Kavali?</h3>
+                <p class="text-gray-300">
+                    'I' ki continuous happiness kavali. Ala happiness ravadaniki Body lopalnunchi co-operate cheyali. Daanikosam body ki 3 vasthuvulu (Physical facilities) kavali:
+                </p>
+                <div class="space-y-2 mt-2 text-sm text-gray-300">
+                    <p><b>1. Food (Tindi):</b> 'I' healthy ga, strong ga feel avvalante mundu body ki tindi kavali.</p>
+                    <p><b>2. Shelter (Illu, Battalu):</b> 'I' safe ga (protection) feel avvalante body ki battalu, illu kavali.</p>
+                    <p><b>3. Instruments (Tools):</b> Body ni correct ga vaadukuni, 'I' santhoshanga feel avvalante car, phone lanti equipment kavali.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="zen-box">
+            <div class="zen-label">STEP 04: The Complete Program</div>
+            <div class="english-full">
+                <strong>4. My (I) program for continuous happiness is to understand and to live in harmony all the four levels. Production, protection and right utilization of physical facilities is part of my program:</strong>
+                <ul>
+                    <li>My complete program is to understand and live in harmony at all the four levels of my living. Ensuring physical facilities for the body is only a small part of the program. It consists of production, protection and right utilization of physical facilities.</li>
+                    <li>Today, we measure our happiness in terms of materialistic things and want more and more physical facilities. However, these facilities do not ensure good health, happiness or the right understanding in ‘I’. therefore, we should focus on the complete program for ‘I’.</li>
+                </ul>
+            </div>
+            <div class="tenglish-explanation">
+                <h3>🏮 Naa (I) Life Goal Enti?</h3>
+                <p class="text-gray-300">
+                    'I' yokka main goal enti ante.. srushti lo unna 4 levels lo Prasantham ga (Harmony) brathakadam. Ee physical facilities (vasthuvulu) thechhi pettukovadam anedi life lo <span class="highlight-pink">oka chinna part matrame!</span><br><br>
+                    Kani ippudu janalu em chestunnaru? Kotha bike, kotha phone (Materialistic things) vaste vachhinde santhosham anukuntunnaru. Kani nijam enti ante.. vasthuvulu unnantha matrana health, happiness vaccheyavu. Anduke manam <span class="highlight-fuchsia">'I' ki kavalsina complete happiness</span> meeda focus cheyali.
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="zen-box border-l-[5px] border-purple-500">
+            <div class="zen-label !bg-purple-500 !shadow-[0_4px_15px_rgba(168,85,247,0.4)]">STEP 05: I am the 'Seer' (Drasta)</div>
+            <div class="english-full !border-purple-500/30">
+                <strong>5. I am the ‘Seer’, I am the ‘Doer’ and I am the ‘Enjoyer’:</strong>
+                <ul>
+                    <li>I am the seer: I see through eyes. I is not the eye but the ‘I’ that sees or understands. Eye is just an instrument used by ‘I’. Seer also means the one that understands. Seer is also called ‘Drasta’.</li>
+                </ul>
+            </div>
+            <div class="tenglish-explanation">
+                <h3 class="!text-purple-400">🏮 I am the SEER (Chusevanni Nene - 'Drasta')</h3>
+                <p class="text-gray-300">
+                    Kallu (Eyes) matrame chudavu. <span class="highlight-fuchsia">కళ్ళు అనేవి కేవలం రెండు కెమెరాలు మాత్రమే! (Instrument).</span> ఆ కెమెరాల ద్వారా బయట ప్రపంచాన్ని చూసి, దాన్ని అర్థం చేసుకునేవాడిని (Seer) నేను ('I'). <br><br>
+                    అందుకే కళ్ళు ఉండి కూడా ఒక్కోసారి మన ధ్యాస వేరే చోట ఉంటే ఎదురుగా ఉన్నది కనపడదు. ఎందుకంటే చూసే 'I' అక్కడ లేదు కాబట్టి! ఇలా చూసి అర్థం చేసుకునేవాడినే సంస్కృతంలో <b class="text-purple-300">"ద్రష్ట" (Drasta)</b> అంటారు.
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="zen-box border-l-[5px] border-fuchsia-400">
+            <div class="zen-label !bg-fuchsia-500 !shadow-[0_4px_15px_rgba(217,70,239,0.4)]">STEP 06: I am the 'Doer' & 'Enjoyer'</div>
+            <div class="english-full !border-fuchsia-500/30">
+                <ul>
+                    <li>I am the doer: Once I have seen and understand something, ‘I’ decide what I should/should not do. I take the help of my body parts to accomplish that task. Doer is also called ‘Karta’.</li>
+                    <li>I am the Enjoyer: I use my body as an instrument to perform various activities. It is ‘I’ who enjoy the pleasure derived out of those activities. When I eat, mouth helps to chew and the tongue to taste, but ‘I’ enjoy the taste and flavor. Enjoyer is also called ‘Bhokta’.</li>
+                </ul>
+            </div>
+            <div class="tenglish-explanation">
+                <h3 class="!text-fuchsia-400">🏮 I am the DOER ('Karta') & ENJOYER ('Bhokta')</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                    <div class="bg-fuchsia-900/20 p-4 rounded-lg border border-fuchsia-500/30">
+                        <h4 class="font-bold text-fuchsia-300 mb-2">💪 I am the DOER (Karta)</h4>
+                        <p class="text-sm text-gray-300">
+                            ఒక విషయాన్ని చూసి అర్థం చేసుకున్నాక.. <span class="highlight-pink">ఏం చెయ్యాలి? ఏం చెయ్యకూడదు? అని డిసైడ్ చేసేది నేను ('I').</span> డిసైడ్ అయ్యాక నా చేతులతో/కాళ్ళతో (Body parts) ఆ పని చేయిస్తాను. ఇలా పని చేయించే (చేసే) నన్నే <b class="text-fuchsia-200">"కర్త" (Karta)</b> అంటారు.
+                        </p>
+                    </div>
+                    <div class="bg-purple-900/20 p-4 rounded-lg border border-purple-500/30">
+                        <h4 class="font-bold text-purple-300 mb-2">😋 I am the ENJOYER (Bhokta)</h4>
+                        <p class="text-sm text-gray-300">
+                            బాడీ తో నేను పనులు చేయిస్తాను, కానీ ఆ పనుల వల్ల వచ్చే మజా (Pleasure) ని అనుభవించేది నేను ('I'). నోటితో, పళ్ళతో బిర్యానీ నములుతాను.. <span class="highlight-pink">కానీ ఆ టేస్ట్ ని, ఫ్లేవర్ ని ఎంజాయ్ చేసేది 'నేను'!</span> ఇలా అనుభవించే నన్నే <b class="text-purple-200">"భోక్త" (Bhokta)</b> అంటారు.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- The Text from Screenshot -->
-    <div class="screenshot-text" id="status-text">
-        Prapancham lo athi<br>
-        andhamaina daani kosam<br>
-        vethukuthunnam...
-    </div>
-
-    <!-- Zero-Lag Particle Canvas -->
-    <canvas id="particle-canvas"></canvas>
-
-    <!-- Intro Button -->
-    <div id="intro-ui">
-        <h2 style="color: var(--cyan); margin-bottom: 30px; letter-spacing: 3px; font-size: 1.5rem; text-align:center;">COSMIC PROOF</h2>
-        <button class="start-btn" onclick="startSequence()">START</button>
-    </div>
-
-    <!-- Final Message -->
-    <div id="final-message">
-        <div class="romantic-font">Nuvve na Chandamama! ❤️</div>
-        <div class="tag-font">- Kalyan eppudu nijame chepthadu 😉</div>
-    </div>
-
-    <script>
-        // --- 1. Background Stars ---
-        const space = document.getElementById('space');
-        const starCount = window.innerWidth < 600 ? 60 : 100;
-        for(let i=0; i<starCount; i++){
-            let star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = `${Math.random() * 100}vw`;
-            star.style.top = `${Math.random() * 100}vh`;
-            let size = Math.random() * 2 + 1;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.setProperty('--duration', `${Math.random() * 3 + 1}s`);
-            space.appendChild(star);
-        }
-
-        // --- 2. Ultra-Smooth Particle Engine ---
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d', { alpha: false }); // High performance
-        let w, h;
-        const PARTICLE_COUNT = window.innerWidth < 600 ? 700 : 1200;
-        let particles = [];
-        let isAnimating = false;
-        let currentColor = '#00e5ff';
-
-        function resizeCanvas() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-            if(isAnimating) {
-                ctx.fillStyle = '#020205';
-                ctx.fillRect(0, 0, w, h);
-            }
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                // Start from center exactly where moon is
-                this.x = w / 2;
-                this.y = h * 0.4; 
-                this.targetX = this.x;
-                this.targetY = this.y;
-                this.size = w < 500 ? 1.5 : 2;
-                this.vx = (Math.random() - 0.5) * 20;
-                this.vy = (Math.random() - 0.5) * 20;
-                this.friction = 0.88; // Smooth flow
-                this.ease = 0.08;
-            }
-
-            update() {
-                this.vx += (this.targetX - this.x) * this.ease;
-                this.vy += (this.targetY - this.y) * this.ease;
-                this.vx *= this.friction;
-                this.vy *= this.friction;
-                this.x += this.vx;
-                this.y += this.vy;
-            }
-        }
-
-        // Init particle pool
-        for(let i=0; i<PARTICLE_COUNT; i++) {
-            particles.push(new Particle());
-        }
-
-        const tCanvas = document.createElement('canvas');
-        const tCtx = tCanvas.getContext('2d', { willReadFrequently: true });
-
-        function extractText(text) {
-            const tw = 800;
-            const th = 300;
-            tCanvas.width = tw;
-            tCanvas.height = th;
-            tCtx.clearRect(0, 0, tw, th);
-            
-            let fontSize = w < 400 ? 45 : (w < 600 ? 60 : 90);
-            tCtx.font = `900 ${fontSize}px 'Orbitron'`;
-            tCtx.fillStyle = '#fff';
-            tCtx.textAlign = 'center';
-            tCtx.textBaseline = 'middle';
-            tCtx.fillText(text, tw/2, th/2);
-
-            const pixels = tCtx.getImageData(0, 0, tw, th).data;
-            let points = [];
-            let step = w < 600 ? 3 : 4; 
-
-            for(let y = 0; y < th; y += step) {
-                for(let x = 0; x < tw; x += step) {
-                    if(pixels[(y * tw + x) * 4 + 3] > 100) {
-                        points.push({
-                            x: x - (tw/2) + (w/2),
-                            y: y - (th/2) + (h/2) - 40 // Centered
-                        });
-                    }
-                }
-            }
-
-            points.sort(() => Math.random() - 0.5);
-
-            for(let i=0; i<PARTICLE_COUNT; i++) {
-                let p = particles[i];
-                p.ease = 0.04 + Math.random() * 0.06;
-                if(i < points.length) {
-                    p.targetX = points[i].x;
-                    p.targetY = points[i].y;
-                } else {
-                    let r = points[Math.floor(Math.random() * points.length)];
-                    if(r) {
-                        p.targetX = r.x + (Math.random() - 0.5) * 15;
-                        p.targetY = r.y + (Math.random() - 0.5) * 15;
-                    }
-                }
-            }
-        }
-
-        function explode() {
-            particles.forEach(p => {
-                p.targetX = p.x + (Math.random() - 0.5) * w * 1.5;
-                p.targetY = p.y + (Math.random() - 0.5) * h * 1.5;
-                p.ease = 0.02;
-            });
-        }
-
-        function animate() {
-            if(!isAnimating) return;
-            
-            // Premium motion blur
-            ctx.fillStyle = 'rgba(2, 2, 5, 0.35)';
-            ctx.fillRect(0, 0, w, h);
-            
-            ctx.fillStyle = currentColor;
-            
-            particles.forEach(p => {
-                p.update();
-                // Zero-lag rendering using bitwise operator ~~
-                ctx.fillRect(~~p.x, ~~p.y, p.size, p.size); 
-            });
-            
-            requestAnimationFrame(animate);
-        }
-
-        // --- 3. Sequence Controller ---
-        const introUi = document.getElementById('intro-ui');
-        const moonHud = document.getElementById('moon-hud-container');
-        const statusText = document.getElementById('status-text');
-        const canvasEl = document.getElementById('particle-canvas');
-        const finalMsg = document.getElementById('final-message');
-
-        const sleep = ms => new Promise(res => setTimeout(res, ms));
-
-        function changeText(newText, color = "var(--cyan)") {
-            statusText.style.opacity = 0;
-            setTimeout(() => {
-                statusText.innerHTML = newText;
-                statusText.style.color = color;
-                statusText.style.textShadow = `0 0 12px ${color}`;
-                statusText.style.opacity = 1;
-            }, 500);
-        }
-
-        async function startSequence() {
-            // 1. Hide Intro Button
-            introUi.style.opacity = 0;
-            await sleep(500);
-            introUi.style.display = 'none';
-
-            // 2. Show Exactly matching Moon, Rings & Text
-            moonHud.style.opacity = 1;
-            statusText.style.opacity = 1; // Text from screenshot appears
-            
-            await sleep(3500);
-
-            // 3. Scanning Effect
-            moonHud.classList.add('pulse-effect');
-            changeText("Target Locked:<br>CHANDAMAMA", "#fff");
-            
-            await sleep(2500);
-
-            // 4. Fade out Moon & Prepare Magic
-            changeText("Decrypting Cosmic Data...", "var(--cyan)");
-            moonHud.style.transform = 'translate(-50%, -50%) scale(0.2)';
-            moonHud.style.opacity = 0;
-            
-            await sleep(600);
-
-            // Hide status text & start Canvas
-            statusText.style.opacity = 0;
-            canvasEl.style.display = 'block';
-            isAnimating = true;
-            resizeCanvas(); // Set background
-            animate();
-
-            // 5. Morph into CHANDAMAMA
-            currentColor = '#00e5ff';
-            extractText("CHANDAMAMA");
-            
-            await sleep(3500);
-
-            // 6. Explode & Morph to KEERTHANA
-            explode();
-            await sleep(800);
-            
-            currentColor = '#d500f9'; // Pink/Purple
-            extractText("KEERTHANA");
-            
-            await sleep(3500);
-
-            // 7. Show Final Message & Sparkle Particles
-            finalMsg.style.opacity = 1;
-            
-            setInterval(() => {
-                currentColor = Math.random() > 0.6 ? '#d500f9' : '#fff';
-            }, 500);
-        }
-    </script>
 </body>
 </html>
