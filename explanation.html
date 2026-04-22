@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UHV Module 3 - Seer, Doer, Enjoyer</title>
+    <title>UHV Module 4 - Harmony in Self</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Outfit', sans-serif; 
-            background-color: #0d040f; /* Deep Magenta Black */
+            background-color: #060913; /* Deep Cosmic Night */
             color: #e2e8f0;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(217, 70, 239, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%);
             background-attachment: fixed;
         }
         
         .zen-box {
-            background: rgba(25, 10, 25, 0.85);
+            background: rgba(15, 20, 35, 0.85);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(217, 70, 239, 0.25);
-            border-left: 5px solid #d946ef; /* Fuchsia accent */
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-left: 5px solid #8b5cf6; /* Violet accent */
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
             margin-bottom: 2.5rem;
@@ -30,7 +30,7 @@
         }
         .zen-box:hover {
             transform: translateY(-2px);
-            border-color: rgba(217, 70, 239, 0.5);
+            border-color: rgba(139, 92, 246, 0.5);
             box-shadow: 0 12px 35px rgba(0,0,0,0.7);
         }
         
@@ -38,21 +38,21 @@
             position: absolute;
             top: -15px;
             left: 20px;
-            background: linear-gradient(135deg, #d946ef, #a855f7);
+            background: linear-gradient(135deg, #8b5cf6, #06b6d4);
             color: #fff;
             font-weight: 800;
             font-size: 0.85rem;
             padding: 6px 18px;
             border-radius: 20px;
             letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(217, 70, 239, 0.4);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
             text-transform: uppercase;
         }
 
         .english-full {
             padding: 2.5rem 1.5rem 1.5rem 1.5rem;
             background: rgba(0, 0, 0, 0.4);
-            border-bottom: 2px dashed rgba(217, 70, 239, 0.3);
+            border-bottom: 2px dashed rgba(139, 92, 246, 0.3);
             color: #cbd5e1;
             font-size: 0.95rem;
             line-height: 1.6;
@@ -61,22 +61,23 @@
         }
         .english-full ul { list-style-type: none; padding-left: 0; margin-top: 0.5rem; margin-bottom: 0; }
         .english-full li { position: relative; padding-left: 1.2rem; margin-bottom: 0.5rem; }
-        .english-full li::before { content: "•"; position: absolute; left: 0; color: #d946ef; font-weight: bold; }
+        .english-full li::before { content: "•"; position: absolute; left: 0; color: #a78bfa; font-weight: bold; }
         
         .tenglish-explanation { padding: 1.5rem; line-height: 1.7; }
-        .tenglish-explanation h3 { color: #f0abfc; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+        .tenglish-explanation h3 { color: #c4b5fd; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
         
         .tag-box { 
-            background: rgba(217, 70, 239, 0.1); 
-            border-left: 3px solid #e879f9; 
+            background: rgba(139, 92, 246, 0.1); 
+            border-left: 3px solid #8b5cf6; 
             padding: 12px; 
             border-radius: 8px; 
             margin-top: 12px; 
-            color: #fae8ff;
+            color: #ede9fe;
         }
-        .highlight-pink { color: #f472b6; font-weight: 600; }
-        .highlight-fuchsia { color: #e879f9; font-weight: 600; }
-        .table-text { font-family: monospace; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 8px; }
+        .highlight-violet { color: #a78bfa; font-weight: 600; }
+        .highlight-cyan { color: #22d3ee; font-weight: 600; }
+        .figure-text { font-family: monospace; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 4px; display: inline-block; margin-top: 10px; color: #94a3b8; font-style: normal; font-weight: bold; }
+        .arrow-text { color: #fbbf24; font-weight: bold; }
     </style>
 </head>
 <body class="p-4 md:p-10 pt-16">
@@ -86,149 +87,255 @@
         <!-- MAIN TITLE -->
         <div class="text-center mb-16">
             <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3">
-                <span class="text-fuchsia-400">SEER, DOER & ENJOYER</span>
+                <span class="text-violet-400">HARMONY</span> IN THE SELF
             </h1>
-            <p class="text-fuchsia-200 font-medium tracking-widest text-sm uppercase bg-fuchsia-900/40 inline-block px-4 py-1 rounded-full border border-fuchsia-500/30">Module 3: Body as an Instrument</p>
+            <p class="text-cyan-300 font-medium tracking-widest text-sm uppercase bg-cyan-900/40 inline-block px-4 py-1 rounded-full border border-cyan-500/30">Module 4: Activities, Problems & Solutions</p>
         </div>
 
         <!-- STEP 1 -->
         <div class="zen-box">
-            <div class="zen-label">STEP 01: The Basic Relation & Table</div>
+            <div class="zen-label">STEP 01: Why Study Myself?</div>
             <div class="english-full">
-                <strong>MODULE 3: The body as an Instrument of the self (“I” Being the Seer, Doer and Enjoyer)</strong> <br><br>
-                There is a relation between the self and body that body act as an instrument of self. Whatever self thinks body performs it physically. Body does not decide itself. We can verify this by the following proposals. <br><br>
-                <strong>Table 4.1: Explore the following proposals</strong><br>
-                <div class="table-text mt-2 text-sm leading-relaxed">
-                S. No | I | Body <br>
-                1 | I am | My body is <br>
-                2 | I want to live | Body is used as an instrument (of ‘I’) <br>
-                3 | I want to live with continuous happiness | For nurture of body----food <br>
-                  | | For protection of body----clothing, shelter etc., <br>
-                  | | For right utilization of body--- instruments/equipment etc. <br>
-                  | | Are needed as physical facilities. <br>
-                4 | My (I) program for continuous happiness is to understand and to live in harmony at all four levels. | Production, protection and right utilization of physical facilities is part of my program <br>
-                5 | I am the seer, doer and enjoyer | Body is an instrument 
-                </div>
+                <strong>MODULE 4: UnderstandingHarmonyintheself</strong><br>
+                Human being is the coexistence of self and body. The body is the instrument of self and self is the seer, doer and enjoyer. Self is continuously active to fulfill its need for happiness.<br><br>
+                <strong>5.1 Why Should I Study Myself</strong><br>
+                Knowing ourselves better helps us in the following ways:
+                <ul>
+                    <li>The self is the basis of everything we do. All the desires and expectations we have are all there in self.</li>
+                    <li>For e.g., to be famous, to get good marks, get great job, having good relationships in our family or wanting ‘rasgulla’.</li>
+                    <li>Hence, it becomes important to understand these desires, thoughts, and activities in self, so that we know whether they are right.</li>
+                    <li>To understand happiness better and the causes for unhappiness because happiness and unhappiness are states in self.</li>
+                    <li>It helps us have more clarity about how we are within. This helps us become self-confident.</li>
+                    <li>It also helps in establishing proper synergy between the self and the body.</li>
+                    <li>Study of self enables us to know our weaknesses and how to remove.</li>
+                    <li>The more we understand ourselves, the more we understand other person as well and our relationship with them.</li>
+                    <li>It helps us to better understand our program, i.e., what is valuable to us, or what do we ultimately want and how do we fulfill them.</li>
+                </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Body is just an Instrument (Keelubomma)</h3>
+                <h3>🏮 Nannu Nenu Enduku Chaduvukovali?</h3>
                 <p class="text-gray-300">
-                    <span class="highlight-fuchsia">Self ('I')</span> ki mariyu <span class="highlight-pink">Body</span> ki unna relation enti ante.. Body anedi just oka Vahanam (Instrument) lanti di. Lopalunna 'I' em alochistundo, em decide chestundo.. Body daanni physical ga chestundi anthe!<br><br>
-                    Body ki swantham ga decide cheskune power ledu (steering driver chethilone untundi). Paina Table lo chupinchinattu.. "Nenu eppudu santhosham ga undali anukuntanu (I), danikosam naa body ki tindi, battalu pedatanu (Body)". Body anedi just nenu vaadukune oka tool matrame.
+                    Manam chese prathi paniki Base mana lopalunna 'Self' ye. Manaki unde korikalu (Desires), aashalu anni Self lone untayi. <br><br>
+                    <span class="highlight-violet">Example:</span> Nenu famous avvali, manchi marks raavali, B.Tech tarvata pedda job kottali, intlo andaritho happy ga undali leda Rasgulla thinali.. ee korikalu anni lopalnunche vastayi!<br><br>
+                    Asalu nannu nenu enduku thelusukovali ante: Naku vacche Santhosham aina, badha aina 'Self' lo unde states ae. Nannu nenu ardham cheskunte naku <span class="highlight-cyan">Self-confidence (Dhairyam)</span> vastundi, naa weakness lu thelustayi. Nannu nenu ardham cheskunte pakkanolla mentality inka baaga thelustundi, relations baaguntayi.
                 </p>
             </div>
         </div>
 
         <!-- STEP 2 -->
         <div class="zen-box">
-            <div class="zen-label">STEP 02: I am vs Body is</div>
+            <div class="zen-label">STEP 02: Powers & Activities in Self</div>
             <div class="english-full">
-                <strong>1. ‘I’ am, the ‘Body’ is:</strong>
-                <ul>
-                    <li>‘I’ (self) knows I exist. I am a conscious/sentient entity.</li>
-                    <li>The ‘Body’ doesn’t know. It is a material entity.</li>
-                </ul>
-                <strong>2. ‘I’ want to live, the ‘Body’ is my instrument:</strong>
-                <ul>
-                    <li>‘I’ and my ‘Body’ co-exist with each other.</li>
-                    <li>‘I’ takes decisions and the ‘Body’ acts accordingly.</li>
-                </ul>
+                <strong>5.2 Activities in Self</strong><br>
+                The self is conscious in nature while the body is physico-chemical in nature.<br>
+                The interaction between the ‘I’ and the body is in the form of exchange of information.<br>
+                So, the focus of attention is on two categories of attributes of the self, namely:<br>
+                the powers of the self and<br>
+                the corresponding activities as the manifest outcomes of these powers.<br>
+                1. Power: This means the basic capacity in the self (‘I’). They are: desires, thoughts and expectations. <br>
+                <div class="figure-text">Fig.5.1: Activities in self</div> <br>
+                2. Activities: The activities are: imaging, analyzing, and selecting/tasting. The activity of analyzing means breaking down the image into various parts or to open it up. Selecting/tasting is with the expectation of fulfilling our desires with the expectation of happiness. The activity of selecting/tasting is the basic level via which the self-interacts with the body.
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Nenu unnanu (Conscious) vs Na Body undi (Material)</h3>
+                <h3>🏮 Powers vs Activities (Self lopala em jarugutundi?)</h3>
                 <p class="text-gray-300">
-                    <span class="highlight-fuchsia">1. Nenu & Naa Body:</span> 'I' (Self) ki nenu unnanu ane spruha (consciousness) untundi. Kani Body ki adi brathikunna ani theliyadu (It doesn't know), endukante adi just oka material (koyya bomma lanti di).<br><br>
-                    <span class="highlight-fuchsia">2. Nenu brathakalankuntunna:</span> Nenu ('I') brathakalani anukuntunnanu, daanikosam Body ni vaadukuntunnanu. Memiddaram (I & Body) kalisi untam. Decision theeskunedi nenu, panicheseedi naa body.
+                    Self ('I') ki Body ki madyalo eppudu information exchange jarugutu untundi. Self lo main ga 2 parts untayi: <span class="highlight-cyan">Powers (Shakti)</span> mariyu <span class="highlight-violet">Activities (Pani)</span>.<br><br>
+                    <b class="text-white">1. Powers (Basic Capacities):</b> Manaloni korikalu (Desires), aalochanalu (Thoughts), mariyu aashalu (Expectations) ni powers antaru.<br>
+                    <b class="text-white">2. Activities (Chese panulu):</b> Oka bomma veskovadam (Imaging), daanni mukkalu mukkaluga analyze cheyadam, mariyu last ki select cheskovadam/taste cheyadam. <br>
+                    Manam body tho deal cheyadaniki ee "Selecting/Tasting" anede basic level connection.
                 </p>
             </div>
         </div>
 
         <!-- STEP 3 -->
         <div class="zen-box">
-            <div class="zen-label">STEP 03: Happiness vs Physical Facilities</div>
+            <div class="zen-label">STEP 03: Flow from Outside to Inside</div>
             <div class="english-full">
-                <strong>3. ‘I’ want to live in continuous happiness. For any happiness, the body needs physical facilities:</strong>
+                <strong>Activities in self are related</strong> <br>
+                There are two possible flows of the activities and both keep taking place:<br>
+                <div class="figure-text">Fig.5.2: Activities in self</div> <br>
+                <strong>Form outside (the body) to inside (in ‘I’)</strong> 
                 <ul>
-                    <li>For the ‘I’ to enjoy the feelings of strength and health, my body needs food.</li>
-                    <li>To get the feeling of protection, my body needs clothing and shelter.</li>
-                    <li>For right utilization of the body, ‘I’ need various instruments and equipment. With the help of these, my body can make me feel happy.</li>
+                    <li>1. Self receives sensations from body tasted in ‘I’ e.g. our self-see a car through the information via‘eyes’.</li>
+                    <li>2. Based on taste, thought could be triggered e.g. we start thinking about thecar.</li>
+                    <li>3. Based on these thoughts, desires may be set e.g. when we start thinking about the car it forms an image that we are leading a good life by using a car and this way a good life by having a car becomes adesire.</li>
                 </ul>
+                Selection <span class="arrow-text">leadsto</span> Thoughts<span class="arrow-text">leadsto</span> Desires 
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 'I' kosam Body ki Em Kavali?</h3>
+                <h3>🏮 Bayata nunchi Lopaliki (Outside to Inside Flow)</h3>
                 <p class="text-gray-300">
-                    'I' ki continuous happiness kavali. Ala happiness ravadaniki Body lopalnunchi co-operate cheyali. Daanikosam body ki 3 vasthuvulu (Physical facilities) kavali:
+                    Activities ane rendu vaipula flow avtayi. Modatidi: Bayata body nunchi lopali mind ki.<br><br>
+                    <span class="highlight-violet">Example:</span> Nuvvu road meeda oka kotha Car chusav (Kallu ane body part dwara information self ki vachindi = <b class="text-white">Selection/Taste</b>). Adi chudagane car gurinchi aalochinchadam start chesav (<b class="text-white">Thoughts</b>). Aa aalochanala nunchi, "Aa car unte na life inka super ga untundiga" ani oka mind lo image veskunnav, ade nee korika (<b class="text-white">Desire</b>) aypoyindi.
                 </p>
-                <div class="space-y-2 mt-2 text-sm text-gray-300">
-                    <p><b>1. Food (Tindi):</b> 'I' healthy ga, strong ga feel avvalante mundu body ki tindi kavali.</p>
-                    <p><b>2. Shelter (Illu, Battalu):</b> 'I' safe ga (protection) feel avvalante body ki battalu, illu kavali.</p>
-                    <p><b>3. Instruments (Tools):</b> Body ni correct ga vaadukuni, 'I' santhoshanga feel avvalante car, phone lanti equipment kavali.</p>
-                </div>
             </div>
         </div>
 
         <!-- STEP 4 -->
         <div class="zen-box">
-            <div class="zen-label">STEP 04: The Complete Program</div>
+            <div class="zen-label">STEP 04: Flow from Inside to Outside</div>
             <div class="english-full">
-                <strong>4. My (I) program for continuous happiness is to understand and to live in harmony all the four levels. Production, protection and right utilization of physical facilities is part of my program:</strong>
+                <strong>Form inside (in ‘I’) to outside (the body)</strong> 
                 <ul>
-                    <li>My complete program is to understand and live in harmony at all the four levels of my living. Ensuring physical facilities for the body is only a small part of the program. It consists of production, protection and right utilization of physical facilities.</li>
-                    <li>Today, we measure our happiness in terms of materialistic things and want more and more physical facilities. However, these facilities do not ensure good health, happiness or the right understanding in ‘I’. therefore, we should focus on the complete program for ‘I’.</li>
+                    <li>1. When desire is set, we start forming thoughts about fulfilling this desire. E.g. with the desire of a good life via the car, we start thinking about how to get the car, what is the cost of the car, how can I have that car,etc.</li>
+                    <li>2. Based on this we make selection to fulfill these thoughts e.g. we choose the car its shape color etc. and then ends up buyingit.</li>
                 </ul>
+                Desires<span class="arrow-text">leadsto</span>Thoughts<span class="arrow-text">leadsto</span>Selection <br><br>
+                Together we call these activities as imagination. Activities in self are continuous. <br>
+                Selection <span class="arrow-text">leadsto</span> Thoughts <span class="arrow-text">leadsto</span> Desires <span class="arrow-text">leadsto</span> Thoughts <span class="arrow-text">leadsto</span> Selection <br>
+                <div class="figure-text">Fig.5.3: Activities in self</div>
             </div>
             <div class="tenglish-explanation">
-                <h3>🏮 Naa (I) Life Goal Enti?</h3>
+                <h3>🏮 Lopali nunchi Bayataki (Inside to Outside Flow)</h3>
                 <p class="text-gray-300">
-                    'I' yokka main goal enti ante.. srushti lo unna 4 levels lo Prasantham ga (Harmony) brathakadam. Ee physical facilities (vasthuvulu) thechhi pettukovadam anedi life lo <span class="highlight-pink">oka chinna part matrame!</span><br><br>
-                    Kani ippudu janalu em chestunnaru? Kotha bike, kotha phone (Materialistic things) vaste vachhinde santhosham anukuntunnaru. Kani nijam enti ante.. vasthuvulu unnantha matrana health, happiness vaccheyavu. Anduke manam <span class="highlight-fuchsia">'I' ki kavalsina complete happiness</span> meeda focus cheyali.
+                    Rendava flow: Mind lo nunchi bayata actions ki.<br><br>
+                    <span class="highlight-cyan">Example:</span> Car konali ane korika (<b class="text-white">Desire</b>) manasulo fix ayyaka, "Car ela konali? Cost entha? EMI lo theeskundama?" ani aalochistham (<b class="text-white">Thoughts</b>). Daani batti ae color, ae shape kavalani select cheskuni.. final ga showroom ki velli dabbulu katti koneystham (<b class="text-white">Selection</b>).
                 </p>
             </div>
         </div>
 
         <!-- STEP 5 -->
-        <div class="zen-box border-l-[5px] border-purple-500">
-            <div class="zen-label !bg-purple-500 !shadow-[0_4px_15px_rgba(168,85,247,0.4)]">STEP 05: I am the 'Seer' (Drasta)</div>
-            <div class="english-full !border-purple-500/30">
-                <strong>5. I am the ‘Seer’, I am the ‘Doer’ and I am the ‘Enjoyer’:</strong>
-                <ul>
-                    <li>I am the seer: I see through eyes. I is not the eye but the ‘I’ that sees or understands. Eye is just an instrument used by ‘I’. Seer also means the one that understands. Seer is also called ‘Drasta’.</li>
-                </ul>
+        <div class="zen-box border-l-[5px] border-cyan-400">
+            <div class="zen-label !bg-cyan-500 !text-cyan-950 !shadow-[0_4px_15px_rgba(6,182,212,0.4)]">STEP 05: The Loop of Imagination</div>
+            <div class="english-full !border-cyan-500/30">
+                We make choices with the external world based on our imagination today. <br>
+                <strong>Imagination = Desires + Thoughts + Expectation</strong> <br>
+                This activity of imagination in ‘I’ is continuous and not temporary. The power may change but the activity is continuous. The object of the taste may change but the activity of selecting/tasting is continuous. Also, what we analyze may keep changing the activity of analyzing is continuous. E.g. my object of taste may change from rasgulla, to engineering or nice-looking bike, etc. similarly I may analyze about my personal life at one moment and about my surrounding at the next moment and may start thinking about my relationships. <br><br>
+                These activities keep going on in us irrespective of whether we want them or not. This is what happens when we say “I was going to the exam and that song kept repeating itself in me, it was so distracting”. 
             </div>
             <div class="tenglish-explanation">
-                <h3 class="!text-purple-400">🏮 I am the SEER (Chusevanni Nene - 'Drasta')</h3>
+                <h3 class="!text-cyan-400">🏮 Imagination = The Unstoppable Loop</h3>
                 <p class="text-gray-300">
-                    Kallu (Eyes) matrame chudavu. <span class="highlight-fuchsia">కళ్ళు అనేవి కేవలం రెండు కెమెరాలు మాత్రమే! (Instrument).</span> ఆ కెమెరాల ద్వారా బయట ప్రపంచాన్ని చూసి, దాన్ని అర్థం చేసుకునేవాడిని (Seer) నేను ('I'). <br><br>
-                    అందుకే కళ్ళు ఉండి కూడా ఒక్కోసారి మన ధ్యాస వేరే చోట ఉంటే ఎదురుగా ఉన్నది కనపడదు. ఎందుకంటే చూసే 'I' అక్కడ లేదు కాబట్టి! ఇలా చూసి అర్థం చేసుకునేవాడినే సంస్కృతంలో <b class="text-purple-300">"ద్రష్ట" (Drasta)</b> అంటారు.
+                    <span class="highlight-cyan text-lg">Imagination = Desires + Thoughts + Expectation</span><br><br>
+                    Manam bayata chese panulanni ee imagination meede depend ayi untayi. Ee Imagination anedi temporary kaadu, 24/7 mana burralo <span class="highlight-violet">continuous ga</span> run avtune untundi. Nuvvu aalochinche vasthuvu maarochu emo kani.. aalochana matram aagadu. Ninna rasgulla gurinchi aalochinchav, ivvala engineering gurinchi, repu bike gurinchi!<br><br>
+                    <b class="text-white">Mass Example:</b> Nuvvu exam rasthuntav, kani nee mind lo Pushpa loni edo oka paata (song) continuously play avtune untundi, entha aapalanna aagadu.. distract chestundi. Ide aa unstoppable loop!
                 </p>
             </div>
         </div>
 
         <!-- STEP 6 -->
-        <div class="zen-box border-l-[5px] border-fuchsia-400">
-            <div class="zen-label !bg-fuchsia-500 !shadow-[0_4px_15px_rgba(217,70,239,0.4)]">STEP 06: I am the 'Doer' & 'Enjoyer'</div>
-            <div class="english-full !border-fuchsia-500/30">
+        <div class="zen-box border-l-[5px] border-rose-500">
+            <div class="zen-label !bg-rose-500 !shadow-[0_4px_15px_rgba(225,29,72,0.4)]">STEP 06: What is the Problem Today?</div>
+            <div class="english-full !border-rose-500/30">
+                <strong>5.3 What is the problem today?</strong> <br>
+                Desires, thoughts and expectations are largely being set by pre-conditioning and sensations <br><br>
+                <strong>Preconditioning:</strong> <br>
+                Preconditioning means we have assumed something about it on the basis of prevailing notion about it. We have not verified the desires in our own right. As a result, we are not clear about what we will get out of fulfillment of that desire. What is the issue with that? Unless we verify our desires, we may not even know whether they are ours! We may end up spending an entire lifetime accumulating desires that are not our, and in running about trying to fulfillthem! <br><br>
+                <strong>Sensations:</strong> <br>
+                A perception associated with stimulation of a sense organ or with a specific body condition: the sensation of heat; a visual sensation. A term commonly used to refer to the subjective experience resulting from stimulation of a sense organ, for instance, a sensation of warm, sour, or green. <br>
+                Suppose you had seen the bike and not associated it with ‘greatness’; rather you only liked the way it ‘looked’ – then this is based on the sensation. <br>
+                This is largely the case with us today: either we are operating on the basis of preconditioned desires (set from outside) or on the basis of sensation (coming from the body). 
+            </div>
+            <div class="tenglish-explanation">
+                <h3 class="!text-rose-400">🏮 Asalu Problem Ekkadundi? (Pre-conditioning & Sensation)</h3>
+                <p class="text-gray-300">
+                    Ippati rojullo manalni control chestunnadi ee rende:<br><br>
+                    <span class="text-rose-400 font-bold">1. Pre-conditioning (Blind Nammakalu):</span> Idi evaro chepthe vinadam leda society lo chusi idi goppa ani mana mind lo fix aypovadam. Mana asalu korika ento maname check cheskom. Entho kalam evaridivo (society vi) korikalni mana korikalu ani bhramapadi vadi kosam life antha kastapadi parigedutuntam.<br><br>
+                    <span class="text-rose-400 font-bold">2. Sensations (Feelings):</span> Kallu, mukku, chevulu lanti sense organs nunchi vacche temporary feeling. Example ki: Nuvvu oka Bike ni chusi idi goppa status ani aalochinchakunda.. just dani "looks" ki flat aypothe.. adi Sensation meeda depend ayi brathakadam anamata!
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="zen-box border-l-[5px] border-rose-500">
+            <div class="zen-label !bg-rose-500 !shadow-[0_4px_15px_rgba(225,29,72,0.4)]">STEP 07: The 5 Conflicts (Effects)</div>
+            <div class="english-full !border-rose-500/30">
+                <strong>Effects of the problem…<br>
+                A. Conflicts and contradictions in ‘I’ as a result of pre-conditioned desire</strong> <br>
+                We have not verified the desires, thoughts and expectations in us on the basis of our own natural acceptance. As a result, these desires, thoughts and selections are in conflicts. Since the desires are in conflict, the thoughts they give rise to, are also in conflict and in turn, the selection from the thoughts are also in conflicts. This conflict affects us in different manners: <br>
+                1. Wavering aspirations: <br>
+                Our goals keep shifting as the inputs from the outside also keep changing. Our desires thus keep shifting, because their source is outside and these preconditioned desires may come from what we read, see, hear, from media, friends, society, etc. hence, we are always wavering in what we want; we are not able to be certain about it. <br>
+                2. Lack of confidence: <br>
+                Since our desires are shaky, we are not sure about them. As a result, we lack selfconfidence, in the true sense. Our confidence seems relative i.e. we keep comparing ourselves with others in order to feel confident. <br>
+                3. Unhappiness/conflicts: <br>
+                Since our desires, thoughts and expectations are in conflict, it becomes the cause for our unhappiness, leading to stress and tension. Such desires will also be in conflict with our natural acceptance <br>
+                4. Lack of qualitative improvement in us: <br>
+                We focus largely on fulfilling the needs of the body. As a result, we live with a sense of lack of fulfillment. We are doing many things, accumulating a lot, progressing on paper, but we don’t feel that we have improved, that we have become better. It seems that only the things around us are changing! <br>
+                5. State of resignation: <br>
+                Because we do not understand ourselves properly and have contradictions within, we slowly start getting disillusioned (pleasant but mistaken beliefs). We feel that there are no solutions to these issues, and end up in a state of resignation. 
+            </div>
+            <div class="tenglish-explanation">
+                <h3 class="!text-rose-400">🏮 Pre-conditioning valla vacche Godavalu (5 Effects)</h3>
+                <p class="text-gray-300">Natural acceptance lekunda edipedithe adi nammeyadam valla mind lo godavalu (conflicts) vastayi. Vaati valla vache effects enti ante:</p>
+                <div class="space-y-3 mt-3 text-sm text-gray-300">
+                    <p><b class="text-white">1. Wavering aspirations (Oosalavelli Goals):</b> Bayata TV lo, media lo, friends cheppedi vinnappudalla mana goals maripotuntayi. Oka roju actor avvalantav, inko roju engineer antav.. sthiratvam undadu.</p>
+                    <p><b class="text-white">2. Lack of confidence (Dhairyam zero):</b> Mana korikale ento manaku theliyanappudu confidence ekkadnunchi vastundi? Pakkanoditho polchukuni feel avtam thappa self-confidence undadu.</p>
+                    <p><b class="text-white">3. Unhappiness (Badha/Stress):</b> Mind antha godavalatho nindipothe, otomatis ga tension, stress and unhappy ga untam.</p>
+                    <p><b class="text-white">4. No Qualitative improvement:</b> Manam vasthuvulu kontunnam, bank balance penchutunnam.. kani paper meeda thappa, lopala manam manishi ga edagadam ledu.</p>
+                    <p><b class="text-white">5. State of resignation (Give up ivvadam):</b> Anni confusions madhya.. eppatiki thelini bhramalo (disillusioned) bhatukutu.. Inka naa life inthe ani chethulu ethestam (resignation).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 8 -->
+        <div class="zen-box border-l-[5px] border-rose-500">
+            <div class="zen-label !bg-rose-500 !shadow-[0_4px_15px_rgba(225,29,72,0.4)]">STEP 08: The Temporary Pleasure</div>
+            <div class="english-full !border-rose-500/30">
+                To sum up, if our desires, thoughts and expectations are based on pre-conditionings, we are generally in a state of great confusion. This leads to confusion, unhappiness, conflict and stress. We have lack of clarity about the self, relationships, society, nature and existence. We have lack of confidence. We have a feeling of being unfulfilled, unsettled. We operate largely on the basis of the environment, driven from the outside – either from sensations, or based on preconditionings. <br><br>
+                <strong>B. Short lived nature of pleasure from sensations:</strong> <br>
+                The pleasure obtained from sensations is short-lived. We are driven by five sensations (sound from the ears, touch from the skin, sight through eyes, taste from the mouth, and smell from the nose) and most of the time we are busy trying to get pleasure from sensations, from the senses. We have so much dependent on sensations that instead of giving us some sensory pleasure, it becomes the source for our happiness. Then what is the issue with this is? This can be understood as follows: <br>
+                The external object is temporary in nature the contact of the external object with the body is temporary in nature. The sensation from the body to ‘I’ is temporary. And at last, the taste of the sensation from the body in ‘I’ is also temporary. <br>
+                The need of the ‘I’ is continuous, i.e. we want to have happiness, and its continuity. Therefore, if the source for our happiness is temporary by definition, then our need for continuous happiness will never be fulfilled. Hence, any sensation we have from the body can’t be the source for our lasting happiness. <br>
+                No matter how much you try to be become happy via the senses, or via bodily sensation, it does not last. This does not mean that we stop these sensations from the body, or that we stop tasting from the senses. It only means that we need to understand the limitations of happiness or pleasure got from the sensations from the body and need to understand what is there use or purpose. If we confuse this purpose with the happiness, we are in trouble, since something that is temporary can’t be the source for our continuous happiness. <br>
+                We can thus understand that living on the basis of preconditioning (“good life means having a nice car”) or sensations (happiness out of taste from the body) means being in a state of being decided by the others or outside, i.e. enslaved (partantrata). We are at the mercy of the preconditioning and the sensation. Whereas, we want to be in the state of self-organization of being decided by our own self, in our own right (svantrata). 
+            </div>
+            <div class="tenglish-explanation">
+                <h3 class="!text-rose-400">🏮 Sensations anevi Temporary Muchata!</h3>
+                <p class="text-gray-300">
+                    Mana 5 senses (chudatam, vinalam, touch, taste, smell) dwara vache pleasure chala <span class="highlight-red font-bold">Temporary (short-lived)</span>. Kani manam ee temporary pleasure ne asalaina happiness anukuntunnam.<br><br>
+                    Bayata unde vasthuvu temporary.. daanitho manaki unde contact temporary.. aa body nunchi self ('I') ki velthunna signal temporary!<br>
+                    Kani mana lopalunna <span class="highlight-cyan">'I' ki continuous ga eppudu santhosham kavali</span>. Mari source (vasthuvu) temporary ayinappudu, daaninunchi continuous santhosham ela vastundi? Raanivvadu!<br><br>
+                    Pre-conditioning leda sensation meeda depend ayyi brathakadam ante <span class="text-rose-300 font-bold">"Partantrata (Enslaved - banisatvam)"</span>. Vere evado mana life ni decide chestunnadu. Kani manaki kavalsindi <span class="text-cyan-300 font-bold">"Svantrata (Self-organization)"</span> - manalni manam decide cheskune hakku!
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 9 -->
+        <div class="zen-box border-l-[5px] border-emerald-500">
+            <div class="zen-label !bg-emerald-500 !text-emerald-950 !shadow-[0_4px_15px_rgba(16,185,129,0.4)]">STEP 09: What is the Solution?</div>
+            <div class="english-full !border-emerald-500/30">
+                <strong>5.4 What is the solution?</strong> <br>
+                The solution is to start verifying our desires, thoughts and expectations on the basis of our natural acceptance. So how does the accessing of natural acceptance resolve this solution? <br>
                 <ul>
-                    <li>I am the doer: Once I have seen and understand something, ‘I’ decide what I should/should not do. I take the help of my body parts to accomplish that task. Doer is also called ‘Karta’.</li>
-                    <li>I am the Enjoyer: I use my body as an instrument to perform various activities. It is ‘I’ who enjoy the pleasure derived out of those activities. When I eat, mouth helps to chew and the tongue to taste, but ‘I’ enjoy the taste and flavor. Enjoyer is also called ‘Bhokta’.</li>
+                    <li>It becomes possible for us to have the right understanding of the harmony at all levels of our living.</li>
+                    <li>When we have the right understanding, we are able to see our “true nature”, and what we truly want. Our desires thus start getting set on the basis of this right understanding – instead of being driven by preconditioning/sensations.</li>
+                    <li>This put us at ease (freedom from anxiety and pain, conflicts). We are no longer struggling or are in conflict at the various levels of our living. Operating on the basis of our ‘natural acceptance’ thus leads to operating on the basis of our ‘realization’ and ‘understanding’.</li>
                 </ul>
             </div>
             <div class="tenglish-explanation">
-                <h3 class="!text-fuchsia-400">🏮 I am the DOER ('Karta') & ENJOYER ('Bhokta')</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                    <div class="bg-fuchsia-900/20 p-4 rounded-lg border border-fuchsia-500/30">
-                        <h4 class="font-bold text-fuchsia-300 mb-2">💪 I am the DOER (Karta)</h4>
-                        <p class="text-sm text-gray-300">
-                            ఒక విషయాన్ని చూసి అర్థం చేసుకున్నాక.. <span class="highlight-pink">ఏం చెయ్యాలి? ఏం చెయ్యకూడదు? అని డిసైడ్ చేసేది నేను ('I').</span> డిసైడ్ అయ్యాక నా చేతులతో/కాళ్ళతో (Body parts) ఆ పని చేయిస్తాను. ఇలా పని చేయించే (చేసే) నన్నే <b class="text-fuchsia-200">"కర్త" (Karta)</b> అంటారు.
-                        </p>
-                    </div>
-                    <div class="bg-purple-900/20 p-4 rounded-lg border border-purple-500/30">
-                        <h4 class="font-bold text-purple-300 mb-2">😋 I am the ENJOYER (Bhokta)</h4>
-                        <p class="text-sm text-gray-300">
-                            బాడీ తో నేను పనులు చేయిస్తాను, కానీ ఆ పనుల వల్ల వచ్చే మజా (Pleasure) ని అనుభవించేది నేను ('I'). నోటితో, పళ్ళతో బిర్యానీ నములుతాను.. <span class="highlight-pink">కానీ ఆ టేస్ట్ ని, ఫ్లేవర్ ని ఎంజాయ్ చేసేది 'నేను'!</span> ఇలా అనుభవించే నన్నే <b class="text-purple-200">"భోక్త" (Bhokta)</b> అంటారు.
-                        </p>
-                    </div>
-                </div>
+                <h3 class="!text-emerald-400">🏮 Solution Enti? (Natural Acceptance)</h3>
+                <p class="text-gray-300">
+                    Ee banisatvam nunchi bayatapadalante oke okka solution: Mana korikalni (desires) blind ga nammeyakunda <span class="highlight-cyan font-bold">"Natural Acceptance" (Inner Voice)</span> tho verify cheskovadam.<br><br>
+                    Deeni valla manaki "Right Understanding" vastundi. Asalu mana 'true nature' enti, manaki asalu life lo em kavali anedi clear avtundi. Appudu mana mind eppudu prasantham ga eyy godavalu, tensions lekunda (at ease) untundi.
+                </p>
+            </div>
+        </div>
+
+        <!-- STEP 10 -->
+        <div class="zen-box border-l-[5px] border-emerald-500">
+            <div class="zen-label !bg-emerald-500 !text-emerald-950 !shadow-[0_4px_15px_rgba(16,185,129,0.4)]">STEP 10: Realization, Understanding & The AC Car</div>
+            <div class="english-full !border-emerald-500/30">
+                <strong>Realization:</strong> Means to be able to see the reality as it is. <br>
+                <strong>Understanding:</strong> Means to be able to understand the self-organization in all entities of nature/existence and their inter-connected organization “as it is”. <br>
+                These are the two activities in the self (‘I’) (placed at point 1 and 2 in the figure) <br>
+                When we have (1) realization then (2) understanding becomes according to the realization. When this happens, then (3) imaging or desires get set according to this understanding. Consequently, (4) analysis or thoughts become according to the imaging/desires and hence, the (5) expectations or selection/taste are according to the thoughts/analysis. This is called self- organization or svantrata. This leads to happiness and its continuity. <br>
+                In realization and understanding, we get the answer to “what is the reality?” This, for each one of us, translates into the answers to “what to do?” and “why to do?” Then what remains to find out is “how to do?”, which comes from imagination (activities 3, 4, and 5). Is we see today we are focusing on “how to do?”, without trying to first verify “what to do?” and “why to do?”! It is just like traveling in a comfortable AC vehicle on a smooth road without knowing where we have togo! <br>
+                <div class="figure-text">Fig. 5.6 Result of Realization and Understanding</div> <br>
+                The problem today is that our activities of (1) realization and (2) understanding are inactive, we are unaware of them. As a result, we are not able to operate on our own right and keep operating on the basis of preconditioning and sensations i.e. we are operating only at the levels of (3) desire, (4) thought and (5) expectations today. This is not sufficient for us as human being. We thus need to operate at the levels (1) realization and (2) understanding as the basis which (3), (4) and (5) get definite.
+            </div>
+            <div class="tenglish-explanation">
+                <h3 class="!text-emerald-400">🏮 Realization & The Mind-Blowing AC Car Example</h3>
+                <p class="text-gray-300">
+                    <span class="highlight-violet">Realization:</span> Nijanni adi unna vidhangane chudatam (Reality as it is).<br>
+                    <span class="highlight-violet">Understanding:</span> Srushti lo anni ela connect ayyunnayo thelusukovadam.<br><br>
+                    Manaki realize aythe, understanding vastundi. Understanding vaste, daani batti desires pudathayi. Aa desires ni batti thoughts, final ga vatinunchi taste/expectations vastayi. Ee sequence ne <b class="text-emerald-300">Self-organization leda Svantrata</b> antaru.<br><br>
+                    <span class="text-xl font-bold text-yellow-400">🚗 The AC Car Example:</span><br>
+                    Realization valla manaki <b class="text-white">"Em cheyali? Enduku cheyali?"</b> thelustundi. Imagination valla <b class="text-white">"Ela cheyali?"</b> thelustundi. <br>
+                    Kani ippati samajam lo janalu Asalu "Em cheyali, enduku cheyali?" (Destination) gurinchi alochinchakunda... prathodu "Ela cheyali?" meede pichi pattinattu focus chestunnaru. <br>
+                    <span class="text-rose-400 italic font-semibold">"Idi elantidante.. Asalu ekkadiki vellalo (Destination) theliyakunda.. Oka super AC car lo kurchuni smooth road meeda thosukupovadam lantidi!"</span><br><br>
+                    Mana lopalunna Realization, understanding anevi inactive (nidrapotunnayi) aypoyayi.. Anduke manam ee banisa brathukulu brathukutunnam. Vaatini lepithene human being ki meaning!
+                </p>
+                <p class="text-sm text-gray-400 mt-2 italic">(Note: English text lo 'Is we see today' ani vachindi typo for 'If we see today', and 'togo' space miss ayyindi, kani exact same unchesa).</p>
             </div>
         </div>
 
